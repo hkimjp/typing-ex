@@ -12,10 +12,15 @@
 * スコアが二度提出されることがある。
 * 最後の1文字の正誤の表示が遅れる。
 * exam 記録に時刻。時刻よりも日付。
+* cheshire 6.0.0.
+
+## v4.32.3-SNAPSHOT
+
+* removed resources/handler
+* removed src/typing-ex/handler/example
 * remove example
 * repository 移動。
 * umask 077 はオープンソースにそぐわない。
-* cheshire 6.0.0.
 
 ## v4.32.2 / 2025-04-18
 
