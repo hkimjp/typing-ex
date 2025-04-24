@@ -14,7 +14,7 @@
 * exam 記録に時刻。時刻よりも日付。
 * cheshire 6.0.0.
 
-## v4.32.3-SNAPSHOT
+## v4.32.3 / 2025-04-24
 
 * removed resources/handler
 * removed src/typing-ex/handler/example
