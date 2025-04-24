@@ -14,7 +14,11 @@
 * exam 記録に時刻。時刻よりも日付。
 * cheshire 6.0.0.
 
-## v4.32.3 / 2025-04-24
+## 4.32.4-SNAPSHOT
+
+* renamed tag "vxx.yy.zz" to "xx.yy.zz" all.
+
+## 4.32.3 / 2025-04-24
 
 * removed resources/handler
 * removed src/typing-ex/handler/example
@@ -22,17 +26,17 @@
 * repository 移動。
 * umask 077 はオープンソースにそぐわない。
 
-## v4.32.2 / 2025-04-18
+## 4.32.2 / 2025-04-18
 
 * added .env
 * added LICENSE
 * core.clj: (def typing-start (or (env :tp-start) "2025-04-09"))
 
-## v4.31.1 (2025-04-08)
+## 4.31.1 (2025-04-08)
 
 * v でバージョン番号を書いたプロジェクトは v を続けないとどれが新しいのかわからないぞ。
 
-## v4.31.0 (2025-04-08)
+## 4.31.0 (2025-04-08)
 
 * 2025 started
 * npm install
@@ -46,7 +50,7 @@
 |                 | fipp/fipp                           | 0.6.26   | 0.6.27  |
 | shadow-cljs.edn | reagent                             | 1.2.0    | 1.3.0   |
 
-## v3.31.1065 / 2025-03-11
+## 3.31.1065 / 2025-03-11
 
 - lein repl :start :host 0.0.0.0 :port 6666 でスタートできる。
 - fixed: container の中で実行すると connection refused エラーになる。uri が間違っていた。
@@ -55,14 +59,14 @@
 (def my-conn-spec {:uri "redis://redis:6379"})
 ```
 
-## v2.20.1050 / 2024-10-07
+## 2.20.1050 / 2024-10-07
 
 - required? [com.taoensso/encore "3.121.0"]
 - dev/resources/dev/deps.edn: jetty port 3003
 - [com.taoensso/telemere "1.0.0-beta25"]
 - [dev.weavejester/medley "1.8.1"]
 
-## v2.19.1038 / 2024-09-30
+## 2.19.1038 / 2024-09-30
 
 - fixed core/roll-call-time?
   redis "stat" には "normal", "roll-call", "exam" のいずれかの文字列が入る。
@@ -73,7 +77,7 @@
        (= "roll-call"))) ; was some?
 ```
 
-## v2.19.1034 / 2024-09-25
+## 2.19.1034 / 2024-09-25
 
 - can not login from safari 18.0. cause Hide IP address.
 - explain roll-call mode in Login page.
@@ -86,13 +90,13 @@
   NG で ex が余計か？
 
 
-## v2.17.1008 / 2024-09-09
+## 2.17.1008 / 2024-09-09
 
 - changed systemd/typing_ex_roll_call
   start was saved on postgres,
   now is saved on redis with expiration period, 900 second.
 
-## v2.16.1003 / 2024-09-06
+## 2.16.1003 / 2024-09-06
 - updated libraries
 
 | :file       | :name                     | :current | :latest |
@@ -105,13 +109,13 @@
 - npm install
 - npm audit fix
 
-## v2.15.998 / 2024-08-31
+## 2.15.998 / 2024-08-31
 - day-by-day のスタート日...環境変数でセットするのが楽。
 ```
 (def typing-start (or (env :tp-start) "2024-04-01"))
 ```
 
-## v2.14.991 / 2024-08-24
+## 2.14.991 / 2024-08-24
 - re-re-exam.
   データベースをバックアップし、typing_ex.results テーブルの全データをデリートした。
 - update core.clj/day to take a new argument `n`.
@@ -131,16 +135,16 @@
 (training-days 30 req db)
 ```
 
-## v2.13.984 / 2024-06-20
+## 2.13.984 / 2024-06-20
 ### Changed
 - redis://redis:6379 -> redis://db:6379
 - use redis administrating `stat`.
 
-## v2.12.975 / 2024-06-19
+## 2.12.975 / 2024-06-19
 ### Fixed
 - systemd timer.
 
-## v2.12.965 / 2024-06-13
+## 2.12.965 / 2024-06-13
 - added `systemd` dir. to provide realtime timer facilities.
   to enter `roll-call` mode at 08:45 and leave back to `normal` mode at 09:00.
   Duct requires anti-forgery-token provided when POST.
@@ -152,24 +156,24 @@
 | project.clj | com.github.seancorfield/next.jdbc | 1.3.925  | 1.3.939 |
 |             | com.taoensso/carmine              | 3.3.2    | 3.4.1   |
 
-## v2.11.952 / 2024-06-04
+## 2.11.952 / 2024-06-04
 - fixed something wrong char in moby-dick inside 'ago-never'.
 
-## v2.11.945 / 2024-06-04
+## 2.11.945 / 2024-06-04
 - enabled links to report pages again.
 - set (str "login:" (mod (Integer/parseInt count) 3) pt) to redis.
 
-## v2.10.932 / 2024-06-03
+## 2.10.932 / 2024-06-03
 - postgresql 14.12
-## v2.9.923 / 2024-05-02
+## 2.9.923 / 2024-05-02
 - link to rp.melt in header.
 
-## v2.9.917 / 2024-05-02
+## 2.9.917 / 2024-05-02
 - `% git remote prune origin`
 - added 5 lyrics.
 - improve drills/fetch-drill
 
-## v2.9.907 / 2024-05-01
+## 2.9.907 / 2024-05-01
 - post "/exam"
   - resources/typing_ex/config.edn:
   [post "/exam"]
@@ -179,33 +183,33 @@
   (defn- exam-point! [login count pt])
 - get "/exam/:login/:ct"
 
-## v2.8.893 / 2024-04-29
+## 2.8.893 / 2024-04-29
 - display end `datetime` in `/rc`.
 - 小窓の font-size 12pt.
 
-## v2.8.888 / 2024-04-29
+## 2.8.888 / 2024-04-29
 - input alert message from /alert-form.
   when empty string is set, alert will not appear.
   the alert message is hold on redis as "alert" key.
 - roll call background yellow.
 - display login on RC page.
 
-## v2.7.883 / 2024-04-29
+## 2.7.883 / 2024-04-29
 - removed magic numbers.
   ```
   (def ^:private redis-expire 3600)
   ```
 
-## v2.7.880 / 2024-04-29
+## 2.7.880 / 2024-04-29
 - Courier monospace では細すぎ、monospace に戻す。
 - font-size 10pt
 
-## v2.7.876 / 2024-04-29
+## 2.7.876 / 2024-04-29
 - redis 入りコンテナ。
 - font monospace -> Courier, monospace
   Courier New は細すぎた。
 
-## v2.6.870 / 2024-04-28
+## 2.6.870 / 2024-04-28
 - com.taoennso/carmine 3.3.2
 - core/users-all with redis
 - core/login-timestamp with redis
@@ -213,16 +217,16 @@
   timestamp が上手く扱えないので回避策。HTML をごっそりキャッシュする。
   タイムアウト 600 秒。
 
-## v2.5.858 / 2024-04-26
+## 2.5.858 / 2024-04-26
 - vscode alert.
 
-## v2.5.849 / 2024-04-25
+## 2.5.849 / 2024-04-25
 - (dev) (go) でエラーになることがある。lein clean で直るが。
 
-## v2.5.848 / 2024-04-25
+## 2.5.848 / 2024-04-25
 - today's GO を表示しない。これは例文を流すやつ対策で作ったものだった。
 
-## v2.5.836 / 2024-04-21
+## 2.5.836 / 2024-04-21
 - hkim0331/typing-ex:0.4.0
 - apt-get -y install --no-install-recommends git npm postgresql-client
 ```
@@ -231,7 +235,7 @@
 ```
 - bootstrap CDN やめて、ローカルに5.2.3コピーを持つ。
 
-## v2.4.829 / 2024-04-18
+## 2.4.829 / 2024-04-18
 - merge に手こずった。
 - "traning days" 10 回以上、トレーニングに入った日をカウント。
 
