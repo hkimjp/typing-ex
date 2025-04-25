@@ -155,15 +155,9 @@
 
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
-    (if (roll-call-time?)
+    (if false ; (roll-call-time?)
       (try
         (let [addr (str (remote-ip req))]
-          ;; (t/log! :info addr)
-          ;; debug
-          ;; (when (str/starts-with? addr "0:0")
-          ;;   (throw (Exception. addr)))
-          ;; (when (str/starts-with? addr "150.69.90.34")
-          ;;   (throw (Exception. addr)))
           (when-not (or
                      (str/starts-with? addr "0:0") ; debug
                      (str/starts-with? addr "150.69"))
