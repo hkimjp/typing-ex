@@ -40,7 +40,6 @@ use docker container.
 * redis
 * jre
 
-
 ## License
 
 Copyright © 2021-2025 hkimura
