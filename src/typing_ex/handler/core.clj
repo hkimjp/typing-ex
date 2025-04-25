@@ -17,7 +17,7 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
-   ;; [taoensso.telemere :as t]
+   [taoensso.telemere :as t]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -123,8 +123,10 @@
    (get req :remote-addr)))
 
 (defn- roll-call-time? []
-  (->  (wcar* (car/get "stat"))
-       (= "roll-call")))
+  (let [ret (wcar* (car/get "stat"))]
+    (t/log! :info (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    (->  ret
+         (= "roll-call"))))
 
 (defn typing-ex [req]
   [::response/ok
@@ -153,17 +155,12 @@
     </body>
   </html>")])
 
+
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
     (if (roll-call-time?)
       (try
         (let [addr (str (remote-ip req))]
-          ;; (t/log! :info addr)
-          ;; debug
-          ;; (when (str/starts-with? addr "0:0")
-          ;;   (throw (Exception. addr)))
-          ;; (when (str/starts-with? addr "150.69.90.34")
-          ;;   (throw (Exception. addr)))
           (when-not (or
                      (str/starts-with? addr "0:0") ; debug
                      (str/starts-with? addr "150.69"))
