@@ -14,6 +14,10 @@
 * exam 記録に時刻。時刻よりも日付。
 * cheshire 6.0.0.
 
+## 4.32.5 / 2025-04-25
+
+* ex-days-page.clj - 30 回以上練習した日が 2 日以上ある人のリスト。
+
 ## 4.32.4 / 2025-04-24
 
 * renamed tag "vxx.yy.zz" to "xx.yy.zz" all.
