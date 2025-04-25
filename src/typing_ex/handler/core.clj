@@ -17,7 +17,7 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
-   ;; [taoensso.telemere :as t]
+   [taoensso.telemere :as t]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -123,8 +123,10 @@
    (get req :remote-addr)))
 
 (defn- roll-call-time? []
-  (->  (wcar* (car/get "stat"))
-       (= "roll-call")))
+  (let [ret (wcar* (car/get "stat"))]
+    (t/log! :info (str (java.util.Date.) " - " ret))
+    (->  ret
+         (= "roll-call"))))
 
 (defn typing-ex [req]
   [::response/ok
@@ -153,9 +155,10 @@
     </body>
   </html>")])
 
+
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
-    (if false ; (roll-call-time?)
+    (if (roll-call-time?)
       (try
         (let [addr (str (remote-ip req))]
           (when-not (or
