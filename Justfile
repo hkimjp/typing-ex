@@ -6,6 +6,9 @@ prep:
 watch:
   npx shadow-cljs watch app
 
+compile:
+  npx shadow-cljs compile app
+
 repl:
     lein repl
 
@@ -16,7 +19,7 @@ systemd:
     scp systemd/typing-ex.service ${DEST}/
     scp systemd/typing-ex_roll-call.* ${DEST}/
 
-deploy: uberjar
+deploy: compile uberjar
     scp target/typing-ex-*-standalone.jar ${DEST}/tp.jar
     ssh ${SERV} sudo systemctl restart typing-ex
     ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer

@@ -237,8 +237,6 @@ of yonder warehouses will not suffice."])
   (fn []
     [:div {:class (:stat @app-state)}
      [:h2 "Typing: Challenge"]
-     #_[:p {:class "red"}
-        "ノーミスゴールでボーナス。単語間のスペースは一個で。"]
      [:pre {:id "example"} (:text @app-state)]
      [:textarea {:name "answer"
                  :placeholder "ノーミスゴールでボーナス。単語間のスペースは一個で。キーボード見るなよ。"
