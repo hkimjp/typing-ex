@@ -11,6 +11,19 @@
 * スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
 * cheshire 6.0.0.
+* starship の表示する version は package.json を見ている。
+
+## 4.33.1-hotfix
+
+- can not compile.
+
+    The required namespace "react" is not available, it was required by "reagent/core.cljs".
+
+  after `npm install` again, `just watch` successed.
+
+## 4.33.0 / 2025-05-09
+
+* switch link to py99.melt with kp.melt.
 
 ## 4.32.8 / 2025-04-25
 
