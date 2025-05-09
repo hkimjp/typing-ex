@@ -178,10 +178,10 @@
     [:h2 "Typing: 30 回以上練習した日数"]
     (headline 7)
     [:div {:style "margin-left:1rem;"}
-     [:p "30 回以上練習した日が 2 日以上ある人のリスト。"]
+     [:p "30 回以上練習した日が 3 日以上ある人のリスト。"]
      (into [:ol
             (for [[login n] data]
-              (when (<= 2 n)
+              (when (<= 3 n)
                 [:li
                  (format "(%d) " n)
                  " "
