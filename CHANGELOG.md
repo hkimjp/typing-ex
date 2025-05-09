@@ -13,6 +13,8 @@
 * cheshire 6.0.0.
 * starship の表示する version は package.json を見ている。
 
+## 4.33.2 (2025-05-09)
+
 ## 4.33.1-hotfix
 
 - can not compile.
