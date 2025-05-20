@@ -18,6 +18,18 @@
 
 - added an endpoint /day-by-day - points in last week.
 
+- `just deploy` fails on m64;
+
+  The required namespace "react" is not available, it was required by "reagent/core.clerror: Recipe `compile` failed on line 10 with exit code 1
+
+  executed from shell,
+    npm install
+
+  then,
+    just deploy
+
+  works.
+
 ## 4.33.2 (2025-05-09)
 
 - starship は package.json を見て、バージョンを表示している。
