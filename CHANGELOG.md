@@ -14,8 +14,9 @@
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
-## 4.34.0-SNAPSHOT
+## 4.34.0 / 2025-05-20
 
+- added an endpoint /day-by-day - points in last week.
 
 ## 4.33.2 (2025-05-09)
 
