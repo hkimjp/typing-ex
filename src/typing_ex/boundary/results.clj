@@ -4,11 +4,12 @@
    [duct.database.sql]
    [next.jdbc.date-time]
    [next.jdbc.sql :as sql]
-   [typing-ex.boundary.utils :refer [ds-opt]]))
+   [typing-ex.boundary.utils :refer [ds ds-opt]]))
 
 (next.jdbc.date-time/read-as-local)
 
 (defprotocol Results
+  (day-by-day [db user])
   (insert-pt [db rcv])
   (sum [db n])
   (find-max-pt [db n])
@@ -25,6 +26,15 @@
 
 (extend-protocol Results
   duct.database.sql.Boundary
+
+  (day-by-day [db user]
+    (let [sql "select timestamp::DATE, pt from results
+               where login=?
+               and timestamp > now() - interval '1 week'
+               order by id"
+          ret (sql/query (ds-opt db) [sql user])]
+      (mapv (fn [{:keys [timestamp pt]}]
+              [(str timestamp) pt]) ret)))
 
   (insert-pt [db login-pt]
     (sql/insert! (ds-opt db) :results login-pt))
