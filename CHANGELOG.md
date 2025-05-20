@@ -11,9 +11,28 @@
 * スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
 * cheshire 6.0.0.
-* starship の表示する version は package.json を見ている。
+* パーセンテージ表示
+* 30 回以上練習した日が n 日以上ある人のリスト。
+
+## 4.34.0 / 2025-05-20
+
+- added an endpoint /day-by-day - points in last week.
+
+- `just deploy` fails on m64;
+
+  The required namespace "react" is not available, it was required by "reagent/core.clerror: Recipe `compile` failed on line 10 with exit code 1
+
+  executed from shell,
+    npm install
+
+  then,
+    just deploy
+
+  works.
 
 ## 4.33.2 (2025-05-09)
+
+- starship は package.json を見て、バージョンを表示している。
 
 ## 4.33.1-hotfix
 
