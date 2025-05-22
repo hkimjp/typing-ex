@@ -46,6 +46,20 @@
     (name (get-in req [:session :identity]))
     (catch Exception _ nil)))
 
+;; day-by-day
+(defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
+  (fn [request]
+    (let [login (-> (get-login request) str)]
+      (if (empty? login)
+        (-> (redirect "/login")
+            (assoc :flash "need login"))
+        (let [results (results/day-by-day db login)]
+          (view/page
+           [:div
+            [:h2 login]
+            (for [[date pt] results]
+              [:div date " " pt])]))))))
+
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
   (fn [{{:keys [login count pt]} :params}]
@@ -154,7 +168,6 @@
       </div>
     </body>
   </html>")])
-
 
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
