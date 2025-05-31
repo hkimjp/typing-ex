@@ -11,7 +11,7 @@
    [typing-ex.plot :refer [scatter]]
    #_[clojure.test :as t]))
 
-(def ^:private version "4.35.1144")
+(def ^:private version "4.35.1145")
 
 ;--------------------------------
 (defn- ss
@@ -35,7 +35,7 @@
    If no argument given, use the `start`day` defnied above."
   ([] (weeks (jt/local-date)))
   ([date]
-   (let [start-day (jt/local-date 2025 4 2)]
+   (let [start-day (jt/local-date 2025 4 9)]
      (quot (jt/time-between start-day date :days) 7))))
 
 ;--------------------------------
@@ -187,12 +187,12 @@
   "self はログインアカウント、
    data はソーティング済みの[[login days] ...]"
   [self data]
-  (let [thres (+ 1 (quot (weeks) 2))]
+  (let [thres (weeks)]
     (page
      [:h2 "Typing: 30 回以上練習した日数"]
      (headline 7)
      [:div {:style "margin-left:1rem;"}
-      [:p "30 回以上練習した日が " thres " 日以上ある人のリスト。"]
+      [:p "30 回以上練習した日が授業開始からの経過週の数以上ある人たち。"]
       (into [:ol
              (for [[login n] data]
                (when (<= thres n)

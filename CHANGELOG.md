@@ -10,7 +10,6 @@
 * テストモード、3回の平均で ⭕️ ❌ をつける。
 * スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
-* cheshire 6.0.0.
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
@@ -22,7 +21,7 @@ npm notice New minor version of npm available! 11.3.0 -> 11.4.1
 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
 npm notice To update run: npm install -g npm@11.4.1
 npm notice
-``
+```
 
 - can not invoke `node`. why?
 
