@@ -14,7 +14,20 @@
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
-## 4.35.0-SNAPSHOT
+## 4.35.1144 / 2025-05-31
+
+```
+npm notice
+npm notice New minor version of npm available! 11.3.0 -> 11.4.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+npm notice To update run: npm install -g npm@11.4.1
+npm notice
+``
+
+- can not invoke `node`. why?
+
+  ❯ node
+  zsh: command not found: node
 
 - improve page/ex-days-page - "30 回以上練習した日が " thres " 日以上ある人のリスト。"
 - added `day by day` button.
