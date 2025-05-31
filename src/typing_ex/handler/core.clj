@@ -269,7 +269,8 @@
       (case kind
         "total" (redirect (str "/total/" days))
         "training days"  (redirect (str "/days/" days))
-        "max"   (redirect (str "/max/" days))))))
+        "max"   (redirect (str "/max/" days))
+        "day by day" (redirect "/day-by-day")))))
 
 (defmethod ig/init-key :typing-ex.handler.core/scores-no-arg [_ _]
   (fn [_]

@@ -11,7 +11,7 @@
    [typing-ex.plot :refer [scatter]]
    #_[clojure.test :as t]))
 
-(def ^:private version "4.34.1")
+(def ^:private version "4.35.1145")
 
 ;--------------------------------
 (defn- ss
@@ -28,6 +28,15 @@
 
 (defn days-between [from to]
   (db-aux from to []))
+
+; from konpy utils.
+(defn weeks
+  "Returns how many weeks have passed since the argument `date`.
+   If no argument given, use the `start`day` defnied above."
+  ([] (weeks (jt/local-date)))
+  ([date]
+   (let [start-day (jt/local-date 2025 4 9)]
+     (quot (jt/time-between start-day date :days) 7))))
 
 ;--------------------------------
 
@@ -127,6 +136,10 @@
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
                      "training days")
+      "&nbsp;"
+      (submit-button {:class "btn btn-primary btn-sm"
+                      :name "kind"}
+                     "day by day")
       "&nbsp;&nbsp;&nbsp;"
       (text-field {:size 2
                    :value n
@@ -174,20 +187,21 @@
   "self はログインアカウント、
    data はソーティング済みの[[login days] ...]"
   [self data]
-  (page
-   [:h2 "Typing: 30 回以上練習した日数"]
-   (headline 7)
-   [:div {:style "margin-left:1rem;"}
-    [:p "30 回以上練習した日が 4 日以上ある人のリスト。"]
-    (into [:ol
-           (for [[login n] data]
-             (when (<= 4 n)
-               [:li
-                (format "(%d) " n)
-                " "
-                [:a {:href (str "/record/" login)
-                     :class (if (= login self) "yes" "other")}
-                 login]]))])]))
+  (let [thres (weeks)]
+    (page
+     [:h2 "Typing: 30 回以上練習した日数"]
+     (headline 7)
+     [:div {:style "margin-left:1rem;"}
+      [:p "30 回以上練習した日が授業開始からの経過週の数以上ある人たち。"]
+      (into [:ol
+             (for [[login n] data]
+               (when (<= thres n)
+                 [:li
+                  (format "(%d) " n)
+                  " "
+                  [:a {:href (str "/record/" login)
+                       :class (if (= login self) "yes" "other")}
+                   login]]))])])))
 
 (defn- select-count-distinct
   "select count(distinct(timestamp::DATE)) from results

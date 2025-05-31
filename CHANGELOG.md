@@ -10,9 +10,47 @@
 * テストモード、3回の平均で ⭕️ ❌ をつける。
 * スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
-* cheshire 6.0.0.
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
+
+## 4.35.1144 / 2025-05-31
+
+```
+npm notice
+npm notice New minor version of npm available! 11.3.0 -> 11.4.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+npm notice To update run: npm install -g npm@11.4.1
+npm notice
+```
+
+- can not invoke `node`. why?
+
+  ❯ node
+  zsh: command not found: node
+
+- improve page/ex-days-page - "30 回以上練習した日が " thres " 日以上ある人のリスト。"
+- added `day by day` button.
+- should not remove com.taoensso/encore.
+
+| :file       | :name               | :current | :latest |
+|------------ | ------------------- | -------- | --------|
+| project.clj | com.taoensso/encore | 3.142.0  | 3.146.2 |
+
+- libraries update
+
+| :file       | :name                     | :current  | :latest |
+|------------ | ------------------------- | --------- | --------|
+| project.clj | com.taoensso/telemere     | 1.0.0-RC5 | 1.0.1   |
+|             | org.postgresql/postgresql | 42.7.5    | 42.7.6  |
+
+- unused-deps - postgresql は間違いだろう。
+
+    ❯ unused-deps
+    {:unused-deps [[cheshire/cheshire {:mvn/version "5.13.0"}]
+                   [dev.weavejester/medley {:mvn/version "1.8.1"}]
+                   [com.taoensso/encore {:mvn/version "3.142.0"}]
+                   [org.postgresql/postgresql {:mvn/version "42.7.5"}]]}
+
 
 ## 4.34.1 (2025-05-22)
 
