@@ -14,6 +14,32 @@
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
+## 4.35.0-SNAPSHOT
+
+- improve page/ex-days-page - "30 回以上練習した日が " thres " 日以上ある人のリスト。"
+- added `day by day` button.
+- should not remove com.taoensso/encore.
+
+| :file       | :name               | :current | :latest |
+|------------ | ------------------- | -------- | --------|
+| project.clj | com.taoensso/encore | 3.142.0  | 3.146.2 |
+
+- libraries update
+
+| :file       | :name                     | :current  | :latest |
+|------------ | ------------------------- | --------- | --------|
+| project.clj | com.taoensso/telemere     | 1.0.0-RC5 | 1.0.1   |
+|             | org.postgresql/postgresql | 42.7.5    | 42.7.6  |
+
+- unused-deps - postgresql は間違いだろう。
+
+    ❯ unused-deps
+    {:unused-deps [[cheshire/cheshire {:mvn/version "5.13.0"}]
+                   [dev.weavejester/medley {:mvn/version "1.8.1"}]
+                   [com.taoensso/encore {:mvn/version "3.142.0"}]
+                   [org.postgresql/postgresql {:mvn/version "42.7.5"}]]}
+
+
 ## 4.34.1 (2025-05-22)
 
 - 30 回以上練習した日が 4 日以上ある人のリスト。
