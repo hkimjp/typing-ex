@@ -929,7 +929,7 @@ code polish up. not improved.
 - send-score omit zero test
 ### Milestone
 - cljs から post. clj 側から埋め込んだ anti-forgery-token を cljs で読んで、
-  {:form-params {:__anti-forgery-token token}}
+  {:form-params {:\__anti-forgery-token token}}
   のようにパラメータに埋め戻して post する。
 
 ## 1.1.0 - 2022-03-14
@@ -1160,7 +1160,7 @@ https://clojurians-log.clojureverse.org/shadow-cljs/2019-08-25
 ## 1.23.778 / 2024-04-08
 - typing-ex.boundary.utils ネームスペース。
 - 評価関数 残り時間を足す。
-  v = (g/a - b/g)*100 + c
+  v = (g/a - b/g)\*100 + c
 
 ## 0.5.2 - 2021-06-02
 - tp.melt にデプロイ。
