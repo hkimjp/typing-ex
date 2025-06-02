@@ -135,11 +135,11 @@
       [:get "/recent"]
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
-                     "training days")
+                     "last 7 days")
       "&nbsp;"
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
-                     "last 7 days")
+                     "training days")
       "&nbsp;"
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
