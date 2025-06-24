@@ -13,6 +13,11 @@
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
+## 4.36-SNAPSHOT
+
+* error: db-dumps/fetch-postgresql@17.sh
+  can not `docer exec -it ...` from ssh.
+
 ## 4.35.1144 / 2025-05-31
 
 ```
