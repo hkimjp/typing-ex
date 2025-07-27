@@ -17,7 +17,8 @@
 
 - can not compile.
 
-    The required namespace "react" is not available, it was required by "reagent/core.cljs".
+    The required namespace "react" is not available,
+    it was required by "reagent/core.cljs".
 
   after `npm install` again, `just watch` successed.
 
