@@ -267,10 +267,10 @@
     (let [days (get-in req [:params :n])
           kind (get-in req [:query-params "kind"])]
       (case kind
-        "total" (redirect (str "/total/" days))
-        "training days"  (redirect (str "/days/" days))
-        "max"   (redirect (str "/max/" days))
-        "day by day" (redirect "/day-by-day")))))
+        "total"          (redirect "/total/7")
+        "training days"  (redirect "/days/7")
+        "max"            (redirect "/max/7")
+        "last 7 days"    (redirect "/day-by-day")))))
 
 (defmethod ig/init-key :typing-ex.handler.core/scores-no-arg [_ _]
   (fn [_]

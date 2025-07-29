@@ -130,26 +130,21 @@
     [:div.d-inline-flex
      [:a {:href "/todays" :class "btn btn-danger btn-sm"}
       "todays"]
-     "&nbsp;"
+     "&nbsp;&nbsp;"
      (form-to
       [:get "/recent"]
+      (submit-button {:class "btn btn-primary btn-sm"
+                      :name "kind"}
+                     "last 7 days")
+      "&nbsp;"
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
                      "training days")
       "&nbsp;"
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
-                     "day by day")
-      "&nbsp;&nbsp;&nbsp;"
-      (text-field {:size 2
-                   :value n
-                   :style "text-align:right"}
-                  "n")
-      " days → "
-      (submit-button {:class "btn btn-primary btn-sm"
-                      :name "kind"}
                      "total")
-      "&nbsp;"
+      "&nbsp;&nbsp;"
       (submit-button {:class "btn btn-primary btn-sm"
                       :name "kind"}
                      "max"))]]])

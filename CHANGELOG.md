@@ -15,8 +15,9 @@
 
 ## 4.36-SNAPSHOT
 
-* error: db-dumps/fetch-postgresql@17.sh
-  can not `docer exec -it ...` from ssh.
+- t/log! :info
+- error: db-dumps/fetch-postgresql@17.sh
+  can not `docker exec -it ...` from ssh.
 
 ## 4.35.1144 / 2025-05-31
 
