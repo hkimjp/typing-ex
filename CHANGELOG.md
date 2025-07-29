@@ -13,6 +13,12 @@
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
+## 4.36.1156 / 2025-07-29
+
+- t/log! :info
+- error: db-dumps/fetch-postgresql@17.sh
+  can not `docker exec -it ...` from ssh.
+
 ## 4.35.1144 / 2025-05-31
 
 ```
@@ -80,7 +86,8 @@ npm notice
 
 - can not compile.
 
-    The required namespace "react" is not available, it was required by "reagent/core.cljs".
+    The required namespace "react" is not available,
+    it was required by "reagent/core.cljs".
 
   after `npm install` again, `just watch` successed.
 
@@ -929,7 +936,7 @@ code polish up. not improved.
 - send-score omit zero test
 ### Milestone
 - cljs から post. clj 側から埋め込んだ anti-forgery-token を cljs で読んで、
-  {:form-params {:__anti-forgery-token token}}
+  {:form-params {:\__anti-forgery-token token}}
   のようにパラメータに埋め戻して post する。
 
 ## 1.1.0 - 2022-03-14
@@ -1160,7 +1167,7 @@ https://clojurians-log.clojureverse.org/shadow-cljs/2019-08-25
 ## 1.23.778 / 2024-04-08
 - typing-ex.boundary.utils ネームスペース。
 - 評価関数 残り時間を足す。
-  v = (g/a - b/g)*100 + c
+  v = (g/a - b/g)\*100 + c
 
 ## 0.5.2 - 2021-06-02
 - tp.melt にデプロイ。
