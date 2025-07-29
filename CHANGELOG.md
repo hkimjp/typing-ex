@@ -13,7 +13,7 @@
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
 
-## 4.36-SNAPSHOT
+## 4.36.1156 / 2025-07-29
 
 - t/log! :info
 - error: db-dumps/fetch-postgresql@17.sh
