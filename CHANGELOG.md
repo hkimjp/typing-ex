@@ -7,20 +7,30 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * @app-state を廃止したい。
 * n 回で強制的にやめさす。
-* テストモード、3回の平均で ⭕️ ❌ をつける。
-* スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
 * 30 回以上練習した日が n 日以上ある人のリスト。
-* ログが反映しない。
+
 
 2025-07-27T11:38:49.468466567Z INFO LOG nuc7 typing-ex.handler.core[141,5] roll-call-time Sun Jul 27 20:38:49 JST 2025 ret:
 "date:" "2025-04-09"
 
-* 秘密の admin ボタンを設ける。
-
+* スコアが二度提出されることがある。
+* ログが反映しない。
+* hiccup2
 
 ## 4.37-SNAPSHOT
+
+
+- updated libraries
+
+  | :file       | :name                             | :current | :latest  |
+  |-------------|-----------------------------------|----------|----------|
+  | project.clj | com.github.seancorfield/next.jdbc | 1.3.1002 | 1.3.1048 |
+  |             | com.taoensso/encore               | 3.146.2  | 3.150.0  |
+  |             | fipp/fipp                         | 0.6.27   | 0.6.29   |
+  |             | org.clojure/clojure               | 1.12.0   | 1.12.1   |
+  |             | org.postgresql/postgresql         | 42.7.6   | 42.7.7   |
 
 ## 4.36.1156 / 2025-07-29
 
