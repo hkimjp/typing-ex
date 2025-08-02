@@ -19,7 +19,7 @@
 * ログが反映しない。
 * hiccup2
 
-## 4.37-SNAPSHOT
+## 4.37.1160 / 2025-08-02
 
 
 - updated libraries
