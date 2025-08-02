@@ -7,17 +7,106 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * @app-state を廃止したい。
 * n 回で強制的にやめさす。
-* テストモード、3回の平均で ⭕️ ❌ をつける。
-* スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
-* cheshire 6.0.0.
-* starship の表示する version は package.json を見ている。
+* パーセンテージ表示
+* 30 回以上練習した日が n 日以上ある人のリスト。
+
+
+2025-07-27T11:38:49.468466567Z INFO LOG nuc7 typing-ex.handler.core[141,5] roll-call-time Sun Jul 27 20:38:49 JST 2025 ret:
+"date:" "2025-04-09"
+
+* スコアが二度提出されることがある。
+* ログが反映しない。
+* hiccup2
+
+## 4.37.1160 / 2025-08-02
+
+
+- updated libraries
+
+  | :file       | :name                             | :current | :latest  |
+  |-------------|-----------------------------------|----------|----------|
+  | project.clj | com.github.seancorfield/next.jdbc | 1.3.1002 | 1.3.1048 |
+  |             | com.taoensso/encore               | 3.146.2  | 3.150.0  |
+  |             | fipp/fipp                         | 0.6.27   | 0.6.29   |
+  |             | org.clojure/clojure               | 1.12.0   | 1.12.1   |
+  |             | org.postgresql/postgresql         | 42.7.6   | 42.7.7   |
+
+## 4.36.1156 / 2025-07-29
+
+- t/log! :info
+- error: db-dumps/fetch-postgresql@17.sh
+  can not `docker exec -it ...` from ssh.
+
+## 4.35.1144 / 2025-05-31
+
+```
+npm notice
+npm notice New minor version of npm available! 11.3.0 -> 11.4.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+npm notice To update run: npm install -g npm@11.4.1
+npm notice
+```
+
+- can not invoke `node`. why?
+
+  ❯ node
+  zsh: command not found: node
+
+- improve page/ex-days-page - "30 回以上練習した日が " thres " 日以上ある人のリスト。"
+- added `day by day` button.
+- should not remove com.taoensso/encore.
+
+| :file       | :name               | :current | :latest |
+|------------ | ------------------- | -------- | --------|
+| project.clj | com.taoensso/encore | 3.142.0  | 3.146.2 |
+
+- libraries update
+
+| :file       | :name                     | :current  | :latest |
+|------------ | ------------------------- | --------- | --------|
+| project.clj | com.taoensso/telemere     | 1.0.0-RC5 | 1.0.1   |
+|             | org.postgresql/postgresql | 42.7.5    | 42.7.6  |
+
+- unused-deps - postgresql は間違いだろう。
+
+    ❯ unused-deps
+    {:unused-deps [[cheshire/cheshire {:mvn/version "5.13.0"}]
+                   [dev.weavejester/medley {:mvn/version "1.8.1"}]
+                   [com.taoensso/encore {:mvn/version "3.142.0"}]
+                   [org.postgresql/postgresql {:mvn/version "42.7.5"}]]}
+
+
+## 4.34.1 (2025-05-22)
+
+- 30 回以上練習した日が 4 日以上ある人のリスト。
+
+## 4.34.0 / 2025-05-20
+
+- added an endpoint /day-by-day - points in last week.
+
+- `just deploy` fails on m64;
+
+  The required namespace "react" is not available, it was required by "reagent/core.clerror: Recipe `compile` failed on line 10 with exit code 1
+
+  executed from shell,
+    npm install
+
+  then,
+    just deploy
+
+  works.
+
+## 4.33.2 (2025-05-09)
+
+- starship は package.json を見て、バージョンを表示している。
 
 ## 4.33.1-hotfix
 
 - can not compile.
 
-    The required namespace "react" is not available, it was required by "reagent/core.cljs".
+    The required namespace "react" is not available,
+    it was required by "reagent/core.cljs".
 
   after `npm install` again, `just watch` successed.
 
@@ -866,7 +955,7 @@ code polish up. not improved.
 - send-score omit zero test
 ### Milestone
 - cljs から post. clj 側から埋め込んだ anti-forgery-token を cljs で読んで、
-  {:form-params {:__anti-forgery-token token}}
+  {:form-params {:\__anti-forgery-token token}}
   のようにパラメータに埋め戻して post する。
 
 ## 1.1.0 - 2022-03-14
@@ -1097,7 +1186,7 @@ https://clojurians-log.clojureverse.org/shadow-cljs/2019-08-25
 ## 1.23.778 / 2024-04-08
 - typing-ex.boundary.utils ネームスペース。
 - 評価関数 残り時間を足す。
-  v = (g/a - b/g)*100 + c
+  v = (g/a - b/g)\*100 + c
 
 ## 0.5.2 - 2021-06-02
 - tp.melt にデプロイ。

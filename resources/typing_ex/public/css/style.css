@@ -38,6 +38,10 @@ span.mmm {
     margin-left: 2em;
 }
 
+span.m {
+    margin-left: 0.5em;
+}
+
 .drill {
     width: 660px;
 }
