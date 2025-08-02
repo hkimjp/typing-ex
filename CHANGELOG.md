@@ -17,6 +17,10 @@
 "date:" "2025-04-09"
 ```
 
+## 4.38-SNAPSHOT
+
+- off telemere, using clojure.tools.logging
+
 ## 4.37.1160 / 2025-08-02
 
 - hiccup2 "2.0.0"

@@ -18,7 +18,7 @@
                  [hiccup "2.0.0"] ; 1.0.5
                  [com.taoensso/carmine "3.4.1"]
                  [com.taoensso/encore "3.150.0"]
-                 [com.taoensso/telemere "1.0.1"]
+                 ;; [com.taoensso/telemere "1.0.1"]
                  [org.clojure/clojure "1.12.1"]
                  [org.postgresql/postgresql "42.7.7"]]
   :plugins [[duct/lein-duct "0.12.3"]]
