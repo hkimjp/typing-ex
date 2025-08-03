@@ -16,6 +16,8 @@
 2025-07-27T11:38:49.468466567Z INFO LOG nuc7 typing-ex.handler.core[141,5] roll-call-time Sun Jul 27 20:38:49 JST 2025 ret:
 "date:" "2025-04-09"
 ```
+* 4.35.1145 is ok.
+
 
 ## 4.38-SNAPSHOT
 
