@@ -12,6 +12,9 @@
 * ログ。duct からたくさん出ていて、自分コードからはほんのわずか。
 * not found `https://tp.melt.kyutech.ac.jp/js/bootstrap.bundle.min.js`
 
+## 4.40-SNAPSHOT
+
+- bootstrap 5.2.3(latest)
 
 ## 4.39.1182 / 2025-08-07
 
