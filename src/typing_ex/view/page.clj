@@ -12,7 +12,7 @@
    [typing-ex.plot :refer [scatter]]
    #_[clojure.test :as t]))
 
-(def ^:private version "4.39.1172")
+(def ^:private version "4.40.1177")
 
 ;--------------------------------
 (defn- ss
@@ -50,11 +50,15 @@
       [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
      [:link
       {:rel "stylesheet"
-       :href "/css/bootstrap.min.css"
-       :type "text/css"}]
+       :type "text/css"
+       :href "/css/bootstrap.min.css"}]
      [:link
       {:rel "stylesheet"
+       :type "text/css"
        :href "/css/style.css"}]
+     [:script {:type "text/javascript"
+               :src "/js/bootstrap.bundle.min.js"
+               :defer true}]
      [:title "Typing-Ex"]
      [:body
       [:div {:class "container"}
