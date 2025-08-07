@@ -9,7 +9,6 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
-* スコアが二度提出されることがある。
 * ログの取り方。duct からたくさん出ていて、自分コードからはほんのわずか。
 
 ```
@@ -20,7 +19,16 @@
 ## 4.38-SNAPSHOT
 
 - off telemere, using clojure.tools.logging
-
+- fixed bug dubble-sends - stop sending score by clicking timer button.
+```
+      [:input {:type  "button"
+               :id    "seconds"
+               :class "btn btn-success btn-sm"
+               :style {:font-family "monospace"}
+               :value (:seconds @app-state)
+               ;;:on-click #(do (show-send-reset-display!))
+               }]
+```
 ## 4.37.1160 / 2025-08-02
 
 - hiccup2 "2.0.0"
