@@ -16,11 +16,11 @@ uberjar:
     lein uberjar
 
 systemd:
-    scp systemd/typing-ex.service ${DEST}/
-    scp systemd/typing-ex_roll-call.* ${DEST}/
+    scp systemd/typing-ex.service ${SERV}:typing-ex/
+    scp systemd/typing-ex_roll-call.* ${SERV}:typing-ex/
 
 deploy: compile uberjar
-    scp target/typing-ex-*-standalone.jar ${DEST}/tp.jar
+    scp target/typing-ex-*-standalone.jar ${SERV}:typing-ex/tp.jar
     ssh ${SERV} sudo systemctl restart typing-ex
     ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
     ssh ${SERV} systemctl status typing-ex

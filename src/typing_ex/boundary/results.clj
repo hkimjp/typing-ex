@@ -4,9 +4,9 @@
    [duct.database.sql]
    [next.jdbc.date-time]
    [next.jdbc.sql :as sql]
-   [typing-ex.boundary.utils :refer [ds ds-opt]]))
+   [typing-ex.boundary.utils :refer [ds-opt]]))
 
-(next.jdbc.date-time/read-as-local)
+;;(next.jdbc.date-time/read-as-local)
 
 (defprotocol Results
   (day-by-day [db user])

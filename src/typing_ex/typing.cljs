@@ -9,9 +9,9 @@
    [reagent.dom :as rdom]
    [typing-ex.plot :refer [bar-chart]]))
 
-(def ^:private version "4.37.1160")
+(def ^:private version "4.40.1177")
 
-(def ^:private timeout 60)
+(def ^:private timeout 10) ;debu
 (def ^:private todays-limit 10)
 
 (defonce ^:private app-state
@@ -32,7 +32,6 @@
 
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
-
 
 (def little-prince
   ["An aviator whose plane is forced down in the Sahara Desert
@@ -127,21 +126,27 @@ of yonder warehouses will not suffice."])
                    "\n\n"
                    (apply str (:results @app-state))
                    "\n\n"
-                   (:text  @app-state))))))
+                   (:text  @app-state))))
+      #_(js/alert (str s1 \newline s2))
+      #_(js/preventDefault.)
+      #_(js/stopPropagation.)))
+
   ;; /alert で取れる情報(文字列)をアラートに出す。
-  (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
-        (when (re-find #"\S" body)
-          (js/alert body))))
+  ;; challenge を出す時でもいいんじゃ？
+  ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
+  ;       (when (re-find #"\S" body)
+  ;         (js/alert body))))
+
   ;; 試験成績を記録するならここ。
-  ;; pt @mt-counter login
-  (exam-point! (get-login) @mt-counter pt)
-  ;;
-  (swap! app-state update :todays-trials inc)
-  (when (< todays-limit (:todays-trials @app-state))
-    (js/alert
-     (str "連続 "
-          (:todays-trials @app-state)
-          " 回、行きました。他の勉強もしろよ🐥"))));;🐥☕️
+  ;; (exam-point! (get-login) @mt-counter pt)
+
+  (when (<= todays-limit (:todays-trials @app-state))
+    (js/alert (str "連続 "
+                   (:todays-trials @app-state)
+                   " 回、行きました。他の勉強もしろよ🐥")))
+  (swap! app-state update :todays-trials inc));;🐥☕️
+
+; (.log js/console (js/alert "hello"))
 
 (defn- send-point-aux [url pt]
   (go (let [ret (<! (http/post
@@ -203,7 +208,6 @@ of yonder warehouses will not suffice."])
   (let [target (get (@app-state :words) (@app-state :pos))
         typed  (last (str/split (@app-state :answer) #"\s"))
         good? (= target typed)]
-
     (swap! app-state update :results
            #(conj % (if good? "🟢" "🔴")))
     (swap! app-state update (if good? :goods :bads) inc)
@@ -256,7 +260,8 @@ of yonder warehouses will not suffice."])
                :class "btn btn-success btn-sm"
                :style {:font-family "monospace"}
                :value (:seconds @app-state)
-               :on-click #(do (show-send-reset-display!))}]
+               ;;:on-click #(do (show-send-reset-display!))
+               }]
       " 🔚 全部タイプした後にスペースかエンターでボーナス"]
      [:p
       "todays:"
@@ -269,12 +274,11 @@ of yonder warehouses will not suffice."])
      [:hr]
      [:div "hkimura, " version]]))
 
-
 (defn start []
   (js/setInterval countdown 1000)
   (reset-display!)
-  (rdom/render [ex-page] (js/document.getElementById "app"))
-  (.focus (.getElementById js/document "drill")))
+  #_(rdom/render [ex-page] (js/document.getElementById "app"))
+  #_(.focus (.getElementById js/document "drill")))
 
 (defn ^:export init []
   ;; init is called ONCE when the page loads

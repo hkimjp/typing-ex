@@ -9,8 +9,8 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
-* スコアが二度提出されることがある。
-* ログの取り方。duct からたくさん出ていて、自分コードからはほんのわずか。
+* ログ。duct からたくさん出ていて、自分コードからはほんのわずか。
+* not found `https://tp.melt.kyutech.ac.jp/js/bootstrap.bundle.min.js`
 
 ```
 2025-07-27T11:38:49.468466567Z INFO LOG nuc7 typing-ex.handler.core[141,5] roll-call-time Sun Jul 27 20:38:49 JST 2025 ret:
@@ -19,9 +19,26 @@
 * 4.35.1145 is ok.
 
 
-## 4.38-SNAPSHOT
+- bootstrap 5.2.3(latest)
+
+## 4.39.1182 / 2025-08-07
+
+- fixed `Justfile`. when enbugged?
+
+## 4.38.1168 / 2025-08-07
 
 - off telemere, using clojure.tools.logging
+- fixed bug double-sends - stop sending scores by clicking timer button.
+
+```
+  [:input {:type  "button"
+           :id    "seconds"
+           :class "btn btn-success btn-sm"
+           :style {:font-family "monospace"}
+           :value (:seconds @app-state)
+           ;;:on-click #(do (show-send-reset-display!)) ; <- here
+           }]
+```
 
 ## 4.37.1160 / 2025-08-02
 

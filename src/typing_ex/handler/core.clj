@@ -18,7 +18,7 @@
    ;;
    [taoensso.carmine :as car]
    ;; [taoensso.telemere :as t]
-   [clojure.tools.logging :as log]
+   ;; [clojure.tools.logging :as log]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -139,7 +139,7 @@
 
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    (log/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    ;;(log (str "roll-call-time " (java.util.Date.) " ret: " ret))
     (->  ret
          (= "roll-call"))))
 

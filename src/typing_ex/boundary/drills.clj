@@ -1,8 +1,8 @@
 (ns typing-ex.boundary.drills
   (:require
-   [typing-ex.boundary.utils :refer [ds-opt]]
+   [duct.database.sql]
    [next.jdbc.sql :as sql]
-   [duct.database.sql]))
+   [typing-ex.boundary.utils :refer [ds-opt]]))
 
 (defprotocol Drills
   (fetch-drill [db]))
