@@ -23,7 +23,7 @@
 ## 4.38.1168 / 2025-08-07
 
 - off telemere, using clojure.tools.logging
-- fixed bug dubble-sends - stop sending scores by clicking timer button.
+- fixed bug double-sends - stop sending scores by clicking timer button.
 
 ```
   [:input {:type  "button"

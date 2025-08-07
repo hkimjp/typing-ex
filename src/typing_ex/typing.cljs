@@ -11,7 +11,7 @@
 
 (def ^:private version "4.40.1177")
 
-(def ^:private timeout 60)
+(def ^:private timeout 10) ;debu
 (def ^:private todays-limit 10)
 
 (defonce ^:private app-state
@@ -126,21 +126,27 @@ of yonder warehouses will not suffice."])
                    "\n\n"
                    (apply str (:results @app-state))
                    "\n\n"
-                   (:text  @app-state))))))
+                   (:text  @app-state))))
+      #_(js/alert (str s1 \newline s2))
+      #_(js/preventDefault.)
+      #_(js/stopPropagation.)))
+
   ;; /alert で取れる情報(文字列)をアラートに出す。
-  (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
-        (when (re-find #"\S" body)
-          (js/alert body))))
+  ;; challenge を出す時でもいいんじゃ？
+  ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
+  ;       (when (re-find #"\S" body)
+  ;         (js/alert body))))
+
   ;; 試験成績を記録するならここ。
-  ;; pt @mt-counter login
-  (exam-point! (get-login) @mt-counter pt)
-  ;;
-  (swap! app-state update :todays-trials inc)
-  (when (< todays-limit (:todays-trials @app-state))
-    (js/alert
-     (str "連続 "
-          (:todays-trials @app-state)
-          " 回、行きました。他の勉強もしろよ🐥"))));;🐥☕️
+  ;; (exam-point! (get-login) @mt-counter pt)
+
+  (when (<= todays-limit (:todays-trials @app-state))
+    (js/alert (str "連続 "
+                   (:todays-trials @app-state)
+                   " 回、行きました。他の勉強もしろよ🐥")))
+  (swap! app-state update :todays-trials inc));;🐥☕️
+
+; (.log js/console (js/alert "hello"))
 
 (defn- send-point-aux [url pt]
   (go (let [ret (<! (http/post
@@ -271,8 +277,8 @@ of yonder warehouses will not suffice."])
 (defn start []
   (js/setInterval countdown 1000)
   (reset-display!)
-  (rdom/render [ex-page] (js/document.getElementById "app"))
-  (.focus (.getElementById js/document "drill")))
+  #_(rdom/render [ex-page] (js/document.getElementById "app"))
+  #_(.focus (.getElementById js/document "drill")))
 
 (defn ^:export init []
   ;; init is called ONCE when the page loads
