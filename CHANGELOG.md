@@ -10,7 +10,12 @@
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
 * ログ。duct からたくさん出ていて、自分コードからはほんのわずか。
+* not found `https://tp.melt.kyutech.ac.jp/js/bootstrap.bundle.min.js`
 
+
+## 4.39.1182 / 2025-08-07
+
+- fixed `Justfile`. when enbugged?
 
 ## 4.38.1168 / 2025-08-07
 
