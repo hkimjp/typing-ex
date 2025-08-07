@@ -16,19 +16,21 @@
 "date:" "2025-04-09"
 ```
 
-## 4.38-SNAPSHOT
+## 4.38.1168 / 2025-08-07
 
 - off telemere, using clojure.tools.logging
-- fixed bug dubble-sends - stop sending score by clicking timer button.
+- fixed bug dubble-sends - stop sending scores by clicking timer button.
+
 ```
-      [:input {:type  "button"
-               :id    "seconds"
-               :class "btn btn-success btn-sm"
-               :style {:font-family "monospace"}
-               :value (:seconds @app-state)
-               ;;:on-click #(do (show-send-reset-display!))
-               }]
+  [:input {:type  "button"
+           :id    "seconds"
+           :class "btn btn-success btn-sm"
+           :style {:font-family "monospace"}
+           :value (:seconds @app-state)
+           ;;:on-click #(do (show-send-reset-display!)) ; <- here
+           }]
 ```
+
 ## 4.37.1160 / 2025-08-02
 
 - hiccup2 "2.0.0"
