@@ -17,7 +17,8 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
-   [taoensso.telemere :as t]
+   ;; [taoensso.telemere :as t]
+   [clojure.tools.logging :as log]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -138,7 +139,7 @@
 
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    (t/log! :info (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    (log/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
     (->  ret
          (= "roll-call"))))
 
@@ -181,7 +182,7 @@
           (when (str/starts-with? addr "150.69.77")
             (throw (Exception. (str "when;" addr))))
           (typing-ex req))
-        (catch Exception _ ;; (t/log! :info msg)
+        (catch Exception _
           [::response/ok
            "背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。"]))
       (typing-ex req))))
@@ -267,10 +268,10 @@
     (let [days (get-in req [:params :n])
           kind (get-in req [:query-params "kind"])]
       (case kind
-        "total" (redirect (str "/total/" days))
-        "training days"  (redirect (str "/days/" days))
-        "max"   (redirect (str "/max/" days))
-        "day by day" (redirect "/day-by-day")))))
+        "total"          (redirect "/total/7")
+        "training days"  (redirect "/days/7")
+        "max"            (redirect "/max/7")
+        "last 7 days"    (redirect "/day-by-day")))))
 
 (defmethod ig/init-key :typing-ex.handler.core/scores-no-arg [_ _]
   (fn [_]

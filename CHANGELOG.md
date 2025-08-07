@@ -7,11 +7,48 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * @app-state を廃止したい。
 * n 回で強制的にやめさす。
-* テストモード、3回の平均で ⭕️ ❌ をつける。
-* スコアが二度提出されることがある。
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
-* 30 回以上練習した日が n 日以上ある人のリスト。
+* ログの取り方。duct からたくさん出ていて、自分コードからはほんのわずか。
+
+```
+2025-07-27T11:38:49.468466567Z INFO LOG nuc7 typing-ex.handler.core[141,5] roll-call-time Sun Jul 27 20:38:49 JST 2025 ret:
+"date:" "2025-04-09"
+```
+
+## 4.38.1168 / 2025-08-07
+
+- off telemere, using clojure.tools.logging
+- fixed bug dubble-sends - stop sending scores by clicking timer button.
+
+```
+  [:input {:type  "button"
+           :id    "seconds"
+           :class "btn btn-success btn-sm"
+           :style {:font-family "monospace"}
+           :value (:seconds @app-state)
+           ;;:on-click #(do (show-send-reset-display!)) ; <- here
+           }]
+```
+
+## 4.37.1160 / 2025-08-02
+
+- hiccup2 "2.0.0"
+- updated libraries
+
+  | :file       | :name                             | :current | :latest  |
+  |-------------|-----------------------------------|----------|----------|
+  | project.clj | com.github.seancorfield/next.jdbc | 1.3.1002 | 1.3.1048 |
+  |             | com.taoensso/encore               | 3.146.2  | 3.150.0  |
+  |             | fipp/fipp                         | 0.6.27   | 0.6.29   |
+  |             | org.clojure/clojure               | 1.12.0   | 1.12.1   |
+  |             | org.postgresql/postgresql         | 42.7.6   | 42.7.7   |
+
+## 4.36.1156 / 2025-07-29
+
+- t/log! :info
+- error: db-dumps/fetch-postgresql@17.sh
+  can not `docker exec -it ...` from ssh.
 
 ## 4.35.1144 / 2025-05-31
 
@@ -80,7 +117,8 @@ npm notice
 
 - can not compile.
 
-    The required namespace "react" is not available, it was required by "reagent/core.cljs".
+    The required namespace "react" is not available,
+    it was required by "reagent/core.cljs".
 
   after `npm install` again, `just watch` successed.
 
@@ -929,7 +967,7 @@ code polish up. not improved.
 - send-score omit zero test
 ### Milestone
 - cljs から post. clj 側から埋め込んだ anti-forgery-token を cljs で読んで、
-  {:form-params {:__anti-forgery-token token}}
+  {:form-params {:\__anti-forgery-token token}}
   のようにパラメータに埋め戻して post する。
 
 ## 1.1.0 - 2022-03-14
@@ -1160,7 +1198,7 @@ https://clojurians-log.clojureverse.org/shadow-cljs/2019-08-25
 ## 1.23.778 / 2024-04-08
 - typing-ex.boundary.utils ネームスペース。
 - 評価関数 残り時間を足す。
-  v = (g/a - b/g)*100 + c
+  v = (g/a - b/g)\*100 + c
 
 ## 0.5.2 - 2021-06-02
 - tp.melt にデプロイ。

@@ -9,7 +9,7 @@
    [reagent.dom :as rdom]
    [typing-ex.plot :refer [bar-chart]]))
 
-(def ^:private version "4.35.1145")
+(def ^:private version "4.38.1168")
 
 (def ^:private timeout 60)
 (def ^:private todays-limit 10)
@@ -32,7 +32,6 @@
 
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
-
 
 (def little-prince
   ["An aviator whose plane is forced down in the Sahara Desert
@@ -203,7 +202,6 @@ of yonder warehouses will not suffice."])
   (let [target (get (@app-state :words) (@app-state :pos))
         typed  (last (str/split (@app-state :answer) #"\s"))
         good? (= target typed)]
-
     (swap! app-state update :results
            #(conj % (if good? "🟢" "🔴")))
     (swap! app-state update (if good? :goods :bads) inc)
@@ -256,7 +254,8 @@ of yonder warehouses will not suffice."])
                :class "btn btn-success btn-sm"
                :style {:font-family "monospace"}
                :value (:seconds @app-state)
-               :on-click #(do (show-send-reset-display!))}]
+               ;;:on-click #(do (show-send-reset-display!))
+               }]
       " 🔚 全部タイプした後にスペースかエンターでボーナス"]
      [:p
       "todays:"
@@ -268,7 +267,6 @@ of yonder warehouses will not suffice."])
       [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
      [:hr]
      [:div "hkimura, " version]]))
-
 
 (defn start []
   (js/setInterval countdown 1000)
