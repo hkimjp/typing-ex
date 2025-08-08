@@ -1,6 +1,4 @@
 (ns typing-ex.typing
-  ;; (:require-macros
-  ;;  [cljs.core.async.macros :refer [go]])
   (:require
    [cljs-http.client :as http]
    [cljs.core.async :refer [go <!]]
@@ -10,7 +8,6 @@
    [typing-ex.plot :refer [bar-chart]]))
 
 (def ^:private version "4.41-SNAPSHOT")
-
 (def ^:private timeout 60)
 (def ^:private todays-limit 10)
 
@@ -25,10 +22,10 @@
             :results   []
             :todays    []
             :todays-trials 0
-            :stat "normal"
-            :next ""
-            :goods 0
-            :bads 0}))
+            :stat      "normal"
+            :next      ""
+            :goods     0
+            :bads      0}))
 
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
