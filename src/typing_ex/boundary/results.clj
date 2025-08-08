@@ -67,7 +67,6 @@
 
   (fetch-records-since
     [db login date]
-    (prn "date:" date)
     (sql/query
      (ds-opt db)
      ["select pt, timestamp from results

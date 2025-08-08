@@ -62,7 +62,7 @@
       [:div {:class "container"}
        contents
        [:hr]
-       "hkimura, " version "."]]))])
+       "hkimura, " version]]))])
 
 (defn alert-form [_]
   (page
@@ -92,13 +92,14 @@
     [:li "練習しないと平常点にならない。"]]))
 
 (defn- headline
-  "scores-page の上下から呼ぶ。ボタンの並び。他ページで使ってもよい。"
+  "リンクボタンの並び。"
   [n]
   [:div {:style "margin-left:1rem;"}
    [:div.row
     [:div.d-inline-
-     [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
-     " "
+     [:a {:href "/"
+          :class "btn btn-primary btn-sm"} "Go!"]
+     [:span {:class "m"} ""]
      ; [:a {:href "https://py99.melt.kyutech.ac.jp/"
      ;      :class "btn btn-info btn-sm"}
      ;  "Py99"]
@@ -106,30 +107,32 @@
      [:a {:href "https://kp.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "KP"]
-     " "
-     [:a {:href "/rc" :class "btn roll-call btn-sm"} "RC"]
-     " "
+     [:span {:class "m"} ""]
+     [:a {:href "/rc"
+          :class "btn roll-call btn-sm"} "RC"]
+     [:span {:class "m"} ""]
      [:a {:href "https://wil.melt.kyutech.ac.jp/"
           :class "btn btn-success btn-sm"}
       "WIL"]
-     " "
+     [:span {:class "m"} ""]
      [:a {:href "https://qa.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "QA"]
-     " "
+     [:span {:class "m"} ""]
      [:a {:href "https://mx.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "MX"]
-     " "
+     [:span {:class "m"} ""]
      [:a {:href "https://l22.melt.kyutech.ac.jp/"
           :class "btn btn-success btn-sm"}
       "L22"]
-     " "
+     [:span {:class "m"} ""]
      ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
      ;;       :class "btn btn-success btn-sm"}
      ;;   "RP"]
      ;;  " "
-     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "Logout"]]]
+     [:a {:href "/logout"
+          :class "btn btn-warning btn-sm"} "Logout"]]]
    [:div.row
     [:div.d-inline-flex
      [:a {:href "/todays"
@@ -140,14 +143,16 @@
           :class "btn btn-primary btn-sm"}
       "last 7 days"]
      [:span {:class "m"} ""]
-     [:a {:href "/days/7" :class "btn btn-primary btn-sm"}
+     [:a {:href "/days/7"
+          :class "btn btn-primary btn-sm"}
       "training days"]
      [:span {:class "m"} ""]
      [:a {:href "/total/7"
           :class "btn btn-primary btn-sm"}
       "total"]
      [:span {:class "m"} ""]
-     [:a {:href "/max/7" :class "btn btn-primary btn-sm"}
+     [:a {:href "/max/7"
+          :class "btn btn-primary btn-sm"}
       "max"]]]])
 
 (defn scores-page
@@ -171,13 +176,13 @@
                    :class (if (= login user) "yes" "other")}
                login]])])]))
 
-(defn- count-ex-days
-  [days login]
-  ;; 引数 days の中身は、[{:login ... :date ...} ...]
-  ;; (println "days:" (str days))
-  (->> days
-       (filter #(= (:login %) login))
-       count))
+; (defn- count-ex-days
+;   [days login]
+;   ;; 引数 days の中身は、[{:login ... :date ...} ...]
+;   ;; (println "days:" (str days))
+;   (->> days
+;        (filter #(= (:login %) login))
+;        count))
 
 (defn ex-days-page
   "self はログインアカウント、
