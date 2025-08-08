@@ -17,8 +17,6 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
-   ;; [taoensso.telemere :as t]
-   ;; [clojure.tools.logging :as log]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -26,9 +24,9 @@
 
 (def ^:private l22 "https://l22.melt.kyutech.ac.jp/api/user/")
 
-(defonce my-conn-pool (car/connection-pool {}))
-(def     my-conn-spec {:uri "redis://redis:6379"})
-(def     my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
+(defonce  my-conn-pool (car/connection-pool {}))
+(def      my-conn-spec {:uri "redis://redis:6379"})
+(def      my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
 (defmacro wcar* [& body] `(car/wcar my-wcar-opts ~@body))
 
 (def ^:private redis-expire 3600)
@@ -146,29 +144,27 @@
 (defn typing-ex [req]
   [::response/ok
    (str
-    "<!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset='UTF-8'>
-      <meta name='viewport' content='width=device-width, initial-scale=1'>
-      <link href='/css/bootstrap.min.css' rel='stylesheet'>
-      <link href='/css/style.css' rel='stylesheet' type='text/css'>
-      <link rel='icon' href='/favicon.ico'>
-    </head>
-    <body>"
-    ;; DON'T FORGET.
+    "<!DOCTYPE html><html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='/css/style.css' rel='stylesheet' type='text/css'>
+    <link rel='icon' href='/favicon.ico'>
+  </head>
+  <body>"
     (anti-forgery-field)
     (login-field (get-login req))
     "<div class='container'>
-      <div id='app'>
-        core/typing
-      </div>
-      <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
-      <script src='/js/compiled/main.js' type='text/javascript'></script>
-      <script>typing_ex.typing.init();</script>
-      </div>
-    </body>
-  </html>")])
+  <div id='app'>
+    core/typing
+  </div>
+  <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
+  <script src='/js/compiled/main.js' type='text/javascript'></script>
+  <script>typing_ex.typing.init();</script>
+  </div>
+</body>
+</html>")])
 
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
@@ -206,7 +202,6 @@
     (let [days (Integer/parseInt n)
           login (get-login req)
           max-pt (results/find-max-pt db days)
-          ;;ex-days (results/find-ex-days db days)
           ex-days "dummy"]
       (view/scores-page max-pt ex-days login days))))
 
@@ -226,16 +221,6 @@
     (let [ret (results/users db)]
       (wcar* (car/setex "users-all" redis-expire (str ret)))
       ret)))
-
-;; ----------------------
-;; FIXME: tagged literal
-;; ----------------------
-;; (defn- login-timestamp [db]
-;;   (if-let [login-timestamp (wcar* (car/get "login-timestamp"))]
-;;     (edn/read-string {:readers *data-readers*} login-timestamp)
-;;     (let [ret (results/login-timestamp db)]
-;;       (wcar* (car/setex "login-timestamp" 30 (str ret)))
-;;       ret)))
 
 (defn- training-days
   "redis キャッシュを有効にする。"

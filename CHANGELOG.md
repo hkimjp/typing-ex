@@ -17,9 +17,14 @@
 "date:" "2025-04-09"
 ```
 * 4.35.1145 is ok.
+* duct (reset) できない理由。
 
 
-- bootstrap 5.2.3(latest)
+## 4.41-SNAPSHOT / 2025-08-08
+
+- overhaul
+- bootstrap 5.3.7
+
 
 ## 4.39.1182 / 2025-08-07
 

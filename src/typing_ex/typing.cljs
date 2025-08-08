@@ -1,6 +1,4 @@
 (ns typing-ex.typing
-  ;; (:require-macros
-  ;;  [cljs.core.async.macros :refer [go]])
   (:require
    [cljs-http.client :as http]
    [cljs.core.async :refer [go <!]]
@@ -9,13 +7,12 @@
    [reagent.dom :as rdom]
    [typing-ex.plot :refer [bar-chart]]))
 
-(def ^:private version "4.40.1177")
-
-(def ^:private timeout 10) ;debu
+(def ^:private version "4.41-SNAPSHOT")
+(def ^:private timeout 60)
 (def ^:private todays-limit 10)
 
 (defonce ^:private app-state
-  (r/atom  {:text      "App is starting..."
+  (r/atom  {:text      "App is starting..." ;;
             :answer    ""
             :seconds   timeout
             :errors    0
@@ -25,10 +22,10 @@
             :results   []
             :todays    []
             :todays-trials 0
-            :stat "normal"
-            :next ""
-            :goods 0
-            :bads 0}))
+            :stat      "normal"
+            :next      ""
+            :goods     0
+            :bads      0}))
 
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
@@ -66,12 +63,9 @@ and seemingly bound for a dive. Strange! Nothing will content them
 but the extremest limit of the land; loitering under the shady lee
 of yonder warehouses will not suffice."])
 
-;; (def mt little-prince)
 (def mt (get [little-prince moby-dick] (rand-int 2)))
 
 (defonce ^:private mt-counter (atom -1))
-
-(def points-debug (atom {}))
 
 ;------------------------------------------
 (defn get-login []
@@ -82,9 +76,9 @@ of yonder warehouses will not suffice."])
   (let [all (:words-max @app-state)
         bs errors ;; backspace key
         score (int (* 100 (- (/ goods all) (/ bads goods))))]
-    (swap! points-debug
-           assoc
-           :all all :goods goods :bads bads :bs bs :seconds seconds)
+    ; (swap! points-debug
+    ;        assoc
+    ;        :all all :goods goods :bads bads :bs bs :seconds seconds)
     (max 0 (cond
              (< goods 10) 0
              (= all goods) (+ score seconds 10) ;; bonus 10
@@ -120,7 +114,7 @@ of yonder warehouses will not suffice."])
           msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")]
       (when-not (js/confirm msg)
         (js/alert (str
-                   (str @points-debug) " => " pt
+                   ;; (str @points-debug) " => " pt
                    "\n\n"
                    (:answer @app-state)
                    "\n\n"
@@ -167,6 +161,8 @@ of yonder warehouses will not suffice."])
       (when (= "roll-call" (:stat @app-state))
         (send-point-aux "/rc" pt)))))
 
+(def sent? (atom false))
+
 (defn reset-display!
   []
   (go (let [stat (-> (<! (http/get "/stat")) :body)
@@ -179,6 +175,7 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
+        (reset! sent? false)
         (swap! app-state assoc
                :stat stat
                :text drill
@@ -197,8 +194,11 @@ of yonder warehouses will not suffice."])
 (defn show-send-reset-display!
   []
   (let [pt (pt @app-state)]
+    (.log js/console (str "show-send-reset-display:" pt))
+    (js/console.log (str "@sent? " @sent?))
     (show-score pt)
     (send-point pt)
+    (reset! sent? true)
     (reset-display!)))
 
 (defn- next-word []
@@ -214,7 +214,7 @@ of yonder warehouses will not suffice."])
     (swap! app-state update :pos inc)
     (swap! app-state update :next next-word)
     (when (<= (:words-max @app-state) (:pos @app-state))
-      (show-send-reset-display!))))
+      (when-not @sent? (show-send-reset-display!)))))
 
 (defn countdown
   "最初のキーが打たれるまで待つ"
@@ -222,12 +222,13 @@ of yonder warehouses will not suffice."])
   (when-not (empty? (:answer @app-state))
     (swap! app-state update :seconds dec)
     (when (zero? (:seconds @app-state))
-      (show-send-reset-display!))))
+      (js/console.log "from countdown")
+      (when-not @sent? (show-send-reset-display!)))))
 
 (defn check-key [key]
   (case key
-    " " (check-word)
-    "Enter" (check-word)
+    " "         (check-word)
+    "Enter"     (check-word)
     "Backspace" (do
                   (swap! app-state update :errors inc)
                   (swap! app-state update :results conj "🟡"))
@@ -243,7 +244,7 @@ of yonder warehouses will not suffice."])
      [:h2 "Typing: Challenge"]
      [:pre {:id "example"} (:text @app-state)]
      [:textarea {:name "answer"
-                 :placeholder "ノーミスゴールでボーナス。単語間のスペースは一個で。キーボード見るなよ。"
+                 :placeholder "単語間のスペースは一個で。手元を見ずに。"
                  :id "drill"
                  :value (:answer @app-state)
                  :on-key-up #(check-key (.-key %))
@@ -255,14 +256,15 @@ of yonder warehouses will not suffice."])
      [results-component]
      [:div {:id "next"} (:next @app-state)]
      [:p
-      [:input {:type  "button"
-               :id    "seconds"
+      [:input {;; :type  "button"
+               ;; :id    "seconds"
                :class "btn btn-success btn-sm"
                :style {:font-family "monospace"}
                :value (:seconds @app-state)
-               ;;:on-click #(do (show-send-reset-display!))
-               }]
-      " 🔚 全部タイプした後にスペースかエンターでボーナス"]
+               :size 2
+               ;;:on-click #(show-send-reset-display!)
+               :read-only "readOnly"}]
+      " 残り時間"]
      [:p
       "todays:"
       [:br]
@@ -276,8 +278,8 @@ of yonder warehouses will not suffice."])
 
 (defn start []
   (js/setInterval countdown 1000)
+  (rdom/render [ex-page] (js/document.getElementById "app"))
   (reset-display!)
-  #_(rdom/render [ex-page] (js/document.getElementById "app"))
   #_(.focus (.getElementById js/document "drill")))
 
 (defn ^:export init []
