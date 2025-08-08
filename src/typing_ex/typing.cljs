@@ -68,7 +68,7 @@ of yonder warehouses will not suffice."])
 
 (defonce ^:private mt-counter (atom -1))
 
-(def points-debug (atom {}))
+;;(def points-debug (atom {}))
 
 ;------------------------------------------
 (defn get-login []
@@ -79,9 +79,9 @@ of yonder warehouses will not suffice."])
   (let [all (:words-max @app-state)
         bs errors ;; backspace key
         score (int (* 100 (- (/ goods all) (/ bads goods))))]
-    (swap! points-debug
-           assoc
-           :all all :goods goods :bads bads :bs bs :seconds seconds)
+    ; (swap! points-debug
+    ;        assoc
+    ;        :all all :goods goods :bads bads :bs bs :seconds seconds)
     (max 0 (cond
              (< goods 10) 0
              (= all goods) (+ score seconds 10) ;; bonus 10
@@ -117,7 +117,7 @@ of yonder warehouses will not suffice."])
           msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")]
       (when-not (js/confirm msg)
         (js/alert (str
-                   (str @points-debug) " => " pt
+                   ;; (str @points-debug) " => " pt
                    "\n\n"
                    (:answer @app-state)
                    "\n\n"
@@ -240,7 +240,7 @@ of yonder warehouses will not suffice."])
      [:h2 "Typing: Challenge"]
      [:pre {:id "example"} (:text @app-state)]
      [:textarea {:name "answer"
-                 :placeholder "ノーミスゴールでボーナス。単語間のスペースは一個で。キーボード見るなよ。"
+                 :placeholder "単語間のスペースは一個で OK。手元を見ずに。"
                  :id "drill"
                  :value (:answer @app-state)
                  :on-key-up #(check-key (.-key %))
@@ -252,13 +252,13 @@ of yonder warehouses will not suffice."])
      [results-component]
      [:div {:id "next"} (:next @app-state)]
      [:p
-      [:input {:type  "button"
-               :id    "seconds"
-               :class "btn btn-success btn-sm"
-               :style {:font-family "monospace"}
-               :value (:seconds @app-state)
+      [:div {;; :type  "button"
+             ;; :id    "seconds"
+             :class "btn btn-success btn-sm"
+             :style {:font-family "monospace"}
+             :value (:seconds @app-state)
                ;;:on-click #(do (show-send-reset-display!))
-               }]
+             }]
       " 🔚 全部タイプした後にスペースかエンターでボーナス"]
      [:p
       "todays:"
