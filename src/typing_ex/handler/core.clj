@@ -1,5 +1,5 @@
 (ns typing-ex.handler.core
-  (:refer-clojure :exclude [abs])
+  ;; (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
@@ -17,6 +17,7 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
+   [taoensso.timbre :as t]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -44,6 +45,12 @@
   (try
     (name (get-in req [:session :identity]))
     (catch Exception _ nil)))
+
+(defn- remote-ip [req]
+  (or
+   (get-in req [:headers "cf-connecting-ip"])
+   (get-in req [:headers "x-real-ip"])
+   (get req :remote-addr)))
 
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
@@ -129,22 +136,17 @@
                #"xxx"
                login))
 
-(defn- remote-ip [req]
-  (or
-   (get-in req [:headers "cf-connecting-ip"])
-   (get-in req [:headers "x-real-ip"])
-   (get req :remote-addr)))
-
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    ;; (log (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    (t/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
     (->  ret
          (= "roll-call"))))
 
 (defn typing-ex [req]
   [::response/ok
    (str
-    "<!DOCTYPE html><html>
+    "<!DOCTYPE html>
+<html>
   <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -168,6 +170,7 @@
 
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
+    (t/info (str "/typing " (get-login req)))
     (if (roll-call-time?)
       (try
         (let [addr (str (remote-ip req))]
@@ -194,6 +197,7 @@
   (fn [{{:strs [pt]} :form-params :as req}]
     (let [login (get-login req)
           rcv {:pt (Integer/parseInt pt) :login login}]
+      (t/info (str "score-post " login " " pt))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
 

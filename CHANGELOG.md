@@ -22,7 +22,17 @@
 * リファクタ。
 
 
+
 ## 4.42-SNAPSHOT / 2025-08-09
+
+- added "--sun-misc-unsafe-memory-access=deny" to jvm-opts
+
+```
+   --sun-misc-unsafe-memory-access=<value>
+                      allow or deny usage of unsupported API sun.misc.Unsafe
+                      <value> is one of "allow", "warn", "debug", or "deny".
+                      The default value is "warn".
+```
 
 - [org.clojure/tools.logging "1.3.0"]
 - :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
