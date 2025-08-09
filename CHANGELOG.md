@@ -12,7 +12,6 @@
 * exam-mode, rollcall-mode を別ファイルで。
 * リファクタ。
 
-
 ## 4.43-SNAPSHOT / 2025-08-09
 
 - removed `test/typing_ex/handler/example.clj`. resumed to work `reset`?
@@ -32,8 +31,8 @@
 ```
 - fixed quirks mode
 - :id to timer button.
-- introduce atom `sent?`
-- overhaul
+- introduced atom `sent?` to prevent doubled sending.
+- must overhaul `typing.cljs`.
 - bootstrap 5.3.7
 
 ## 4.39.1182 / 2025-08-07
