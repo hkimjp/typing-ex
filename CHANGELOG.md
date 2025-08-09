@@ -12,7 +12,7 @@
 * exam-mode, rollcall-mode を別ファイルで。
 * リファクタ。
 
-## 4.43-SNAPSHOT / 2025-08-09
+## 4.43.1204 / 2025-08-09
 
 - removed `test/typing_ex/handler/example.clj`. resumed to work `reset`?
 
