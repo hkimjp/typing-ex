@@ -137,7 +137,7 @@
 
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    ;;(log (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    ;; (log (str "roll-call-time " (java.util.Date.) " ret: " ret))
     (->  ret
          (= "roll-call"))))
 

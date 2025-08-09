@@ -4,6 +4,7 @@
 
   :duct.router/ataraxy
   {:middleware {:auth #ig/ref :typing-ex.middleware/auth}
+
    :routes
    {[:get  "/login"] [:typing-ex.handler.core/login]
     [:post "/login" {params :form-params}] [:typing-ex.handler.core/login-post params]

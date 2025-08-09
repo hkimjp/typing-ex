@@ -4,8 +4,6 @@
    [ataraxy.response :as response]
    #_[clojure.string :as str]
    [environ.core :refer [env]]
-   ; [hiccup.page :refer [html5]]
-   ; [hiccup.form :refer [form-to text-field password-field submit-button]]
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
