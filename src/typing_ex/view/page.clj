@@ -4,14 +4,13 @@
    [ataraxy.response :as response]
    #_[clojure.string :as str]
    [environ.core :refer [env]]
-   [hiccup.page :refer [html5]]
-   [hiccup.form :refer [form-to text-field password-field submit-button]]
+   [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]
    #_[clojure.test :as t]))
 
-(def ^:private version "4.32.4")
+(def ^:private version "4.42.1201")
 
 ;--------------------------------
 (defn- ss
@@ -29,49 +28,62 @@
 (defn days-between [from to]
   (db-aux from to []))
 
+; from konpy utils.
+(defn weeks
+  "Returns how many weeks have passed since the argument `date`.
+   If no argument given, use the `start`day` defnied above."
+  ([] (weeks (jt/local-date)))
+  ([date]
+   (let [start-day (jt/local-date 2025 4 9)]
+     (quot (jt/time-between start-day date :days) 7))))
+
 ;--------------------------------
 
 (defn page [& contents]
   [::response/ok
-   (html5
-    [:head
-     [:meta {:charset "utf-8"}]
-     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]]
-    [:link
-     {:rel "stylesheet"
-      :href "/css/bootstrap.min.css"
-      :type "text/css"}]
-    [:link
-     {:rel "stylesheet"
-      :href "/css/style.css"}]
-    [:title "Typing-Ex"]
-    [:body
-     [:div {:class "container"}
-      contents
-      [:hr]
-      "hkimura, " version "."]])])
+   (str
+    (h/raw "<!DOCTYPE html>")
+    (h/html
+     [:head
+      [:meta {:charset "utf-8"}]
+      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+      [:link {:rel  "stylesheet"
+              :type "text/css"
+              :href "/css/bootstrap.min.css"}]
+      [:link {:rel  "stylesheet"
+              :type "text/css"
+              :href "/css/style.css"}]
+      [:script {:type  "text/javascript"
+                :src   "/js/bootstrap.bundle.min.js"
+                :defer "true"}]
+      [:title "Typing-Ex"]]
+     [:body
+      [:div {:class "container"}
+       contents
+       [:hr]
+       "hkimura, " version]]))])
 
 (defn alert-form [_]
   (page
    [:h2 "Typing: Alert"]
-   (form-to
+   [:form
     [:post "/alert"]
-    (anti-forgery-field)
-    (text-field {:placeholder "alert" :size 70} "alert")
+    (h/raw (anti-forgery-field))
+    [:textfield {:placeholder "alert" :size 70} "alert"]
     [:br]
-    (submit-button  "set"))))
+    [:button  "set"]]))
 
 (defn login-page [req]
   (page
    [:h2 "Typing: Login"]
    [:p "授業はじめの出席取りの時間（背景が黄色）は教室外部からログインできない。"]
    [:div.text-danger (:flash req)]
-   (form-to
-    [:post "/login"]
-    (anti-forgery-field)
-    (text-field     {:placeholder "アカウント"} "login")
-    (password-field {:placeholder "パスワード"} "password")
-    (submit-button  "login"))
+   [:form
+    {:method :post :action "/login"}
+    (h/raw (anti-forgery-field))
+    [:input {:placeholder "アカウント" :name "login"}]
+    [:input {:placeholder "パスワード" :type :password :name "password"}]
+    [:button  "login"]]
    [:br]
    [:ul
     [:li "焦らず、ゆっくり、正しい指使いがタイピングが上達の早道。"]
@@ -79,63 +91,68 @@
     [:li "練習しないと平常点にならない。"]]))
 
 (defn- headline
-  "scores-page の上下から呼ぶ。ボタンの並び。他ページで使ってもよい。"
+  "リンクボタンの並び。"
   [n]
   [:div {:style "margin-left:1rem;"}
    [:div.row
     [:div.d-inline-
-     [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
-     "&nbsp;"
-     [:a {:href "https://py99.melt.kyutech.ac.jp/"
+     [:a {:href "/"
+          :class "btn btn-primary btn-sm"} "Go!"]
+     [:span {:class "m"} ""]
+     ; [:a {:href "https://py99.melt.kyutech.ac.jp/"
+     ;      :class "btn btn-info btn-sm"}
+     ;  "Py99"]
+     ; " "
+     [:a {:href "https://kp.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
-      "Py99"]
-     "&nbsp;"
-     [:a {:href "/rc" :class "btn roll-call btn-sm"} "RC"]
-     "&nbsp;"
+      "KP"]
+     [:span {:class "m"} ""]
+     [:a {:href "/rc"
+          :class "btn roll-call btn-sm"} "RC"]
+     [:span {:class "m"} ""]
      [:a {:href "https://wil.melt.kyutech.ac.jp/"
           :class "btn btn-success btn-sm"}
       "WIL"]
-     "&nbsp;"
+     [:span {:class "m"} ""]
      [:a {:href "https://qa.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "QA"]
-     "&nbsp;"
+     [:span {:class "m"} ""]
      [:a {:href "https://mx.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "MX"]
-     "&nbsp;"
+     [:span {:class "m"} ""]
      [:a {:href "https://l22.melt.kyutech.ac.jp/"
           :class "btn btn-success btn-sm"}
       "L22"]
-     "&nbsp;"
-    ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
-    ;;       :class "btn btn-success btn-sm"}
-    ;;   "RP"]
-    ;;  "&nbsp;"
-     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "Logout"]]]
+     [:span {:class "m"} ""]
+     ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
+     ;;       :class "btn btn-success btn-sm"}
+     ;;   "RP"]
+     ;;  " "
+     [:a {:href "/logout"
+          :class "btn btn-warning btn-sm"} "Logout"]]]
    [:div.row
     [:div.d-inline-flex
-     [:a {:href "/todays" :class "btn btn-danger btn-sm"}
+     [:a {:href "/todays"
+          :class "btn btn-danger btn-sm"}
       "todays"]
-     "&nbsp;"
-     (form-to
-      [:get "/recent"]
-      (submit-button {:class "btn btn-primary btn-sm"
-                      :name "kind"}
-                     "training days")
-      "&nbsp;"
-      (text-field {:size 2
-                   :value n
-                   :style "text-align:right"}
-                  "n")
-      " days → "
-      (submit-button {:class "btn btn-primary btn-sm"
-                      :name "kind"}
-                     "total")
-      "&nbsp;"
-      (submit-button {:class "btn btn-primary btn-sm"
-                      :name "kind"}
-                     "max"))]]])
+     [:span {:class "m"} ""]
+     [:a {:href "/day-by-day"
+          :class "btn btn-primary btn-sm"}
+      "last 7 days"]
+     [:span {:class "m"} ""]
+     [:a {:href "/days/7"
+          :class "btn btn-primary btn-sm"}
+      "training days"]
+     [:span {:class "m"} ""]
+     [:a {:href "/total/7"
+          :class "btn btn-primary btn-sm"}
+      "total"]
+     [:span {:class "m"} ""]
+     [:a {:href "/max/7"
+          :class "btn btn-primary btn-sm"}
+      "max"]]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -158,32 +175,33 @@
                    :class (if (= login user) "yes" "other")}
                login]])])]))
 
-(defn- count-ex-days
-  [days login]
-  ;; 引数 days の中身は、[{:login ... :date ...} ...]
-  ;; (println "days:" (str days))
-  (->> days
-       (filter #(= (:login %) login))
-       count))
+; (defn- count-ex-days
+;   [days login]
+;   ;; 引数 days の中身は、[{:login ... :date ...} ...]
+;   ;; (println "days:" (str days))
+;   (->> days
+;        (filter #(= (:login %) login))
+;        count))
 
 (defn ex-days-page
   "self はログインアカウント、
    data はソーティング済みの[[login days] ...]"
   [self data]
-  (page
-   [:h2 "Typing: 30 回以上練習した日数"]
-   (headline 7)
-   [:div {:style "margin-left:1rem;"}
-    [:p "30回以上練習した日が1日以上ある人のリスト。"]
-    (into [:ol
-           (for [[login n] data]
-             (when (pos? n)
-               [:li
-                (format "(%d) " n)
-                " "
-                [:a {:href (str "/record/" login)
-                     :class (if (= login self) "yes" "other")}
-                 login]]))])]))
+  (let [thres (weeks)]
+    (page
+     [:h2 "Typing: 30 回以上練習した日数"]
+     (headline 7)
+     [:div {:style "margin-left:1rem;"}
+      [:p "30 回以上練習した日が授業開始からの経過週の数以上ある人たち。"]
+      (into [:ol
+             (for [[login n] data]
+               (when (<= thres n)
+                 [:li
+                  (format "(%d) " n)
+                  " "
+                  [:a {:href (str "/record/" login)
+                       :class (if (= login self) "yes" "other")}
+                   login]]))])])))
 
 (defn- select-count-distinct
   "select count(distinct(timestamp::DATE)) from results
@@ -286,12 +304,12 @@
     (into [:ol]
           (for [r ret]
             [:li (ss (jt/local-date-time (:timestamp r)))
-             " "
+             [:span {:class "m"} " "]
              [:a {:href (str "/record/" (:login r))
                   :class (if (= login (:login r)) "yes" "other")}
               (:login r)]
-             "&nbsp;"
-             ;; 2024-05-12, need VPN
+             [:span {:class "m"} " "]
+             ;; 2024-05-12, link to their literacy reports.
              ; [:a {:href (str "https://hp.melt.kyutech.ac.jp/" (:login r))}
              ;  "(RP)"]
              ]))]))
@@ -323,9 +341,9 @@
   ;; (println "stat " stat)
   (page
    [:h2 "Typing: Stat (Redis)"]
-   (form-to
+   [:form
     [:post "/stat"]
-    (anti-forgery-field)
+    (h/raw (anti-forgery-field))
     (for [val ["normal" "roll-call" "exam"]]
       [:div
        [:input
@@ -334,7 +352,7 @@
           {:type "radio" :name "stat" :value val})
         val]])
     [:input {:name "minutes" :value "15"}]
-    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}])))
+    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]))
 
 ;; roll-call
 ;; FIXME: 表示で工夫するよりも、データベースに入れる時に加工するか？

@@ -1,9 +1,9 @@
 (ns typing-ex.boundary.stat
   (:require
-   [typing-ex.boundary.utils :refer [ds-opt]]
-   [next.jdbc :as jdbc]
+   [duct.database.sql]
+   [next.jdbc     :as jdbc]
    [next.jdbc.sql :as sql]
-   [duct.database.sql]))
+   [typing-ex.boundary.utils :refer [ds-opt]]))
 
 (defprotocol Stat
   (stat [db])
@@ -17,17 +17,16 @@
                (sql/query
                 (ds-opt db)
                 ["select stat from stat"]))]
-      ;; (println "ret" (str ret))
       ret))
 
   (stat! [db stat]
-   (let [ret (jdbc/execute-one!
-              (ds-opt db)
-              ["update stat set stat=?, updated_at=?"
-               stat
-               (java.util.Date.)]
-              {:return-keys true})]
-     ret)))
+    (let [ret (jdbc/execute-one!
+               (ds-opt db)
+               ["update stat set stat=?, updated_at=?"
+                stat
+                (java.util.Date.)]
+               {:return-keys true})]
+      ret)))
 
 (comment
   (java.util.Date.)

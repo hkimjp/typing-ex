@@ -1,10 +1,10 @@
 (ns typing-ex.boundary.restarts
   (:require
-   [java-time.api :as jt]
-   [typing-ex.boundary.utils :refer [ds-opt]]
+   #_[java-time.api :as jt]
    ;; [next.jdbc :as jdbc]
+   [duct.database.sql]
    [next.jdbc.sql :as sql]
-   [duct.database.sql]))
+   [typing-ex.boundary.utils :refer [ds-opt]]))
 
 (defprotocol Restarts
   (restarts  [db login])

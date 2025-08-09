@@ -27,7 +27,7 @@ pom.xml.asc
 /.yarn.lock
 /data
 /node_modules
-/resources/typing_ex/public/js
+/resources/typing_ex/public/js/compiled
 /utils/excerpt/out.txt
 /utils/excerpt/out/*
 !/utils/excerpt/out/.placeholder

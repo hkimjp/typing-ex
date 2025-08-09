@@ -16,14 +16,14 @@
   "license": "UNLICENSED",
   "name": "typing-ex",
   "description": "情報リテラシー 2022 授業用タイプ練習アプリ。",
-  "version": "4.32.4",
+  "version": "4.42.1201",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github-hkim0331/hkim0331/typing-ex.git"
+    "url": "ssh://git@github.com/hkimjp/typing-ex.git"
   },
   "keywords": [],
   "author": "Hiroshi Kimura"

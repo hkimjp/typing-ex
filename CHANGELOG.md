@@ -7,12 +7,167 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * @app-state を廃止したい。
 * n 回で強制的にやめさす。
-* テストモード、3回の平均で ⭕️ ❌ をつける。
-* 「授業中は練習なしよ」モード -> 授業中の空き時間にタイプしている人もいる。
-* スコアが二度提出されることがある。
-* 最後の1文字の正誤の表示が遅れる。
-* exam 記録に時刻。時刻よりも日付。
-* cheshire 6.0.0.
+* 最後の 1 文字の正誤の表示が遅れる。
+* パーセンテージ表示
+* duct (reset) できない理由。
+* over run ENTER key
+* exam-mode, rollcall-mode を別ファイルで。
+* リファクタ。
+
+
+## 4.42.1201 / 2025-08-09
+
+- log by taoensso/timbre, such as (t/log "log").
+- [org.clojure/tools.logging "1.3.0"]
+- :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
+- added "--sun-misc-unsafe-memory-access=deny" to jvm-opts
+
+```
+   --sun-misc-unsafe-memory-access=<value>
+                      allow or deny usage of unsupported API sun.misc.Unsafe
+                      <value> is one of "allow", "warn", "debug", or "deny".
+                      The default value is "warn".
+```
+- fixed quirks mode
+- :id to timer button.
+
+## 4.42.1201 / 2025-08-09
+
+- introduce atom `sent?`
+- overhaul
+- bootstrap 5.3.7
+
+
+## 4.39.1182 / 2025-08-07
+
+- fixed `Justfile`. when enbugged?
+
+## 4.38.1168 / 2025-08-07
+
+- off telemere, using clojure.tools.logging
+- fixed bug double-sends - stop sending scores by clicking timer button.
+
+```
+  [:input {:type  "button"
+           :id    "seconds"
+           :class "btn btn-success btn-sm"
+           :style {:font-family "monospace"}
+           :value (:seconds @app-state)
+           ;;:on-click #(do (show-send-reset-display!)) ; <- here
+           }]
+```
+
+## 4.37.1160 / 2025-08-02
+
+- hiccup2 "2.0.0"
+- updated libraries
+
+  | :file       | :name                             | :current | :latest  |
+  |-------------|-----------------------------------|----------|----------|
+  | project.clj | com.github.seancorfield/next.jdbc | 1.3.1002 | 1.3.1048 |
+  |             | com.taoensso/encore               | 3.146.2  | 3.150.0  |
+  |             | fipp/fipp                         | 0.6.27   | 0.6.29   |
+  |             | org.clojure/clojure               | 1.12.0   | 1.12.1   |
+  |             | org.postgresql/postgresql         | 42.7.6   | 42.7.7   |
+
+## 4.36.1156 / 2025-07-29
+
+- t/log! :info
+- error: db-dumps/fetch-postgresql@17.sh
+  can not `docker exec -it ...` from ssh.
+
+## 4.35.1144 / 2025-05-31
+
+```
+npm notice
+npm notice New minor version of npm available! 11.3.0 -> 11.4.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+npm notice To update run: npm install -g npm@11.4.1
+npm notice
+```
+
+- can not invoke `node`. why?
+
+  ❯ node
+  zsh: command not found: node
+
+- improve page/ex-days-page - "30 回以上練習した日が " thres " 日以上ある人のリスト。"
+- added `day by day` button.
+- should not remove com.taoensso/encore.
+
+| :file       | :name               | :current | :latest |
+|------------ | ------------------- | -------- | --------|
+| project.clj | com.taoensso/encore | 3.142.0  | 3.146.2 |
+
+- libraries update
+
+| :file       | :name                     | :current  | :latest |
+|------------ | ------------------------- | --------- | --------|
+| project.clj | com.taoensso/telemere     | 1.0.0-RC5 | 1.0.1   |
+|             | org.postgresql/postgresql | 42.7.5    | 42.7.6  |
+
+- unused-deps - postgresql は間違いだろう。
+
+    ❯ unused-deps
+    {:unused-deps [[cheshire/cheshire {:mvn/version "5.13.0"}]
+                   [dev.weavejester/medley {:mvn/version "1.8.1"}]
+                   [com.taoensso/encore {:mvn/version "3.142.0"}]
+                   [org.postgresql/postgresql {:mvn/version "42.7.5"}]]}
+
+
+## 4.34.1 (2025-05-22)
+
+- 30 回以上練習した日が 4 日以上ある人のリスト。
+
+## 4.34.0 / 2025-05-20
+
+- added an endpoint /day-by-day - points in last week.
+
+- `just deploy` fails on m64;
+
+  The required namespace "react" is not available, it was required by "reagent/core.clerror: Recipe `compile` failed on line 10 with exit code 1
+
+  executed from shell,
+    npm install
+
+  then,
+    just deploy
+
+  works.
+
+## 4.33.2 (2025-05-09)
+
+- starship は package.json を見て、バージョンを表示している。
+
+## 4.33.1-hotfix
+
+- can not compile.
+
+    The required namespace "react" is not available,
+    it was required by "reagent/core.cljs".
+
+  after `npm install` again, `just watch` successed.
+
+## 4.33.0 / 2025-05-09
+
+* switch link to py99.melt with kp.melt.
+
+## 4.32.8 / 2025-04-25
+
+* removed Makefile. use just.
+* タグをつけ間違った。0.43 はどこから来たか？
+
+## 4.32.7 / 2025-04-25
+
+* 一時、授業の時間でもないのに、出席取りモードになった。理由がわからない。
+
+## 4.32.5 / 2025-04-25
+
+* bug - do not use.
+
+  背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。
+
+* ex-days-page.clj - 30 回以上練習した日が 2 日以上ある人のリスト。
 
 ## 4.32.4 / 2025-04-24
 
@@ -838,7 +993,7 @@ code polish up. not improved.
 - send-score omit zero test
 ### Milestone
 - cljs から post. clj 側から埋め込んだ anti-forgery-token を cljs で読んで、
-  {:form-params {:__anti-forgery-token token}}
+  {:form-params {:\__anti-forgery-token token}}
   のようにパラメータに埋め戻して post する。
 
 ## 1.1.0 - 2022-03-14
@@ -1069,7 +1224,7 @@ https://clojurians-log.clojureverse.org/shadow-cljs/2019-08-25
 ## 1.23.778 / 2024-04-08
 - typing-ex.boundary.utils ネームスペース。
 - 評価関数 残り時間を足す。
-  v = (g/a - b/g)*100 + c
+  v = (g/a - b/g)\*100 + c
 
 ## 0.5.2 - 2021-06-02
 - tp.melt にデプロイ。

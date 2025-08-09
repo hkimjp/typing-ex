@@ -1,5 +1,5 @@
 (ns typing-ex.handler.core
-  (:refer-clojure :exclude [abs])
+  ;; (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
@@ -17,7 +17,7 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
-   ;; [taoensso.telemere :as t]
+   [taoensso.timbre :as t]
    [clojure.edn :as edn]))
 
 ;; (add-tap prn)
@@ -25,9 +25,9 @@
 
 (def ^:private l22 "https://l22.melt.kyutech.ac.jp/api/user/")
 
-(defonce my-conn-pool (car/connection-pool {}))
-(def     my-conn-spec {:uri "redis://redis:6379"})
-(def     my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
+(defonce  my-conn-pool (car/connection-pool {}))
+(def      my-conn-spec {:uri "redis://redis:6379"})
+(def      my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
 (defmacro wcar* [& body] `(car/wcar my-wcar-opts ~@body))
 
 (def ^:private redis-expire 3600)
@@ -45,6 +45,26 @@
   (try
     (name (get-in req [:session :identity]))
     (catch Exception _ nil)))
+
+(defn- remote-ip [req]
+  (or
+   (get-in req [:headers "cf-connecting-ip"])
+   (get-in req [:headers "x-real-ip"])
+   (get req :remote-addr)))
+
+;; day-by-day
+(defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
+  (fn [request]
+    (let [login (-> (get-login request) str)]
+      (if (empty? login)
+        (-> (redirect "/login")
+            (assoc :flash "need login"))
+        (let [results (results/day-by-day db login)]
+          (view/page
+           [:div
+            [:h2 login]
+            (for [[date pt] results]
+              [:div date " " pt])]))))))
 
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
@@ -116,54 +136,44 @@
                #"xxx"
                login))
 
-(defn- remote-ip [req]
-  (or
-   (get-in req [:headers "cf-connecting-ip"])
-   (get-in req [:headers "x-real-ip"])
-   (get req :remote-addr)))
-
 (defn- roll-call-time? []
-  (->  (wcar* (car/get "stat"))
-       (= "roll-call")))
+  (let [ret (wcar* (car/get "stat"))]
+    (t/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    (->  ret
+         (= "roll-call"))))
 
 (defn typing-ex [req]
   [::response/ok
    (str
     "<!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset='UTF-8'>
-      <meta name='viewport' content='width=device-width, initial-scale=1'>
-      <link href='/css/bootstrap.min.css' rel='stylesheet'>
-      <link href='/css/style.css' rel='stylesheet' type='text/css'>
-      <link rel='icon' href='/favicon.ico'>
-    </head>
-    <body>"
-    ;; DON'T FORGET.
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='/css/style.css' rel='stylesheet' type='text/css'>
+    <link rel='icon' href='/favicon.ico'>
+  </head>
+  <body>"
     (anti-forgery-field)
     (login-field (get-login req))
     "<div class='container'>
-      <div id='app'>
-        core/typing
-      </div>
-      <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
-      <script src='/js/compiled/main.js' type='text/javascript'></script>
-      <script>typing_ex.typing.init();</script>
-      </div>
-    </body>
-  </html>")])
+  <div id='app'>
+    core/typing
+  </div>
+  <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
+  <script src='/js/compiled/main.js' type='text/javascript'></script>
+  <script>typing_ex.typing.init();</script>
+  </div>
+</body>
+</html>")])
 
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
+    (t/info (str "/typing " (get-login req)))
     (if (roll-call-time?)
       (try
         (let [addr (str (remote-ip req))]
-          ;; (t/log! :info addr)
-          ;; debug
-          ;; (when (str/starts-with? addr "0:0")
-          ;;   (throw (Exception. addr)))
-          ;; (when (str/starts-with? addr "150.69.90.34")
-          ;;   (throw (Exception. addr)))
           (when-not (or
                      (str/starts-with? addr "0:0") ; debug
                      (str/starts-with? addr "150.69"))
@@ -171,7 +181,7 @@
           (when (str/starts-with? addr "150.69.77")
             (throw (Exception. (str "when;" addr))))
           (typing-ex req))
-        (catch Exception _ ;; (t/log! :info msg)
+        (catch Exception _
           [::response/ok
            "背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。"]))
       (typing-ex req))))
@@ -187,6 +197,7 @@
   (fn [{{:strs [pt]} :form-params :as req}]
     (let [login (get-login req)
           rcv {:pt (Integer/parseInt pt) :login login}]
+      (t/info (str "score-post " login " " pt))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
 
@@ -195,7 +206,6 @@
     (let [days (Integer/parseInt n)
           login (get-login req)
           max-pt (results/find-max-pt db days)
-          ;;ex-days (results/find-ex-days db days)
           ex-days "dummy"]
       (view/scores-page max-pt ex-days login days))))
 
@@ -215,16 +225,6 @@
     (let [ret (results/users db)]
       (wcar* (car/setex "users-all" redis-expire (str ret)))
       ret)))
-
-;; ----------------------
-;; FIXME: tagged literal
-;; ----------------------
-;; (defn- login-timestamp [db]
-;;   (if-let [login-timestamp (wcar* (car/get "login-timestamp"))]
-;;     (edn/read-string {:readers *data-readers*} login-timestamp)
-;;     (let [ret (results/login-timestamp db)]
-;;       (wcar* (car/setex "login-timestamp" 30 (str ret)))
-;;       ret)))
 
 (defn- training-days
   "redis キャッシュを有効にする。"
@@ -257,9 +257,10 @@
     (let [days (get-in req [:params :n])
           kind (get-in req [:query-params "kind"])]
       (case kind
-        "total" (redirect (str "/total/" days))
-        "training days"  (redirect (str "/days/" days))
-        "max"   (redirect (str "/max/" days))))))
+        "total"          (redirect "/total/7")
+        "training days"  (redirect "/days/7")
+        "max"            (redirect "/max/7")
+        "last 7 days"    (redirect "/day-by-day")))))
 
 (defmethod ig/init-key :typing-ex.handler.core/scores-no-arg [_ _]
   (fn [_]
@@ -273,7 +274,8 @@
       (non-empty-text db))))
 
 (defmethod ig/init-key :typing-ex.handler.core/drill [_ {:keys [db]}]
-  (fn [_]
+  (fn [req]
+    (t/info (str "drill: " (get-login req)))
     [::response/ok (non-empty-text db)]))
 
 ;; admin 以外、自分のレコードしか見れない。
