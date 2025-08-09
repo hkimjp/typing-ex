@@ -22,14 +22,14 @@
 * リファクタ。
 
 
-## 4.42-SNAPSHOT
+## 4.42-SNAPSHOT / 2025-08-09
 
 - [org.clojure/tools.logging "1.3.0"]
 - :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
 - fixed quirks mode
 - :id to timer button.
 
-## 4.41-SNAPSHOT / 2025-08-08
+## 4.42-SNAPSHOT / 2025-08-09
 
 - introduce atom `sent?`
 - overhaul
