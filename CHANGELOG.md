@@ -13,6 +13,15 @@
 * over run ENTER key
 * exam-mode, rollcall-mode を別ファイルで。
 * リファクタ。
+* shut up.
+```
+2025-08-09T02:27:01.654Z m24.local INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/stat", :query-string nil}
+2025-08-09T02:27:01.658Z m24.local INFO [duct.middleware.web:16] - :duct.middleware.web/request {:request-method :get, :uri "/drill", :query-string nil}
+2025-08-09T02:27:01.659Z m24.local INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["select text from drills order by random() limit 1"], :elapsed 0}
+2025-08-09T02:42:11.390Z m24.local INFO [duct.database.sql.hikaricp:30] - :duct.database.sql/query {:query ["SELECT id FROM ragtime_migrations ORDER BY created_at"], :elapsed 3}
+```
+
+## 4.43-SNAPSHOT
 
 
 ## 4.42.1201 / 2025-08-09

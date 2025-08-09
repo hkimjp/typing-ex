@@ -120,17 +120,13 @@ of yonder warehouses will not suffice."])
                    "\n\n"
                    (apply str (:results @app-state))
                    "\n\n"
-                   (:text  @app-state))))
-      #_(js/alert (str s1 \newline s2))
-      #_(js/preventDefault.)
-      #_(js/stopPropagation.)))
+                   (:text  @app-state))))))
 
   ;; /alert で取れる情報(文字列)をアラートに出す。
   ;; challenge を出す時でもいいんじゃ？
   ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
   ;       (when (re-find #"\S" body)
   ;         (js/alert body))))
-
   ;; 試験成績を記録するならここ。
   ;; (exam-point! (get-login) @mt-counter pt)
 
