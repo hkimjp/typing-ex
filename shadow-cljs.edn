@@ -24,4 +24,7 @@
                  ;; serve the public directory over http at port 8700
                  :http-root    "resources/typing_ex/public"
                  :http-port    8700
-                 :preloads     [devtools.preload]}}}}
+                 :preloads     [devtools.preload]}}}
+
+ :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+            "--sun-misc-unsafe-memory-access=warn"]}

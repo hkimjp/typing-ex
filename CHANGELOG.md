@@ -9,22 +9,17 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
-* not found `https://tp.melt.kyutech.ac.jp/js/bootstrap.bundle.min.js`
-
-```
-2025-07-27T11:38:49.468466567Z INFO LOG nuc7 typing-ex.handler.core[141,5] roll-call-time Sun Jul 27 20:38:49 JST 2025 ret:
-"date:" "2025-04-09"
-```
-* 4.35.1145 was ok.
 * duct (reset) できない理由。
 * over run ENTER key
 * exam-mode, rollcall-mode を別ファイルで。
 * リファクタ。
 
 
-
 ## 4.42-SNAPSHOT / 2025-08-09
 
+- log by taoensso/timbre, such as (t/log "log").
+- [org.clojure/tools.logging "1.3.0"]
+- :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
 - added "--sun-misc-unsafe-memory-access=deny" to jvm-opts
 
 ```
@@ -33,9 +28,6 @@
                       <value> is one of "allow", "warn", "debug", or "deny".
                       The default value is "warn".
 ```
-
-- [org.clojure/tools.logging "1.3.0"]
-- :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
 - fixed quirks mode
 - :id to timer button.
 

@@ -274,7 +274,8 @@
       (non-empty-text db))))
 
 (defmethod ig/init-key :typing-ex.handler.core/drill [_ {:keys [db]}]
-  (fn [_]
+  (fn [req]
+    (t/info (str "drill: " (get-login req)))
     [::response/ok (non-empty-text db)]))
 
 ;; admin 以外、自分のレコードしか見れない。
