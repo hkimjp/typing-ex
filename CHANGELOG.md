@@ -15,7 +15,7 @@
 * リファクタ。
 
 
-## 4.42-SNAPSHOT / 2025-08-09
+## 4.42.1201 / 2025-08-09
 
 - log by taoensso/timbre, such as (t/log "log").
 - [org.clojure/tools.logging "1.3.0"]
@@ -31,7 +31,7 @@
 - fixed quirks mode
 - :id to timer button.
 
-## 4.42-SNAPSHOT / 2025-08-09
+## 4.42.1201 / 2025-08-09
 
 - introduce atom `sent?`
 - overhaul
