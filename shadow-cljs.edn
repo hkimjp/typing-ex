@@ -27,4 +27,5 @@
                  :preloads     [devtools.preload]}}}
 
  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
-            "--sun-misc-unsafe-memory-access=warn"]}
+            "--sun-misc-unsafe-memory-access=warn"];; error when "deny"
+ }

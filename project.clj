@@ -20,9 +20,10 @@
                  [org.clojure/clojure "1.12.1"]
                  [org.postgresql/postgresql "42.7.7"]
                  [org.clojure/tools.logging "1.3.0"]]
-  ; :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
-  ;            "--sun-misc-unsafe-memory-access=deny"]
-  :jvm-opts ["--sun-misc-unsafe-memory-access=deny"]
+
+  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+             "--sun-misc-unsafe-memory-access=deny"]
+
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot typing-ex.main
   :resource-paths ["resources" "target/resources"]
