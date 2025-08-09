@@ -8,8 +8,11 @@
    [typing-ex.plot :refer [bar-chart]]))
 
 (def ^:private version "4.41-SNAPSHOT")
-(def ^:private timeout 60)
 (def ^:private todays-limit 10)
+(def ^:private timeout 60)
+
+(def interval (atom 1000))
+(def sent? (atom false))
 
 (defonce ^:private app-state
   (r/atom  {:text      "App is starting..." ;;
@@ -76,9 +79,6 @@ of yonder warehouses will not suffice."])
   (let [all (:words-max @app-state)
         bs errors ;; backspace key
         score (int (* 100 (- (/ goods all) (/ bads goods))))]
-    ; (swap! points-debug
-    ;        assoc
-    ;        :all all :goods goods :bads bads :bs bs :seconds seconds)
     (max 0 (cond
              (< goods 10) 0
              (= all goods) (+ score seconds 10) ;; bonus 10
@@ -140,17 +140,15 @@ of yonder warehouses will not suffice."])
                    " 回、行きました。他の勉強もしろよ🐥")))
   (swap! app-state update :todays-trials inc));;🐥☕️
 
-; (.log js/console (js/alert "hello"))
-
 (defn- send-point-aux [url pt]
   (go (let [ret (<! (http/post
                      url
                      {:form-params
                       {:__anti-forgery-token (csrf-token), :pt pt}}))]
-        (.log js/console "send-point-aux" url pt ret))))
+        (js/console.log "send-point-aux" url pt ret))))
 
 (defn send-point
-  "send-point 中で (:todays @app-state) を更新する。"
+  "(:todays @app-state) を更新する。"
   [pt]
   (if (zero? (count (:answer @app-state)))
     (when-not (empty? (:words @app-state))
@@ -160,8 +158,6 @@ of yonder warehouses will not suffice."])
       (send-point-aux "/score" pt)
       (when (= "roll-call" (:stat @app-state))
         (send-point-aux "/rc" pt)))))
-
-(def sent? (atom false))
 
 (defn reset-display!
   []
@@ -175,30 +171,29 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
-        (reset! sent? false)
         (swap! app-state assoc
-               :stat stat
-               :text drill
-               :answer ""
-               :seconds timeout
-               :errors 0
-               :words words
-               :words-max (count words)
-               :pos 0
-               :results []
-               :next next
-               :goods 0
-               :bads 0)
+               :stat      stat
+               :text      drill
+               :answer    ""
+               :seconds   timeout
+               :errors    0
+               :words     words
+               :words-max (count  words)
+               :pos       0
+               :results   []
+               :next      next
+               :goods     0
+               :bads      0)
+        (reset! sent? false)
         (.focus (.getElementById js/document "drill")))))
 
 (defn show-send-reset-display!
   []
   (let [pt (pt @app-state)]
-    (.log js/console (str "show-send-reset-display:" pt))
-    (js/console.log (str "@sent? " @sent?))
+    (js/console.log (str "show-send-reset-display:" pt))
+    (reset! sent? true)
     (show-score pt)
     (send-point pt)
-    (reset! sent? true)
     (reset-display!)))
 
 (defn- next-word []
@@ -208,8 +203,7 @@ of yonder warehouses will not suffice."])
   (let [target (get (@app-state :words) (@app-state :pos))
         typed  (last (str/split (@app-state :answer) #"\s"))
         good? (= target typed)]
-    (swap! app-state update :results
-           #(conj % (if good? "🟢" "🔴")))
+    (swap! app-state update :results #(conj % (if good? "🟢" "🔴")))
     (swap! app-state update (if good? :goods :bads) inc)
     (swap! app-state update :pos inc)
     (swap! app-state update :next next-word)
@@ -217,7 +211,8 @@ of yonder warehouses will not suffice."])
       (when-not @sent? (show-send-reset-display!)))))
 
 (defn countdown
-  "最初のキーが打たれるまで待つ"
+  "最初のキーが打たれるまで待つ。
+   timeout に達したら、スコア送信、画面をアップデートする。"
   []
   (when-not (empty? (:answer @app-state))
     (swap! app-state update :seconds dec)
@@ -239,45 +234,40 @@ of yonder warehouses will not suffice."])
 
 (defn ex-page
   []
-  (fn []
-    [:div {:class (:stat @app-state)}
-     [:h2 "Typing: Challenge"]
-     [:pre {:id "example"} (:text @app-state)]
-     [:textarea {:name "answer"
-                 :placeholder "単語間のスペースは一個で。手元を見ずに。"
-                 :id "drill"
-                 :value (:answer @app-state)
-                 :on-key-up #(check-key (.-key %))
-                 :on-change (fn [e]
-                              (swap! app-state
-                                     assoc
-                                     :answer
-                                     (-> e .-target .-value)))}]
-     [results-component]
-     [:div {:id "next"} (:next @app-state)]
-     [:p
-      [:input {;; :type  "button"
-               ;; :id    "seconds"
-               :class "btn btn-success btn-sm"
-               :style {:font-family "monospace"}
-               :value (:seconds @app-state)
-               :size 2
+  [:div {:class (:stat @app-state)}
+   [:h2 "Typing: Challenge"]
+   [:pre {:id "example"} (:text @app-state)]
+   [:textarea {:name "answer"
+               :placeholder "単語間のスペースは一個で。手元を見ずに。"
+               :id "drill"
+               :value (:answer @app-state)
+               :on-key-up #(check-key (.-key %))
+               :on-change (fn [e] (swap! app-state assoc :answer
+                                         (-> e .-target .-value)))}]
+   [results-component]
+   [:div {:id "next"} (:next @app-state)]
+   [:p
+    [:input {;; :type  "button"
+             :id    "seconds"
+             :class "btn btn-success btn-sm"
+             :style {:font-family "monospace"}
+             :value (:seconds @app-state)
+             :size 2
                ;;:on-click #(show-send-reset-display!)
-               :read-only "readOnly"}]
-      " 残り時間"]
-     [:p
-      "todays:"
-      [:br]
-      (bar-chart 300 150 (map :pt (:todays @app-state)))]
-     [:p
-      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
-      " "
-      [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
-     [:hr]
-     [:div "hkimura, " version]]))
+             :read-only "readOnly"}]
+    " 残り時間"]
+   [:p
+    "todays:"  [:br]
+    (bar-chart 300 150 (map :pt (:todays @app-state)))]
+   [:p
+    [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
+    " "
+    [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
+   [:hr]
+   [:div "hkimura, " version]])
 
 (defn start []
-  (js/setInterval countdown 1000)
+  (js/setInterval countdown @interval)
   (rdom/render [ex-page] (js/document.getElementById "app"))
   (reset-display!)
   #_(.focus (.getElementById js/document "drill")))

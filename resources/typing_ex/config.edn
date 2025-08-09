@@ -59,36 +59,36 @@
   :typing-ex.handler.core/alert-form {}
   :typing-ex.handler.core/alert! {}
 
-  :typing-ex.handler.core/login      {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/login-post {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/logout     {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/login         {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/login-post    {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/logout        {:db #ig/ref :duct.database/sql}
 
-  :typing-ex.handler.core/drill    {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/ex-days  {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/rc  {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/rc! {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/recent   {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/record   {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/drill         {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/ex-days       {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/rc            {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/rc!           {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/recent        {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/record        {:db #ig/ref :duct.database/sql}
 
-  :typing-ex.handler.core/restarts {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/restarts      {:db #ig/ref :duct.database/sql}
   :typing-ex.handler.core/restarts-page {:db #ig/ref :duct.database/sql}
   :typing-ex.handler.core/restarts!     {:db #ig/ref :duct.database/sql}
 
-  :typing-ex.handler.core/score-post  {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/scores   {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/stat      {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/stat-page {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/stat!    {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/todays   {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/todays-act {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/total    {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/trials   {:db #ig/ref :duct.database/sql}
-  :typing-ex.handler.core/typing   {:db #ig/ref :duct.database/sql}}
+  :typing-ex.handler.core/score-post    {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/scores        {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/stat          {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/stat-page     {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/stat!         {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/todays        {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/todays-act    {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/total         {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/trials        {:db #ig/ref :duct.database/sql}
+  :typing-ex.handler.core/typing        {:db #ig/ref :duct.database/sql}}
 
  :duct.profile/dev   #duct/include "dev"
  :duct.profile/local #duct/include "local"
  :duct.profile/prod  {}
 
- :duct.module/logging {}
+ :duct.module/logging  {}
  :duct.module.web/site {}
- :duct.module/sql {:database-url "jdbc:postgresql://db/typing_ex?user=postgres&password=password"}}
+ :duct.module/sql      {:database-url "jdbc:postgresql://db/typing_ex?user=postgres&password=password"}}

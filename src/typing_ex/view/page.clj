@@ -44,6 +44,7 @@
 (defn page [& contents]
   [::response/ok
    (str
+    (h/raw "<!DOCTYPE html>")
     (h/html
      [:head
       [:meta {:charset "utf-8"}]

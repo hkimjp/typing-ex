@@ -18,7 +18,9 @@
                  ;; [com.taoensso/encore "3.152.0"]
                  ;; [com.taoensso/telemere "1.0.1"]
                  [org.clojure/clojure "1.12.1"]
-                 [org.postgresql/postgresql "42.7.7"]]
+                 [org.postgresql/postgresql "42.7.7"]
+                 [org.clojure/tools.logging "1.3.0"]]
+  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot typing-ex.main
   :resource-paths ["resources" "target/resources"]
