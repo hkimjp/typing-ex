@@ -1,4 +1,4 @@
-(defproject typing-ex "4.42.1201"
+(defproject typing-ex "4.43.1204"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -20,9 +20,10 @@
                  [org.clojure/clojure "1.12.1"]
                  [org.postgresql/postgresql "42.7.7"]
                  [org.clojure/tools.logging "1.3.0"]]
-  ; :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"
-  ;            "--sun-misc-unsafe-memory-access=deny"]
-  :jvm-opts ["--sun-misc-unsafe-memory-access=deny"]
+
+  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+             "--sun-misc-unsafe-memory-access=deny"]
+
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot typing-ex.main
   :resource-paths ["resources" "target/resources"]

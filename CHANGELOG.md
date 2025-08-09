@@ -9,11 +9,12 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * パーセンテージ表示
-* duct (reset) できない理由。
-* over run ENTER key
 * exam-mode, rollcall-mode を別ファイルで。
 * リファクタ。
 
+## 4.43.1204 / 2025-08-09
+
+- removed `test/typing_ex/handler/example.clj`. resumed to work `reset`?
 
 ## 4.42.1201 / 2025-08-09
 
@@ -30,13 +31,9 @@
 ```
 - fixed quirks mode
 - :id to timer button.
-
-## 4.42.1201 / 2025-08-09
-
-- introduce atom `sent?`
-- overhaul
+- introduced atom `sent?` to prevent doubled sending.
+- must overhaul `typing.cljs`.
 - bootstrap 5.3.7
-
 
 ## 4.39.1182 / 2025-08-07
 

@@ -7,12 +7,12 @@
    [reagent.dom :as rdom]
    [typing-ex.plot :refer [bar-chart]]))
 
-(def ^:private version "4.42.1201")
+(def ^:private version "4.43.1204")
 (def ^:private todays-limit 10)
 (def ^:private timeout 60)
 
 (def interval (atom 1000))
-(def sent? (atom false))
+(def sent? (atom false)) ;;
 
 (defonce ^:private app-state
   (r/atom  {:text      "App is starting..." ;;
@@ -120,20 +120,14 @@ of yonder warehouses will not suffice."])
                    "\n\n"
                    (apply str (:results @app-state))
                    "\n\n"
-                   (:text  @app-state))))
-      #_(js/alert (str s1 \newline s2))
-      #_(js/preventDefault.)
-      #_(js/stopPropagation.)))
-
+                   (:text  @app-state))))))
   ;; /alert で取れる情報(文字列)をアラートに出す。
   ;; challenge を出す時でもいいんじゃ？
   ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
   ;       (when (re-find #"\S" body)
   ;         (js/alert body))))
-
   ;; 試験成績を記録するならここ。
   ;; (exam-point! (get-login) @mt-counter pt)
-
   (when (<= todays-limit (:todays-trials @app-state))
     (js/alert (str "連続 "
                    (:todays-trials @app-state)
@@ -191,7 +185,7 @@ of yonder warehouses will not suffice."])
   []
   (let [pt (pt @app-state)]
     (js/console.log (str "show-send-reset-display:" pt))
-    (reset! sent? true)
+    (reset! sent? true) ;;
     (show-score pt)
     (send-point pt)
     (reset-display!)))
@@ -199,7 +193,11 @@ of yonder warehouses will not suffice."])
 (defn- next-word []
   (get (:words @app-state) (:pos @app-state)))
 
-(defn check-word []
+(defn check-word
+  "スコアを送信するトリガーが二つある。
+   * 例題を打ち切った時。
+   * タイムアウトになった時。"
+  []
   (let [target (get (@app-state :words) (@app-state :pos))
         typed  (last (str/split (@app-state :answer) #"\s"))
         good? (= target typed)]
@@ -220,7 +218,9 @@ of yonder warehouses will not suffice."])
       (js/console.log "from countdown")
       (when-not @sent? (show-send-reset-display!)))))
 
-(defn check-key [key]
+(defn check-key
+  "FIXME: 最後のエンターキーを次の画面に持ち越してしまう。"
+  [key]
   (case key
     " "         (check-word)
     "Enter"     (check-word)
@@ -253,7 +253,7 @@ of yonder warehouses will not suffice."])
              :style {:font-family "monospace"}
              :value (:seconds @app-state)
              :size 2
-               ;;:on-click #(show-send-reset-display!)
+             ;;:on-click #(show-send-reset-display!)
              :read-only "readOnly"}]
     " 残り時間"]
    [:p
@@ -269,8 +269,7 @@ of yonder warehouses will not suffice."])
 (defn start []
   (js/setInterval countdown @interval)
   (rdom/render [ex-page] (js/document.getElementById "app"))
-  (reset-display!)
-  #_(.focus (.getElementById js/document "drill")))
+  (reset-display!))
 
 (defn ^:export init []
   ;; init is called ONCE when the page loads
