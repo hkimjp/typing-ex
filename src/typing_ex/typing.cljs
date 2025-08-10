@@ -5,13 +5,18 @@
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   [typing-ex.plot :refer [bar-chart]]))
+   [typing-ex.plot :refer [bar-chart]]
+   [goog.string :as gstring]
+   [goog.string.format]))
 
-(def ^:private version "4.43.1204")
+(def ^:private version "4.44-SNAPSHOT")
+
 (def ^:private todays-limit 10)
+
 (def ^:private timeout 60)
 
-(def interval (atom 1000))
+(def interval (atom 1000)) ;; milli second
+
 (def sent? (atom false)) ;;
 
 (defonce ^:private app-state
@@ -99,6 +104,14 @@ of yonder warehouses will not suffice."])
                            :pt pt}}))]
             (.log js/console (str "exam-point! /exam" ret)))))))
 
+(defn- ratio []
+  (let [goods     (:goods     @app-state)
+        errors    (:errors    @app-state)
+        words-max (:words-max @app-state)]
+    (js/console.log
+     (str "goods " goods " errors " errors " words-max " words-max))
+    (gstring/format "%4.1f" (* 100 (/ (- goods errors) (double words-max))))))
+
 (defn show-score
   [pt]
   (if (empty? (:results @app-state))
@@ -106,21 +119,23 @@ of yonder warehouses will not suffice."])
     (let [login (get-login)
           s1 (str login " さんのスコアは " pt " 点です。")
           s2 (condp <= pt
-               100 "すばらしい。最高点取れた？平均で 80 点越えよう。"
+               100 "すばらしい。最高点取れた？正答率 97%↑ 目指せ。"
                90  "がんばった。もう少しで 100 点だね。"
                60  "だいぶ上手です。この調子でがんばれ。"
                30  "指先を見ずに、ゆっくり、ミスを少なく。"
                "練習あるのみ。")
-          msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")]
-      (when-not (js/confirm msg)
-        (js/alert (str
+          ;; msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")
+          ]
+      (js/alert (str s1 \newline s2  "(" (ratio) "%)"))
+      #_(when-not (js/confirm msg)
+          (js/alert (str
                    ;; (str @points-debug) " => " pt
-                   "\n\n"
-                   (:answer @app-state)
-                   "\n\n"
-                   (apply str (:results @app-state))
-                   "\n\n"
-                   (:text  @app-state))))))
+                     "\n\n"
+                     (:answer @app-state)
+                     "\n\n"
+                     (apply str (:results @app-state))
+                     "\n\n"
+                     (:text  @app-state))))
   ;; /alert で取れる情報(文字列)をアラートに出す。
   ;; challenge を出す時でもいいんじゃ？
   ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
@@ -128,11 +143,11 @@ of yonder warehouses will not suffice."])
   ;         (js/alert body))))
   ;; 試験成績を記録するならここ。
   ;; (exam-point! (get-login) @mt-counter pt)
-  (when (<= todays-limit (:todays-trials @app-state))
-    (js/alert (str "連続 "
-                   (:todays-trials @app-state)
-                   " 回、行きました。他の勉強もしろよ🐥")))
-  (swap! app-state update :todays-trials inc));;🐥☕️
+      (when (<= todays-limit (:todays-trials @app-state))
+        (js/alert (str "連続 "
+                       (:todays-trials @app-state)
+                       " 回、行きました。他の勉強もしろよ🐥")))
+      (swap! app-state update :todays-trials inc))))
 
 (defn- send-point-aux [url pt]
   (go (let [ret (<! (http/post

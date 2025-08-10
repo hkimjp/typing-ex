@@ -1,5 +1,4 @@
 {:duct.core/environment :development
- :duct.module/logging {}
  :duct.database/sql
  {:connection-uri "jdbc:postgresql://db/typing_ex?user=postgres&password=password"}
  :duct.server.http/jetty {:port 3000}}

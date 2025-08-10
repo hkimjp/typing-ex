@@ -11,10 +11,13 @@
 * リファクタ。
 * オーバーホール。
 * Enter over runs
-* パーセンテージ表示
 
 
-## 4.44-SNAPSHOT
+
+## 4.44-SNAPSHOT / 2025-08-10
+
+- Enter over runs occurs on Vivaldi, but not on Brave nor Safari.
+- display percentage.
 
 ## 4.43.1204 / 2025-08-09
 
