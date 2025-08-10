@@ -9,6 +9,7 @@ watch:
 compile:
   npx shadow-cljs compile app
 
+repl: nrepl
 nrepl:
     lein repl
 
