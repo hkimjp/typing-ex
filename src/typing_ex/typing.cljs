@@ -115,7 +115,7 @@ of yonder warehouses will not suffice."])
 (defn show-score
   [pt]
   (if (empty? (:results @app-state))
-    (js/alert (str "コピペはダメよ"))
+    (js/alert "コピペはダメよ")
     (let [login (get-login)
           s1 (str login " さんのスコアは " pt " 点です。")
           s2 (condp <= pt
