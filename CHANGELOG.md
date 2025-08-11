@@ -10,14 +10,12 @@
 * exam-mode, rollcall-mode を別ファイルで。
 * リファクタ。
 * オーバーホール。
-* Enter over runs
 
-
-
-## 4.44-SNAPSHOT / 2025-08-10
+## 4.44-SNAPSHOT
 
 - Enter over runs occurs on Vivaldi, but not on Brave nor Safari.
 - display percentage.
+- (reset) success after `lein clean`.
 
 ## 4.43.1204 / 2025-08-09
 
