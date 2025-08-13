@@ -20,8 +20,6 @@
    [taoensso.timbre :as t]
    [clojure.edn :as edn]))
 
-;; (add-tap prn)
-;; (remove-tap prn)
 
 (def ^:private l22 "https://l22.melt.kyutech.ac.jp/api/user/")
 

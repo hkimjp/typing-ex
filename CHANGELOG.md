@@ -5,12 +5,17 @@
 * セッション終わりに間違った単語を一覧表示。
 * 日本語例文。
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
-* @app-state を廃止したい。
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
-* パーセンテージ表示
-* exam-mode, rollcall-mode を別ファイルで。
-* リファクタ。
+* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* パーセンテージグラフを右下に。
+
+
+## 4.44.1218 (2025-08-14)
+
+- Enter over runs occurs on Vivaldi, but not on Brave nor Safari.
+- displayed percentage.
+- (reset) success only after `lein clean`.
 
 ## 4.43.1204 / 2025-08-09
 
