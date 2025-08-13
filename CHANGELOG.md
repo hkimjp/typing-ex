@@ -10,7 +10,7 @@
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 * パーセンテージグラフを右下に。
 
-## 4.44-SNAPSHOT
+## 4.44.1223 (2025-08-14)
 
 - typing.cljs: made `sent?` a member of `app-state`.
 - show-send-reset-display!: check  `(:sent? @app-state)` inside the function. not caller.
