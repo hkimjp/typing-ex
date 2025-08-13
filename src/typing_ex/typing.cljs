@@ -9,15 +9,15 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "4.44-SNAPSHOT")
+(def ^:private version "4.44.1218")
 
 (def ^:private todays-limit 10)
 
-(def ^:private timeout 60)
+(def ^:private timeout 10) ;; second
 
 (def interval (atom 1000)) ;; milli second
 
-(def sent? (atom false)) ;;
+;;(def sent? (atom false)) ;;
 
 (defonce ^:private app-state
   (r/atom  {:text      "App is starting..." ;;
@@ -33,12 +33,13 @@
             :stat      "normal"
             :next      ""
             :goods     0
-            :bads      0}))
+            :bads      0
+            :send?     false}))
 
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
 
-(def little-prince
+(def ^:private little-prince
   ["An aviator whose plane is forced down in the Sahara Desert
 encounters a little prince from a small planet who relates
 his adventures in seeking the secret of what is important
@@ -55,7 +56,7 @@ anyone be frightened by a hat?' My drawing did not represent
 a hat. It was supposed to be a boa constrictor digesting elephant.
 "])
 
-(def moby-dick
+(def ^:private moby-dick
   ["Call me Ishmael. Some years ago-never mind how long precisely
 having little or no money in my purse, and nothing particular to
 interest me on shore, I thought I would sail about a little
@@ -136,13 +137,13 @@ of yonder warehouses will not suffice."])
                      (apply str (:results @app-state))
                      "\n\n"
                      (:text  @app-state))))
-  ;; /alert で取れる情報(文字列)をアラートに出す。
-  ;; challenge を出す時でもいいんじゃ？
-  ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
-  ;       (when (re-find #"\S" body)
-  ;         (js/alert body))))
-  ;; 試験成績を記録するならここ。
-  ;; (exam-point! (get-login) @mt-counter pt)
+      ;; /alert で取れる情報(文字列)をアラートに出す。
+      ;; challenge を出す時でもいいんじゃ？
+      ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
+      ;       (when (re-find #"\S" body)
+      ;         (js/alert body))))
+      ;; 試験成績を記録するならここ。
+      ;; (exam-point! (get-login) @mt-counter pt)
       (when (<= todays-limit (:todays-trials @app-state))
         (js/alert (str "連続 "
                        (:todays-trials @app-state)
@@ -192,18 +193,21 @@ of yonder warehouses will not suffice."])
                :results   []
                :next      next
                :goods     0
-               :bads      0)
-        (reset! sent? false)
+               :bads      0
+               :sent?     false)
+        ;; (reset! sent? false)
         (.focus (.getElementById js/document "drill")))))
 
 (defn show-send-reset-display!
   []
   (let [pt (pt @app-state)]
-    (js/console.log (str "show-send-reset-display:" pt))
-    (reset! sent? true) ;;
-    (show-score pt)
-    (send-point pt)
-    (reset-display!)))
+    (when-not (:sent? @app-state)
+      (js/console.log (str "show-send-reset-display:" pt))
+      ;;(reset! sent? true) ;;
+      (swap! app-state assoc :sent? true)
+      (show-score pt)
+      (send-point pt)
+      (reset-display!))))
 
 (defn- next-word []
   (get (:words @app-state) (:pos @app-state)))
@@ -221,7 +225,8 @@ of yonder warehouses will not suffice."])
     (swap! app-state update :pos inc)
     (swap! app-state update :next next-word)
     (when (<= (:words-max @app-state) (:pos @app-state))
-      (when-not @sent? (show-send-reset-display!)))))
+      ;;(when-not @sent? (show-send-reset-display!))
+      (show-send-reset-display!))))
 
 (defn countdown
   "最初のキーが打たれるまで待つ。
@@ -231,7 +236,8 @@ of yonder warehouses will not suffice."])
     (swap! app-state update :seconds dec)
     (when (zero? (:seconds @app-state))
       (js/console.log "from countdown")
-      (when-not @sent? (show-send-reset-display!)))))
+      ;;(when-not @sent? (show-send-reset-display!))
+      (show-send-reset-display!))))
 
 (defn check-key
   "FIXME: 最後のエンターキーを次の画面に持ち越してしまう。"
