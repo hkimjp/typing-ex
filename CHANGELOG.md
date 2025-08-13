@@ -11,7 +11,7 @@
 * パーセンテージグラフを右下に。
 
 
-## 4.44-SNAPSHOT
+## 4.44.1218 (2025-08-14)
 
 - Enter over runs occurs on Vivaldi, but not on Brave nor Safari.
 - displayed percentage.
