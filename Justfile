@@ -46,3 +46,6 @@ docker-run:
 down:
     # must stop shadow-cljs
     docker compose down
+
+clean:
+    rm -rf target
