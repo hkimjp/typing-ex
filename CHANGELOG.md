@@ -7,15 +7,15 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
-* exam-mode, rollcall-mode を別ファイルで。
-* リファクタ。
-* オーバーホール。
+* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* パーセンテージグラフを右下に。
+
 
 ## 4.44-SNAPSHOT
 
 - Enter over runs occurs on Vivaldi, but not on Brave nor Safari.
-- display percentage.
-- (reset) success after `lein clean`.
+- displayed percentage.
+- (reset) success only after `lein clean`.
 
 ## 4.43.1204 / 2025-08-09
 
