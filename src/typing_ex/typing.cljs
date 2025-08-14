@@ -285,8 +285,8 @@ of yonder warehouses will not suffice."])
     " 残り時間"]
    [:p
     "todays:"  [:br]
-    ;;(bar-chart 300 150 (map :pt (:todays @app-state)))
-    (.log js/console (str "todays% " (:todays% @app-state)))
+    ;; (bar-chart 300 150 (map :pt (:todays @app-state)))
+    ;; (.log js/console (str "todays% " (:todays% @app-state)))
     (bar-line-chart 300 150
                     (map :pt (:todays @app-state))
                     (:todays% @app-state))]

@@ -8,9 +8,11 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* パーセンテージグラフを右下に。
+
 
 ## 4.45-SNAPSHOT
+
+- overlay percentile plot graph.
 
 
 ## 4.44.1223 (2025-08-14)
