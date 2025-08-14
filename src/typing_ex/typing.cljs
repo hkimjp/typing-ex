@@ -126,7 +126,7 @@ of yonder warehouses will not suffice."])
   (if (empty? (:results @app-state))
     (js/alert "コピペはダメよ")
     (let [login (get-login)
-          s1 (str login " さんのスコアは " pt " 点です。")
+          s1 (str login " さんのスコアは " pt "点, " (ratio) "%です。")
           s2 (condp <= pt
                100 "すばらしい。最高点取れた？正答率 97%↑ 目指せ。"
                90  "がんばった。もう少しで 100 点だね。"
@@ -135,7 +135,7 @@ of yonder warehouses will not suffice."])
                "練習あるのみ。")
           ;; msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")
           ]
-      (js/alert (str s1 \newline s2  "(" (ratio) "%)"))
+      (js/alert (str s1 \newline s2))
       #_(when-not (js/confirm msg)
           (js/alert (str
                    ;; (str @points-debug) " => " pt

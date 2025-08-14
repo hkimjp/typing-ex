@@ -57,12 +57,12 @@
         [:rect
          {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
           :fill "green"}])
-      (for [[x y] points]
-        [:circle
-         {:cx x :cy y :r 3 :fill (if (<= y 43) "orange" "red")}])
       [[:polyline {:points points
                    :stroke "blue"
-                   :fill   "none"}]]))))
+                   :fill   "none"}]]
+      (for [[x y] points]
+        [:circle
+         {:cx x :cy y :r 4 :fill (if (<= y 43) "orange" "red")}])))))
 
 (defn scatter
   "w: width
