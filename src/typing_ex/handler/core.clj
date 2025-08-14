@@ -1,5 +1,5 @@
 (ns typing-ex.handler.core
-  ;; (:refer-clojure :exclude [abs])
+  (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
@@ -19,7 +19,6 @@
    [taoensso.carmine :as car]
    [taoensso.timbre :as t]
    [clojure.edn :as edn]))
-
 
 (def ^:private l22 "https://l22.melt.kyutech.ac.jp/api/user/")
 
@@ -67,7 +66,6 @@
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
   (fn [{{:keys [login count pt]} :params}]
-    ;; (println "handler.core " login count pt)
     (let [key (str login ":" (mod (Integer/parseInt count) 3))]
       (wcar* (car/set key pt))
       [::response/ok "exam!"])))
@@ -93,7 +91,6 @@
 (defmethod ig/init-key :typing-ex.handler.core/alert! [_ _]
   (fn [{{:keys [alert]} :params}]
     (wcar* (car/set "alert" alert))
-    ;; [::response/ok (str "alert!:" alert)]
     (redirect "/total/7")))
 
 ;; login
@@ -243,7 +240,6 @@
 
 (defmethod ig/init-key :typing-ex.handler.core/ex-days [_ {:keys [db]}]
   (fn [req]
-    ;; changed: takes a day parameter, 30. 2024-08-24
     (let [training-days (training-days 30 req db)]
       (view/ex-days-page
        (get-login req)
@@ -280,7 +276,6 @@
 (defmethod ig/init-key :typing-ex.handler.core/record [_ {:keys [db]}]
   (fn [{[_ login] :ataraxy/result :as req}]
     (view/display-records login
-                          ;; (results/fetch-records db login)
                           (results/fetch-records-since db login typing-start)
                           (= (get-login req) login)
                           (= (get-login req) "hkimura"))))
@@ -329,11 +324,6 @@
                       stat))
     (redirect "/")))
 
-;; (defn- date-only
-;;   "datetime is a java.time.LocalDateTime object"
-;;   [datetime]
-;;   (first (str/split (str datetime) #"T")))
-
 (defn- time-str
   "Returns a string representation of a datetime in the local time zone."
   [instant]
@@ -380,12 +370,3 @@
                          jt/to-millis-from-epoch)]
       [::response/ok (str created_at)])))
 
-(comment
-  ;; jit を得る。
-  (-> (jt/local-date-time)
-      jt/sql-timestamp ;; can not remove this!
-      jt/to-millis-from-epoch)
-  ;; 現在時間なら、
-  (-> (jt/instant)
-      jt/to-millis-from-epoch); => 1685318564122
-  :rcf)
