@@ -10,7 +10,7 @@
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 
 
-## 4.45-SNAPSHOT
+## 4.45.1231 / 2025-08-14
 
 - overlay percentile plot graph
 - polyline

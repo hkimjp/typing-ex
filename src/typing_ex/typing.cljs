@@ -9,11 +9,11 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "4.44.1218")
+(def ^:private version "4.45.1231")
 
 (def ^:private todays-limit 10)
 
-(def ^:private timeout 60) ;; second
+(def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
 
