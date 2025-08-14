@@ -11,6 +11,10 @@
 
 ## 4.45.1237 / 2025-08-14
 
+- plot orange circle if collectness >=97.
+
+## 4.45.1237 / 2025-08-14
+
 - changed: how to calculate the collectness?
 
     ;;(* 100 (/ (- goods errors) (double words-max)))

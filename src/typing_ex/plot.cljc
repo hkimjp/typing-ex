@@ -37,7 +37,6 @@
     (into
      (frame w h)
      (for [[x y] (map list (range n) data)]
-       ;; FIXME DRY!
        [:rect
         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
          :fill "green"}]))))
@@ -60,7 +59,7 @@
           :fill "green"}])
       (for [[x y] points]
         [:circle
-         {:cx x :cy y :r 3 :fill "red"}])
+         {:cx x :cy y :r 3 :fill (if (<= y 43) "orange" "red")}])
       [[:polyline {:points points
                    :stroke "blue"
                    :fill   "none"}]]))))
