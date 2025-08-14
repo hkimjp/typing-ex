@@ -9,6 +9,10 @@
 * 最後の 1 文字の正誤の表示が遅れる。
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 
+## 4.45-SNAPSHOT
+
+- plot orange circle if collectness >=97.
+
 ## 4.45.1237 / 2025-08-14
 
 - changed: how to calculate the collectness?
