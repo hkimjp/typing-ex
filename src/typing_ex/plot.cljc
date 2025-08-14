@@ -60,14 +60,10 @@
           :fill "green"}])
       (for [[x y] points]
         [:circle
-         {:cx x
-          :cy y
-          :r 3
-          :fill "red"}])
-      [[:polyline
-        {:points points
-         :stroke "blue"
-         :fill "none"}]]))))
+         {:cx x :cy y :r 3 :fill "red"}])
+      [[:polyline {:points points
+                   :stroke "blue"
+                   :fill   "none"}]]))))
 
 (defn scatter
   "w: width
