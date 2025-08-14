@@ -1,4 +1,4 @@
-(defproject typing-ex "4.45.1237"
+(defproject typing-ex "4.45.1241"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
