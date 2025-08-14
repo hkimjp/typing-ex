@@ -42,6 +42,33 @@
         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
          :fill "green"}]))))
 
+(defn bar-line-chart
+  "w: width
+   h: height
+   data: [1 2 3...]"
+  [w h data data2]
+  (let [n  (count data)
+        dx (* 1.0 (/ w (count data)))
+        points (for [[x y] (map list (range n) data2)]
+                 [(+ (* dx x) (/ dx 4)) (- h 10 y)])]
+    (into
+     (frame w h)
+     (concat
+      (for [[x y] (map list (range n) data)]
+        [:rect
+         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
+          :fill "green"}])
+      (for [[x y] points]
+        [:circle
+         {:cx x
+          :cy y
+          :r 3
+          :fill "red"}])
+      [[:polyline
+        {:points points
+         :stroke "blue"
+         :fill "none"}]]))))
+
 (defn scatter
   "w: width
    h: height

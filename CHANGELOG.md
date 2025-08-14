@@ -8,7 +8,12 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* パーセンテージグラフを右下に。
+
+
+## 4.45-SNAPSHOT
+
+- overlay percentile plot graph.
+
 
 ## 4.44.1223 (2025-08-14)
 
@@ -34,11 +39,12 @@
 - added "--sun-misc-unsafe-memory-access=deny" to jvm-opts
 
 ```
-   --sun-misc-unsafe-memory-access=<value>
-                      allow or deny usage of unsupported API sun.misc.Unsafe
-                      <value> is one of "allow", "warn", "debug", or "deny".
-                      The default value is "warn".
+  --sun-misc-unsafe-memory-access=<value>
+      allow or deny usage of unsupported API sun.misc.Unsafe
+      <value> is one of "allow", "warn", "debug", or "deny".
+      The default value is "warn".
 ```
+
 - fixed quirks mode
 - :id to timer button.
 - introduced atom `sent?` to prevent doubled sending.
