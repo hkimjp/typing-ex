@@ -5,15 +5,15 @@
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   [typing-ex.plot :refer [bar-chart]]
+   [typing-ex.plot :refer [bar-chart bar-line-chart]]
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "4.44.1218")
+(def ^:private version "4.45.1231")
 
 (def ^:private todays-limit 10)
 
-(def ^:private timeout 10) ;; second
+(def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
 
@@ -29,6 +29,7 @@
             :pos       0
             :results   []
             :todays    []
+            :todays%   []
             :todays-trials 0
             :stat      "normal"
             :next      ""
@@ -105,13 +106,16 @@ of yonder warehouses will not suffice."])
                            :pt pt}}))]
             (.log js/console (str "exam-point! /exam" ret)))))))
 
-(defn- ratio []
+(defn- ratio-f []
   (let [goods     (:goods     @app-state)
         errors    (:errors    @app-state)
         words-max (:words-max @app-state)]
     (js/console.log
      (str "goods " goods " errors " errors " words-max " words-max))
-    (gstring/format "%4.1f" (* 100 (/ (- goods errors) (double words-max))))))
+    (* 100 (/ (- goods errors) (double words-max)))))
+
+(defn- ratio []
+  (gstring/format "%4.1f" (ratio-f)))
 
 (defn show-score
   [pt]
@@ -158,13 +162,15 @@ of yonder warehouses will not suffice."])
         (js/console.log "send-point-aux" url pt ret))))
 
 (defn send-point
-  "(:todays @app-state) を更新する。"
+  "(:todays @app-state) を更新する。
+   (:todays@ @app-state) も更新する。"
   [pt]
   (if (zero? (count (:answer @app-state)))
     (when-not (empty? (:words @app-state))
       (js/alert "タイプ、忘れた？"))
     (do
       (swap! app-state update :todays conj {:pt pt})
+      (swap! app-state update :todays% conj (int (ratio)))
       (send-point-aux "/score" pt)
       (when (= "roll-call" (:stat @app-state))
         (send-point-aux "/rc" pt)))))
@@ -279,7 +285,11 @@ of yonder warehouses will not suffice."])
     " 残り時間"]
    [:p
     "todays:"  [:br]
-    (bar-chart 300 150 (map :pt (:todays @app-state)))]
+    ;; (bar-chart 300 150 (map :pt (:todays @app-state)))
+    ;; (.log js/console (str "todays% " (:todays% @app-state)))
+    (bar-line-chart 300 150
+                    (map :pt (:todays @app-state))
+                    (:todays% @app-state))]
    [:p
     [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
     " "
