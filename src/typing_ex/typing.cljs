@@ -106,13 +106,17 @@ of yonder warehouses will not suffice."])
                            :pt pt}}))]
             (.log js/console (str "exam-point! /exam" ret)))))))
 
-(defn- ratio-f []
+(defn- ratio-f
+  "return typing collectness. function name is wrong."
+  []
   (let [goods     (:goods     @app-state)
+        bads      (:bads      @app-state)
         errors    (:errors    @app-state)
         words-max (:words-max @app-state)]
     (js/console.log
      (str "goods " goods " errors " errors " words-max " words-max))
-    (* 100 (/ (- goods errors) (double words-max)))))
+    ;(* 100 (/ (- goods errors) (double words-max)))
+    (* 100 (/ goods (+ goods bads errors)))))
 
 (defn- ratio []
   (gstring/format "%4.1f" (ratio-f)))

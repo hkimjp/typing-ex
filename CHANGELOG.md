@@ -9,6 +9,12 @@
 * 最後の 1 文字の正誤の表示が遅れる。
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 
+## 4.45-SNAPSHOT
+
+- changed: how to calculate the collectness?
+
+    ;;(* 100 (/ (- goods errors) (double words-max)))
+    (* 100 (/ goods (+ goods bads errors))
 
 ## 4.45.1231 / 2025-08-14
 
