@@ -2,15 +2,13 @@
   (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
-   #_[clojure.string :as str]
    [environ.core :refer [env]]
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [typing-ex.plot :refer [scatter]]
-   #_[clojure.test :as t]))
+   [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "4.45.1231")
+(def ^:private version "4.45.1237")
 
 ;--------------------------------
 (defn- ss

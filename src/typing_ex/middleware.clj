@@ -1,6 +1,6 @@
 (ns typing-ex.middleware
+  (:refer-clojure :exclude [abs])
   (:require
-   #_[ataraxy.core :as ataraxy]
    [ataraxy.response :as response]
    [buddy.auth :refer [authenticated? throw-unauthorized]]
    [buddy.auth.accessrules :refer [restrict]]

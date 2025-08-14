@@ -1,4 +1,5 @@
 (ns typing-ex.main
+  (:refer-clojure :exclude [abs])
   (:gen-class)
   (:require [duct.core :as duct]))
 
