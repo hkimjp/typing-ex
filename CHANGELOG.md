@@ -8,6 +8,12 @@
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* enter over runs
+    * Firefox
+    * Vivaldi
+* enter do not over runs
+    * Safari
+    * Brave
 
 ## 4.45.1237 / 2025-08-14
 
