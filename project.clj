@@ -1,26 +1,29 @@
-(defproject typing-ex "4.40.1177"
+(defproject typing-ex "4.45.1249"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
   :dependencies [[buddy/buddy-auth "3.0.323"]
                  [buddy/buddy-hashers "2.0.167"]
-                 ; [cheshire/cheshire "5.13.0"]
                  [clojure.java-time/clojure.java-time "1.4.3"]
                  [com.github.seancorfield/next.jdbc "1.3.1048"]
-                 ; [dev.weavejester/medley "1.8.1"]
                  [duct/core "0.8.1"]
                  [duct/module.ataraxy "0.3.0"]
                  [duct/module.logging "0.5.0"]
                  [duct/module.sql "0.6.1"]
-                 [duct/module.web "0.7.4"] ; 0.7.3
+                 [duct/module.web "0.7.4"]
                  [environ "1.2.0"]
                  [hato "1.0.0"]
-                 [hiccup "2.0.0"] ; 1.0.5
+                 [hiccup "2.0.0"]
                  [com.taoensso/carmine "3.4.1"]
-                 [com.taoensso/encore "3.150.0"]
+                 ;; [com.taoensso/encore "3.152.0"]
                  ;; [com.taoensso/telemere "1.0.1"]
                  [org.clojure/clojure "1.12.1"]
-                 [org.postgresql/postgresql "42.7.7"]]
+                 [org.postgresql/postgresql "42.7.7"]
+                 [org.clojure/tools.logging "1.3.0"]]
+
+  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+             "--sun-misc-unsafe-memory-access=deny"]
+
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot typing-ex.main
   :resource-paths ["resources" "target/resources"]

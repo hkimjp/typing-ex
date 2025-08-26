@@ -17,18 +17,14 @@
    [typing-ex.view.page :as view]
    ;;
    [taoensso.carmine :as car]
-   ;; [taoensso.telemere :as t]
-   ;; [clojure.tools.logging :as log]
+   [taoensso.timbre :as t]
    [clojure.edn :as edn]))
-
-;; (add-tap prn)
-;; (remove-tap prn)
 
 (def ^:private l22 "https://l22.melt.kyutech.ac.jp/api/user/")
 
-(defonce my-conn-pool (car/connection-pool {}))
-(def     my-conn-spec {:uri "redis://redis:6379"})
-(def     my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
+(defonce  my-conn-pool (car/connection-pool {}))
+(def      my-conn-spec {:uri "redis://redis:6379"})
+(def      my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
 (defmacro wcar* [& body] `(car/wcar my-wcar-opts ~@body))
 
 (def ^:private redis-expire 3600)
@@ -47,6 +43,12 @@
     (name (get-in req [:session :identity]))
     (catch Exception _ nil)))
 
+(defn- remote-ip [req]
+  (or
+   (get-in req [:headers "cf-connecting-ip"])
+   (get-in req [:headers "x-real-ip"])
+   (get req :remote-addr)))
+
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
   (fn [request]
@@ -64,7 +66,6 @@
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
   (fn [{{:keys [login count pt]} :params}]
-    ;; (println "handler.core " login count pt)
     (let [key (str login ":" (mod (Integer/parseInt count) 3))]
       (wcar* (car/set key pt))
       [::response/ok "exam!"])))
@@ -90,7 +91,6 @@
 (defmethod ig/init-key :typing-ex.handler.core/alert! [_ _]
   (fn [{{:keys [alert]} :params}]
     (wcar* (car/set "alert" alert))
-    ;; [::response/ok (str "alert!:" alert)]
     (redirect "/total/7")))
 
 ;; login
@@ -131,15 +131,9 @@
                #"xxx"
                login))
 
-(defn- remote-ip [req]
-  (or
-   (get-in req [:headers "cf-connecting-ip"])
-   (get-in req [:headers "x-real-ip"])
-   (get req :remote-addr)))
-
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    ;;(log (str "roll-call-time " (java.util.Date.) " ret: " ret))
+    (t/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
     (->  ret
          (= "roll-call"))))
 
@@ -147,31 +141,31 @@
   [::response/ok
    (str
     "<!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset='UTF-8'>
-      <meta name='viewport' content='width=device-width, initial-scale=1'>
-      <link href='/css/bootstrap.min.css' rel='stylesheet'>
-      <link href='/css/style.css' rel='stylesheet' type='text/css'>
-      <link rel='icon' href='/favicon.ico'>
-    </head>
-    <body>"
-    ;; DON'T FORGET.
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='/css/style.css' rel='stylesheet' type='text/css'>
+    <link rel='icon' href='/favicon.ico'>
+  </head>
+  <body>"
     (anti-forgery-field)
     (login-field (get-login req))
     "<div class='container'>
-      <div id='app'>
-        core/typing
-      </div>
-      <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
-      <script src='/js/compiled/main.js' type='text/javascript'></script>
-      <script>typing_ex.typing.init();</script>
-      </div>
-    </body>
-  </html>")])
+  <div id='app'>
+    core/typing
+  </div>
+  <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
+  <script src='/js/compiled/main.js' type='text/javascript'></script>
+  <script>typing_ex.typing.init();</script>
+  </div>
+</body>
+</html>")])
 
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
+    (t/info (str "/typing " (get-login req)))
     (if (roll-call-time?)
       (try
         (let [addr (str (remote-ip req))]
@@ -198,6 +192,7 @@
   (fn [{{:strs [pt]} :form-params :as req}]
     (let [login (get-login req)
           rcv {:pt (Integer/parseInt pt) :login login}]
+      (t/info (str "score-post " login " " pt))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
 
@@ -206,7 +201,6 @@
     (let [days (Integer/parseInt n)
           login (get-login req)
           max-pt (results/find-max-pt db days)
-          ;;ex-days (results/find-ex-days db days)
           ex-days "dummy"]
       (view/scores-page max-pt ex-days login days))))
 
@@ -227,16 +221,6 @@
       (wcar* (car/setex "users-all" redis-expire (str ret)))
       ret)))
 
-;; ----------------------
-;; FIXME: tagged literal
-;; ----------------------
-;; (defn- login-timestamp [db]
-;;   (if-let [login-timestamp (wcar* (car/get "login-timestamp"))]
-;;     (edn/read-string {:readers *data-readers*} login-timestamp)
-;;     (let [ret (results/login-timestamp db)]
-;;       (wcar* (car/setex "login-timestamp" 30 (str ret)))
-;;       ret)))
-
 (defn- training-days
   "redis キャッシュを有効にする。"
   [n req db]
@@ -256,7 +240,6 @@
 
 (defmethod ig/init-key :typing-ex.handler.core/ex-days [_ {:keys [db]}]
   (fn [req]
-    ;; changed: takes a day parameter, 30. 2024-08-24
     (let [training-days (training-days 30 req db)]
       (view/ex-days-page
        (get-login req)
@@ -285,14 +268,14 @@
       (non-empty-text db))))
 
 (defmethod ig/init-key :typing-ex.handler.core/drill [_ {:keys [db]}]
-  (fn [_]
+  (fn [req]
+    (t/info (str "drill: " (get-login req)))
     [::response/ok (non-empty-text db)]))
 
 ;; admin 以外、自分のレコードしか見れない。
 (defmethod ig/init-key :typing-ex.handler.core/record [_ {:keys [db]}]
   (fn [{[_ login] :ataraxy/result :as req}]
     (view/display-records login
-                          ;; (results/fetch-records db login)
                           (results/fetch-records-since db login typing-start)
                           (= (get-login req) login)
                           (= (get-login req) "hkimura"))))
@@ -341,11 +324,6 @@
                       stat))
     (redirect "/")))
 
-;; (defn- date-only
-;;   "datetime is a java.time.LocalDateTime object"
-;;   [datetime]
-;;   (first (str/split (str datetime) #"T")))
-
 (defn- time-str
   "Returns a string representation of a datetime in the local time zone."
   [instant]
@@ -392,12 +370,3 @@
                          jt/to-millis-from-epoch)]
       [::response/ok (str created_at)])))
 
-(comment
-  ;; jit を得る。
-  (-> (jt/local-date-time)
-      jt/sql-timestamp ;; can not remove this!
-      jt/to-millis-from-epoch)
-  ;; 現在時間なら、
-  (-> (jt/instant)
-      jt/to-millis-from-epoch); => 1685318564122
-  :rcf)

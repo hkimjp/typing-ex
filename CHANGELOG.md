@@ -5,16 +5,79 @@
 * セッション終わりに間違った単語を一覧表示。
 * 日本語例文。
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
-* @app-state を廃止したい。
 * n 回で強制的にやめさす。
 * 最後の 1 文字の正誤の表示が遅れる。
-* パーセンテージ表示
-* ログ。duct からたくさん出ていて、自分コードからはほんのわずか。
-* not found `https://tp.melt.kyutech.ac.jp/js/bootstrap.bundle.min.js`
+* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* enter over runs
+    * Firefox
+    * Vivaldi
+* enter do not over runs
+    * Safari
+    * Brave
 
-## 4.40.1177 / 2025-08-07
+## 4.45.1248 (2025-08-26)
 
-- bootstrap 5.2.3(latest)
+- updated systemd timer - off the setting of first semester, on the second semesters.
+
+    # 2025, first semester.
+    # OnCalendar=Wed 8:45:00
+    # 2025, second semester.
+    OnCalendar=Tue 10:25:00
+- bump-version-local.sh
+- correct `just systemd`
+- postponed stand-aloninze.
+
+## 4.45.1237 / 2025-08-14
+
+- plot orange circle if collectness >=97.
+
+## 4.45.1237 / 2025-08-14
+
+- changed: how to calculate the collectness?
+
+    ;;(* 100 (/ (- goods errors) (double words-max)))
+    (* 100 (/ goods (+ goods bads errors))
+
+## 4.45.1231 / 2025-08-14
+
+- overlay percentile plot graph
+- polyline
+
+## 4.44.1223 (2025-08-14)
+
+- typing.cljs: made `sent?` a member of `app-state`.
+- show-send-reset-display!: check  `(:sent? @app-state)` inside the function. not caller.
+- can not use `delay` on CLJS.
+
+## 4.44.1218 (2025-08-14)
+
+- Enter over runs occurs on Vivaldi, but not on Brave nor Safari.
+- displayed percentage.
+- (reset) success only after `lein clean`.
+
+## 4.43.1204 / 2025-08-09
+
+- removed `test/typing_ex/handler/example.clj`. resumed to work `reset`?
+
+## 4.42.1201 / 2025-08-09
+
+- log by taoensso/timbre, such as (t/log "log").
+- [org.clojure/tools.logging "1.3.0"]
+- :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
+- added "--sun-misc-unsafe-memory-access=deny" to jvm-opts
+
+```
+  --sun-misc-unsafe-memory-access=<value>
+      allow or deny usage of unsupported API sun.misc.Unsafe
+      <value> is one of "allow", "warn", "debug", or "deny".
+      The default value is "warn".
+```
+
+- fixed quirks mode
+- :id to timer button.
+- introduced atom `sent?` to prevent doubled sending.
+- must overhaul `typing.cljs`.
+- bootstrap 5.3.7
 
 ## 4.39.1182 / 2025-08-07
 
@@ -23,7 +86,7 @@
 ## 4.38.1168 / 2025-08-07
 
 - off telemere, using clojure.tools.logging
-- fixed bug dubble-sends - stop sending scores by clicking timer button.
+- fixed bug double-sends - stop sending scores by clicking timer button.
 
 ```
   [:input {:type  "button"

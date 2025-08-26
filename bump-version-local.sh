@@ -25,14 +25,3 @@ ${SED} -E -i \
     -e "s/^\(def \^:private version .+/(def ^:private version \"$1\")/" \
     -e "s/^\(def \^:private timeout .+/(def ^:private timeout 60)/" \
     src/typing_ex/typing.cljs
-
-# off v2.5.836
-# ${SED} -E -i \
-#     -e "s/main.js\?version=.*/main.js?version=$1\">/" \
-#     resources/typing_ex/handler/index.html
-
-# CHANGELOG.md
-VER=$1
-TODAY=`date +%F`
-${SED} -i -e "/SNAPSHOT/c\
-## ${VER} / ${TODAY}" CHANGELOG.md

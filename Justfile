@@ -9,7 +9,8 @@ watch:
 compile:
   npx shadow-cljs compile app
 
-repl:
+repl: nrepl
+nrepl:
     lein repl
 
 uberjar:
@@ -18,6 +19,9 @@ uberjar:
 systemd:
     scp systemd/typing-ex.service ${SERV}:typing-ex/
     scp systemd/typing-ex_roll-call.* ${SERV}:typing-ex/
+    ssh ${SERV} sudo cp ${SERV}:typing-ex/typing-ex* /lib/systemd/system
+    ssh ${SERV} sudo systemctl daemon-reload
+    ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
 
 deploy: compile uberjar
     scp target/typing-ex-*-standalone.jar ${SERV}:typing-ex/tp.jar
@@ -45,3 +49,6 @@ docker-run:
 down:
     # must stop shadow-cljs
     docker compose down
+
+clean:
+    rm -rf target
