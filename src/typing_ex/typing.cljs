@@ -9,7 +9,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "4.45.1241")
+(def ^:private version "4.45.1249")
 
 (def ^:private todays-limit 10)
 
@@ -205,7 +205,6 @@ of yonder warehouses will not suffice."])
                :goods     0
                :bads      0
                :sent?     false)
-        ;; (reset! sent? false)
         (.focus (.getElementById js/document "drill")))))
 
 (defn show-send-reset-display!
@@ -213,7 +212,6 @@ of yonder warehouses will not suffice."])
   (let [pt (pt @app-state)]
     (when-not (:sent? @app-state)
       (js/console.log (str "show-send-reset-display:" pt))
-      ;;(reset! sent? true) ;;
       (swap! app-state assoc :sent? true)
       (show-score pt)
       (send-point pt)
@@ -235,7 +233,6 @@ of yonder warehouses will not suffice."])
     (swap! app-state update :pos inc)
     (swap! app-state update :next next-word)
     (when (<= (:words-max @app-state) (:pos @app-state))
-      ;;(when-not @sent? (show-send-reset-display!))
       (show-send-reset-display!))))
 
 (defn countdown
@@ -246,7 +243,6 @@ of yonder warehouses will not suffice."])
     (swap! app-state update :seconds dec)
     (when (zero? (:seconds @app-state))
       (js/console.log "from countdown")
-      ;;(when-not @sent? (show-send-reset-display!))
       (show-send-reset-display!))))
 
 (defn check-key
@@ -278,8 +274,7 @@ of yonder warehouses will not suffice."])
    [results-component]
    [:div {:id "next"} (:next @app-state)]
    [:p
-    [:input {;; :type  "button"
-             :id    "seconds"
+    [:input {:id    "seconds"
              :class "btn btn-success btn-sm"
              :style {:font-family "monospace"}
              :value (:seconds @app-state)
