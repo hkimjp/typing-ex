@@ -23,6 +23,9 @@
     # OnCalendar=Wed 8:45:00
     # 2025, second semester.
     OnCalendar=Tue 10:25:00
+- bump-version-local.sh
+- correct `just systemd`
+- postponed stand-aloninze.
 
 ## 4.45.1237 / 2025-08-14
 
