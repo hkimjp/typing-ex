@@ -15,6 +15,15 @@
     * Safari
     * Brave
 
+## 4.45.1248 (2025-08-26)
+
+- updated systemd timer - off the setting of first semester, on the second semesters.
+
+    # 2025, first semester.
+    # OnCalendar=Wed 8:45:00
+    # 2025, second semester.
+    OnCalendar=Tue 10:25:00
+
 ## 4.45.1237 / 2025-08-14
 
 - plot orange circle if collectness >=97.
