@@ -29,7 +29,7 @@
 
 (def ^:private redis-expire 3600)
 
-(def typing-start (or (env :tp-start) "2025-04-09"))
+(def typing-start (or (env :tp-start) "2025-09-01"))
 
 (defn admin? [s]
   (let [admins #{"hkimura"}]

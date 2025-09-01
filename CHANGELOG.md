@@ -15,6 +15,10 @@
     * Safari
     * Brave
 
+## 4.46.1-SNAPSHOT
+
+- deleted results table. restart from today.
+
 ## 4.45.1248 (2025-08-26)
 
 - updated systemd timer - off the setting of first semester, on the second semesters.

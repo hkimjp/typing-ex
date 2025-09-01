@@ -140,10 +140,10 @@
           :class "btn btn-primary btn-sm"}
       "last 7 days"]
      [:span {:class "m"} ""]
-     [:a {:href "/days/7"
-          :class "btn btn-primary btn-sm"}
-      "training days"]
-     [:span {:class "m"} ""]
+     ; [:a {:href "/days/7"
+     ;      :class "btn btn-primary btn-sm"}
+     ;  "training days"]
+     ; [:span {:class "m"} ""]
      [:a {:href "/total/7"
           :class "btn btn-primary btn-sm"}
       "total"]
