@@ -15,7 +15,7 @@
     * Safari
     * Brave
 
-## 4.46.1-SNAPSHOT
+## 4.46.0-SNAPSHOT
 
 - deleted results table. restart from today.
 
