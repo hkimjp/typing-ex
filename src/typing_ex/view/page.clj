@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "4.45.1249")
+(def ^:private version "0.46.0")
 
 ;--------------------------------
 (defn- ss
@@ -140,10 +140,10 @@
           :class "btn btn-primary btn-sm"}
       "last 7 days"]
      [:span {:class "m"} ""]
-     [:a {:href "/days/7"
-          :class "btn btn-primary btn-sm"}
-      "training days"]
-     [:span {:class "m"} ""]
+     ; [:a {:href "/days/7"
+     ;      :class "btn btn-primary btn-sm"}
+     ;  "training days"]
+     ; [:span {:class "m"} ""]
      [:a {:href "/total/7"
           :class "btn btn-primary btn-sm"}
       "total"]
