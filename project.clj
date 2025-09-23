@@ -5,7 +5,7 @@
   :dependencies [[buddy/buddy-auth "3.0.323"]
                  [buddy/buddy-hashers "2.0.167"]
                  [clojure.java-time/clojure.java-time "1.4.3"]
-                 [com.github.seancorfield/next.jdbc "1.3.1048"]
+                 [com.github.seancorfield/next.jdbc "1.3.1070"]
                  [duct/core "0.8.1"]
                  [duct/module.ataraxy "0.3.0"]
                  [duct/module.logging "0.5.0"]
@@ -17,8 +17,8 @@
                  [com.taoensso/carmine "3.4.1"]
                  ;; [com.taoensso/encore "3.152.0"]
                  ;; [com.taoensso/telemere "1.0.1"]
-                 [org.clojure/clojure "1.12.1"]
-                 [org.postgresql/postgresql "42.7.7"]
+                 [org.clojure/clojure "1.12.2"]
+                 [org.postgresql/postgresql "42.7.8"]
                  [org.clojure/tools.logging "1.3.0"]]
 
   :jvm-opts ["--enable-native-access=ALL-UNNAMED"
@@ -37,7 +37,7 @@
    :profiles/dev {}
    :project/dev  {:source-paths   ["dev/src"]
                   :resource-paths ["dev/resources"]
-                  :dependencies   [[integrant/repl "0.4.0"]
+                  :dependencies   [[integrant/repl "0.5.0"]
                                    [hawk "0.2.11"]
                                    [eftest "0.6.0"]
                                    [fipp "0.6.29"]
