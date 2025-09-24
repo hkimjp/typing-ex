@@ -193,10 +193,14 @@
       (view/sums-page ret user n))))
 
 (defmethod ig/init-key :typing-ex.handler.core/score-post [_ {:keys [db]}]
-  (fn [{{:strs [pt]} :form-params :as req}]
+  (fn [{{:strs [pt acc]} :form-params :as req}]
     (let [login (get-login req)
           rcv {:pt (Integer/parseInt pt) :login login}]
-      (t/info (str "score-post " login " " pt))
+      (t/info (str "score-post: " login " pt " pt " acc " acc))
+      (let [key (str "tp:acc:" login)]
+        (t/info (str "lpush key: " key " value: " acc))
+        (wcar* (car/lpush key acc))
+        (wcar* (car/expire key (* 12 3600))))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
 

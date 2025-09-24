@@ -9,9 +9,12 @@ watch:
 compile:
   npx shadow-cljs compile app
 
-dev: nrepl
 nrepl:
     lein repl
+
+dev:
+    just watch &
+    just nrepl
 
 uberjar:
     lein uberjar
