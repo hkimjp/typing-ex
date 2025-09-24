@@ -15,6 +15,21 @@
     * Safari
     * Brave
 
+## 0.47.0-SNAPSHOT
+
+- renamed Justfile entry `repl` to `dev`
+- updated libraries
+
+| :file           | :name                             | :current | :latest  |
+|-----------------|-----------------------------------|----------|----------|
+| project.clj     | com.github.seancorfield/next.jdbc | 1.3.1048 | 1.3.1070 |
+|                 | integrant/repl                    | 0.4.0    | 0.5.0    |
+|                 | org.clojure/clojure               | 1.12.1   | 1.12.2   |
+|                 | org.postgresql/postgresql         | 42.7.7   | 42.7.8   |
+| shadow-cljs.edn | cljs-http                         | 0.1.48   | 0.1.49   |
+
+* add accuracy button
+
 ## 0.46.0 (2025-09-01)
 
 - deleted results table. restart from today.

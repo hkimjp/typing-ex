@@ -59,9 +59,13 @@
         (let [results (results/day-by-day db login)]
           (view/page
            [:div
-            [:h2 login]
-            (for [[date pt] results]
-              [:div date " " pt])]))))))
+            [:h2 (format "Typing: last 7 days (%s)" login)]
+            ;; defined in view/page.clj as a private function
+            (view/headline 1)
+            [:br]
+            [:ol {:style "margin-left:1rem;"}
+             (for [[date pt] results]
+               [:li date " " pt])]]))))))
 
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
@@ -369,4 +373,9 @@
                          jt/sql-timestamp
                          jt/to-millis-from-epoch)]
       [::response/ok (str created_at)])))
+
+(defmethod ig/init-key :typing-ex.handler.core/accuracy [_ _]
+  (fn [_]
+    (view/page [:div "under construction"])))
+
 
