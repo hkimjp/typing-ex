@@ -17,6 +17,7 @@
 
 ## 0.47.0-SNAPSHOT
 
+- renamed Justfile entry `repl` to `dev`
 - updated libraries
 
 | :file           | :name                             | :current | :latest  |
