@@ -18,6 +18,7 @@
 
 ## 0.47.0-SNAPSHOT
 
+- added menu `accuracy`
 - renamed Justfile entry `repl` to `dev`
 - updated libraries
 

@@ -379,7 +379,14 @@
       [::response/ok (str created_at)])))
 
 (defmethod ig/init-key :typing-ex.handler.core/accuracy [_ _]
-  (fn [_]
-    (view/page [:div "under construction"])))
-
-
+  (fn [request]
+    (let [login (get-login request)
+          key (str "tp:acc:" login)]
+      (view/page
+       [:div
+        [:h2 "Typing: Accuracy " login]
+        (view/headline 0)
+        [:br]
+        (into [:ol  {:style "margin-left:1rem;"}]
+              (for [a (reverse (wcar* (car/lrange key 0 -1)))]
+                [:li a]))]))))
