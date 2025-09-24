@@ -15,6 +15,7 @@
     * Safari
     * Brave
 
+
 ## 0.47.0-SNAPSHOT
 
 - renamed Justfile entry `repl` to `dev`
