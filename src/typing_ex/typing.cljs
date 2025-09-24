@@ -9,12 +9,12 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "0.46.0")
+(def ^:private version "0.47.0")
 
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will overwrite
-(def ^:private timeout 10);;
+(def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
 

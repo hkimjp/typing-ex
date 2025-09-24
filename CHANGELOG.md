@@ -16,7 +16,7 @@
     * Brave
 
 
-## 0.47.0-SNAPSHOT
+## 0.47.0 (2025-09-24)
 
 - added menu `accuracy`
 - renamed Justfile entry `repl` to `dev`
