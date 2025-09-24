@@ -13,11 +13,10 @@
 
 (def ^:private todays-limit 10)
 
-(def ^:private timeout 60)
+;; bump-version.sh will overwrite
+(def ^:private timeout 10);;
 
 (def interval (atom 1000)) ;; milli second
-
-;;(def sent? (atom false)) ;;
 
 (defonce ^:private app-state
   (r/atom  {:text      "App is starting..." ;;
@@ -158,12 +157,12 @@ of yonder warehouses will not suffice."])
                        " 回、行きました。他の勉強もしろよ🐥")))
       (swap! app-state update :todays-trials inc))))
 
-(defn- send-point-aux [url pt]
+(defn- send-point-aux [url pt acc]
   (go (let [ret (<! (http/post
                      url
                      {:form-params
-                      {:__anti-forgery-token (csrf-token), :pt pt}}))]
-        (js/console.log "send-point-aux" url pt ret))))
+                      {:__anti-forgery-token (csrf-token), :pt pt, :acc acc}}))]
+        (js/console.log "send-point-aux: " url pt acc))))
 
 (defn send-point
   "(:todays @app-state) を更新する。
@@ -172,12 +171,12 @@ of yonder warehouses will not suffice."])
   (if (zero? (count (:answer @app-state)))
     (when-not (empty? (:words @app-state))
       (js/alert "タイプ、忘れた？"))
-    (do
+    (let [acc (ratio)]
       (swap! app-state update :todays conj {:pt pt})
-      (swap! app-state update :todays% conj (int (ratio)))
-      (send-point-aux "/score" pt)
+      (swap! app-state update :todays% conj (int acc))
+      (send-point-aux "/score" pt acc)
       (when (= "roll-call" (:stat @app-state))
-        (send-point-aux "/rc" pt)))))
+        (send-point-aux "/rc" pt acc)))))
 
 (defn reset-display!
   []
