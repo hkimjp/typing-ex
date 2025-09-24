@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "0.46.0")
+(def ^:private version "0.47.0")
 
 ;--------------------------------
 (defn- ss
@@ -88,7 +88,8 @@
     [:li "10 分練習したら休憩入れよう。"]
     [:li "練習しないと平常点にならない。"]]))
 
-(defn- headline
+; changed to public
+(defn headline
   "リンクボタンの並び。"
   [n]
   [:div {:style "margin-left:1rem;"}
@@ -150,7 +151,11 @@
      [:span {:class "m"} ""]
      [:a {:href "/max/7"
           :class "btn btn-primary btn-sm"}
-      "max"]]]])
+      "max"]
+     [:span {:class "m"} ""]
+     [:a {:href "/accuracy"
+          :class "btn btn-primary btn-sm"}
+      "accuracy"]]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -162,8 +167,7 @@
    [:h2 "Typing: Last " days " days Maxes"]
    (headline days)
    [:div {:style "margin-left:1rem;"}
-    [:p "瞬間最大風速。" [:br]
-     "[正確さ] + [残し秒数] + [ボーナス] でプログラム上の最高点は 169。"]
+    [:p "[正確さ] + [残し秒数] + [ボーナス] でプログラム上の最高点は 169。"]
     (into [:ol
            (for [{:keys [max login]} max-pt]
              [:li
@@ -286,9 +290,9 @@
 
 (defn- todays-msg
   []
-  (let [msg ["好き嫌い言わずになんでも食べるのが健康の元だ。"
+  (let [msg ["好き嫌い言わずになんでも食べるのが健康の元。"
              "タイピングは基本的スキルのひとつ。練習すれば誰でもできるようになる。"
-             "ガンバッてる人と出席取りだけの人、差がついて来たように見えないか？"]]
+             "出席取りだけの人、WIL や KONPY も出すだけになってないか？"]]
     (get msg (rand-int (count msg)))))
 
 ;; view of /todays
@@ -317,7 +321,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "まとめてやっても平常点にはならない。平常点は平常につく。当たり前。"]
+    [:p "まとめてやっても平常点にはならない。平常点は平常につく。"]
     (into [:ol]
           (for [r ret]
             (let [login (:login r)
@@ -372,3 +376,20 @@
    [:ol
     (for [r ret]
       [:li (:login r) " " (:created_at r)])]))
+
+(defn accuracy-page
+  "maxpt: 最高点
+   ex-days: 練習日数
+   user: アカウント
+   days: 何日間のデータか？"
+  [acc-login]
+  (page
+   [:h2 "Typing: Accuracies"]
+   (headline 1) ;
+   [:div {:style "margin-left:1rem;"}
+    [:p "under construction."]
+    (into [:ol
+           (for [{:keys [acc login]} acc-login]
+             [:li (format "%f %s" acc login)])])]))
+
+

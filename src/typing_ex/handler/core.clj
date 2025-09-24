@@ -59,9 +59,13 @@
         (let [results (results/day-by-day db login)]
           (view/page
            [:div
-            [:h2 login]
-            (for [[date pt] results]
-              [:div date " " pt])]))))))
+            [:h2 (format "Typing: last 7 days (%s)" login)]
+            ;; defined in view/page.clj as a private function
+            (view/headline 1)
+            [:br]
+            [:ol {:style "margin-left:1rem;"}
+             (for [[date pt] results]
+               [:li date " " pt])]]))))))
 
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
@@ -189,10 +193,14 @@
       (view/sums-page ret user n))))
 
 (defmethod ig/init-key :typing-ex.handler.core/score-post [_ {:keys [db]}]
-  (fn [{{:strs [pt]} :form-params :as req}]
+  (fn [{{:strs [pt acc]} :form-params :as req}]
     (let [login (get-login req)
           rcv {:pt (Integer/parseInt pt) :login login}]
-      (t/info (str "score-post " login " " pt))
+      (t/info (str "score-post: " login " pt " pt " acc " acc))
+      (let [key (str "tp:acc:" login)]
+        (t/info (str "lpush key: " key " value: " acc))
+        (wcar* (car/lpush key acc))
+        (wcar* (car/expire key (* 12 3600))))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
 
@@ -370,3 +378,15 @@
                          jt/to-millis-from-epoch)]
       [::response/ok (str created_at)])))
 
+(defmethod ig/init-key :typing-ex.handler.core/accuracy [_ _]
+  (fn [request]
+    (let [login (get-login request)
+          key (str "tp:acc:" login)]
+      (view/page
+       [:div
+        [:h2 "Typing: Accuracy " login]
+        (view/headline 0)
+        [:br]
+        (into [:ol  {:style "margin-left:1rem;"}]
+              (for [a (reverse (wcar* (car/lrange key 0 -1)))]
+                [:li a]))]))))
