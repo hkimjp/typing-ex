@@ -200,7 +200,7 @@
       (let [key (str "tp:acc:" login)]
         (t/info (str "lpush key: " key " value: " acc))
         (wcar* (car/lpush key acc))
-        (wcar* (car/expire key (* 12 3600))))
+        (wcar* (car/expire key (* 24 60 60))))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
 
@@ -387,6 +387,7 @@
         [:h2 "Typing: Accuracy " login]
         (view/headline 0)
         [:br]
+        [:p "正答率97%以上を目指せ。"]
         (into [:ol  {:style "margin-left:1rem;"}]
               (for [a (reverse (wcar* (car/lrange key 0 -1)))]
                 [:li a]))]))))
