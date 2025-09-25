@@ -15,6 +15,9 @@
     * Safari
     * Brave
 
+## 0.47.1-SNAPSHOT
+
+- fixed: expiration was 12 hours. now 24 hours.
 
 ## 0.47.0 (2025-09-24)
 
