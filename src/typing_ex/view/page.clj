@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "0.47.1")
+(def ^:private version "4.47.2-SNAPSHOT")
 
 ;--------------------------------
 (defn- ss
@@ -65,7 +65,7 @@
   (page
    [:h2 "Typing: Alert"]
    [:form
-    [:post "/alert"]
+    {:methood "post" :action "/alert"}
     (h/raw (anti-forgery-field))
     [:textfield {:placeholder "alert" :size 70} "alert"]
     [:br]
@@ -102,17 +102,14 @@
      ;      :class "btn btn-info btn-sm"}
      ;  "Py99"]
      ; " "
+     [:a {:href "/rc"
+          :class "btn roll-call btn-sm"} "RC"]
+     [:span {:class "m"} ""]
      [:a {:href "https://kp.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "KP"]
      [:span {:class "m"} ""]
-     [:a {:href "/rc"
-          :class "btn roll-call btn-sm"} "RC"]
-     [:span {:class "m"} ""]
-     [:a {:href "https://wil.melt.kyutech.ac.jp/"
-          :class "btn btn-success btn-sm"}
-      "WIL"]
-     [:span {:class "m"} ""]
+
      [:a {:href "https://qa.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "QA"]
@@ -124,6 +121,10 @@
      [:a {:href "https://l22.melt.kyutech.ac.jp/"
           :class "btn btn-success btn-sm"}
       "L22"]
+     [:span {:class "m"} ""]
+     [:a {:href "https://wil.melt.kyutech.ac.jp/"
+          :class "btn btn-success btn-sm"}
+      "WIL"]
      [:span {:class "m"} ""]
      ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
      ;;       :class "btn btn-success btn-sm"}
@@ -141,6 +142,10 @@
           :class "btn btn-primary btn-sm"}
       "last 7 days"]
      [:span {:class "m"} ""]
+     [:a {:href "/accuracy"
+          :class "btn btn-primary btn-sm"}
+      "accuracy"]
+     [:span {:class "m"} ""]
      ; [:a {:href "/days/7"
      ;      :class "btn btn-primary btn-sm"}
      ;  "training days"]
@@ -151,11 +156,7 @@
      [:span {:class "m"} ""]
      [:a {:href "/max/7"
           :class "btn btn-primary btn-sm"}
-      "max"]
-     [:span {:class "m"} ""]
-     [:a {:href "/accuracy"
-          :class "btn btn-primary btn-sm"}
-      "accuracy"]]]])
+      "max"]]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -176,14 +177,6 @@
               [:a {:href (str "/record/" login)
                    :class (if (= login user) "yes" "other")}
                login]])])]))
-
-; (defn- count-ex-days
-;   [days login]
-;   ;; 引数 days の中身は、[{:login ... :date ...} ...]
-;   ;; (println "days:" (str days))
-;   (->> days
-;        (filter #(= (:login %) login))
-;        count))
 
 (defn ex-days-page
   "self はログインアカウント、
@@ -339,12 +332,11 @@
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
-  [stat]
-  ;; (println "stat " stat)
+  [_request]
   (page
    [:h2 "Typing: Stat (Redis)"]
    [:form
-    [:post "/stat"]
+    {:method "post" :action "/stat"}
     (h/raw (anti-forgery-field))
     (for [val ["normal" "roll-call" "exam"]]
       [:div
@@ -353,17 +345,16 @@
           {:type "radio" :name "stat" :value val :checked "checked"}
           {:type "radio" :name "stat" :value val})
         val]])
-    [:input {:name "minutes" :value "15"}]
+    "ただいまから"
+    [:input {:name "minutes" :value "15" :size 3}] "分間"
     [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]))
 
 ;; roll-call
 ;; FIXME: 表示で工夫するよりも、データベースに入れる時に加工するか？
 (defn rc-page [ret login]
   (page
-   [:h2 "Typing: 出席データ(" login ")"]
+   [:h2 (format "Typing: 出席データ(%s)" login)]
    [:p "タイピングの背景が黄色い間にタイプ練習終了した時刻を記録している。"
-    "タイピングのバージョンが 1.16.7 より低い時は"
-    "「閲覧履歴の消去」でバージョンアップしよう。"
     [:a {:href "/stat-page"} "[admin only]"]]
    [:ul {:class "roll-call"}
     (for [r ret]

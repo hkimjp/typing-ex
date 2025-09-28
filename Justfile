@@ -55,3 +55,7 @@ down:
 
 clean:
     rm -rf target
+
+kill:
+    pkill node
+    pkill java
