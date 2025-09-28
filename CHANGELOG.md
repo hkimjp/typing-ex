@@ -15,11 +15,14 @@
     * Safari
     * Brave
 
-## 0.47.1 (2025-09-25)
+## 4.47.2-SNAPSHOT
+
+
+## 4.47.1 (2025-09-25)
 
 - fixed: expiration was 12 hours. now 24 hours.
 
-## 0.47.0 (2025-09-24)
+## 4.47.0 (2025-09-24)
 
 - added menu `accuracy`
 - renamed Justfile entry `repl` to `dev`
@@ -35,7 +38,7 @@
 
 * add accuracy button
 
-## 0.46.0 (2025-09-01)
+## 4.46.0 (2025-09-01)
 
 - deleted results table. restart from today.
 
