@@ -173,9 +173,10 @@
       (try
         (let [addr (str (remote-ip req))]
           (when-not (or
-                     (str/starts-with? addr "0:0") ; local ipv4
+                     (str/starts-with? addr "0:0") ; local ipv4? need check
                      (str/starts-with? addr "[0:0:0:0") ; local ipv6
-                     (str/starts-with? addr "150.69"))
+                     (str/starts-with? addr "124.159")  ; for debug.
+                     (str/starts-with? addr "150.69.90.34"))  ; for debug. 214
             (throw (Exception. (str "you're " addr))))
           (when (str/starts-with? addr "150.69.77")
             (throw (Exception. (str "from: " addr))))
@@ -183,7 +184,7 @@
         (catch Exception e
           [::response/ok
            (str (.getMessage e)
-                "背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。")]))
+                "\n背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。")]))
       (typing-ex req))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
