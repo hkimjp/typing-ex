@@ -173,15 +173,17 @@
       (try
         (let [addr (str (remote-ip req))]
           (when-not (or
-                     (str/starts-with? addr "0:0") ; debug
+                     (str/starts-with? addr "0:0") ; local ipv4
+                     (str/starts-with? addr "[0:0:0:0") ; local ipv6
                      (str/starts-with? addr "150.69"))
-            (throw (Exception. (str "when-not:" addr))))
+            (throw (Exception. (str "you're " addr))))
           (when (str/starts-with? addr "150.69.77")
-            (throw (Exception. (str "when;" addr))))
+            (throw (Exception. (str "from: " addr))))
           (typing-ex req))
-        (catch Exception _
+        (catch Exception e
           [::response/ok
-           "背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。"]))
+           (str (.getMessage e)
+                "背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。")]))
       (typing-ex req))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
@@ -339,10 +341,9 @@
 ;    instant))
 
 (defmethod ig/init-key :typing-ex.handler.core/rc [_ {:keys [db]}]
-  (def rc (roll-calls/rc db "hkimura"))
   (fn [req]
     (let [login (get-login req)
-          ret (->> rc
+          ret (->> (roll-calls/rc db login)
                    (map :created_at)
                    ;(map time-str)
                    dedupe)]

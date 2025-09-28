@@ -5,17 +5,22 @@
 * セッション終わりに間違った単語を一覧表示。
 * 日本語例文。
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
-* n 回で強制的にやめさす。
+* force stop after n times trials.
 * 最後の 1 文字の正誤の表示が遅れる。
-* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* enter over runs
+* enter over runs,
     * Firefox
     * Vivaldi
 * enter do not over runs
     * Safari
     * Brave
+* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+
 
 ## 4.47.2-SNAPSHOT (2025-09-28)
+
+- FIXME: roll-call mode does not work.
+- fixed `hander/core.clj` - did not consider ipv6
+- fixed `view/page.clj` - changed hiccup1 forms to hiccup2 forms
 
 
 ## 4.47.1 (2025-09-25)

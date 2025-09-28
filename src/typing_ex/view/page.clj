@@ -333,21 +333,22 @@
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
   [_request]
-  (page
-   [:h2 "Typing: Stat (Redis)"]
-   [:form
-    {:method "post" :action "/stat"}
-    (h/raw (anti-forgery-field))
-    (for [val ["normal" "roll-call" "exam"]]
-      [:div
-       [:input
-        (if (= stat val)
-          {:type "radio" :name "stat" :value val :checked "checked"}
-          {:type "radio" :name "stat" :value val})
-        val]])
-    "ただいまから"
-    [:input {:name "minutes" :value "15" :size 3}] "分間"
-    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]))
+  (let [stat ()]
+    (page
+     [:h2 "Typing: Stat (Redis)"]
+     [:form
+      {:method "post" :action "/stat"}
+      (h/raw (anti-forgery-field))
+      (for [val ["normal" "roll-call" "exam"]]
+        [:div
+         [:input
+          (if (= stat val)
+            {:type "radio" :name "stat" :value val :checked "checked"}
+            {:type "radio" :name "stat" :value val})
+          val]])
+      "ただいまから"
+      [:input {:name "minutes" :value "15" :size 3}] "分間"
+      [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]])))
 
 ;; roll-call
 ;; FIXME: 表示で工夫するよりも、データベースに入れる時に加工するか？

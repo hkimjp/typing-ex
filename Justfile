@@ -13,7 +13,7 @@ nrepl:
     lein repl
 
 dev:
-    just watch &
+    just watch >/dev/null 2>&1 &
     just nrepl
 
 uberjar:
