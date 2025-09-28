@@ -16,7 +16,7 @@
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 
 
-## 4.47.2-SNAPSHOT (2025-09-28)
+## 4.47.2 (2025-09-28)
 
 - FIXME: roll-call mode does not work.
 - fixed `hander/core.clj` - did not consider ipv6
