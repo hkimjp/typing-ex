@@ -10,10 +10,11 @@
 * enter over runs,
     * Firefox
     * Vivaldi
-* enter do not over runs
+* enter do not over run
     * Safari
     * Brave
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* last 7 days, accuracy をまとめる。
 
 
 ## 4.47.2 (2025-09-28)
