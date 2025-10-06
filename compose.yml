@@ -1,38 +1,27 @@
 services:
-  typing-ex:
-    image: clojure:latest
-    # user: vscode
-    environment:
-      TP_DEV: true
+  jre:
+    image: eclipse-temurin:25_36-jre-jammy
+    env_file: ".env"
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
-      - m2:/root/.m2
-      - gitlibs:/root/.gitlibs
-    entrypoint:
-      - sleep
-      - infinity
     ports:
-      - 8530:3000
-      - 6666:6666
+      - "3040:3000"
+    entrypoint: >
+      sh -c "java -jar --enable-native-access=ALL-UNNAMED tp.jar"
 
   db:
     image: postgres:17
     restart: unless-stopped
-    # env_file: .env
-    environment:
-      POSTGRES_DB: typing_ex
-      POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_INITDB_ARGS: --encoding=UTF-8 --locale=C
-      TZ: Asia/Toky
+    env_file: .env
     ports:
-      - 5433:5432
+      - 127.0.0.1:15432:5432
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d
-      - ./data:/var/lib/postgresql/data
+      - data:/var/lib/postgresql/data
 
   redis:
-    image: redis:7.2
+    image: redis:7
     restart: unless-stopped
     volumes:
       - ./db-dumps/redis:/data
@@ -40,8 +29,8 @@ services:
     #   - 6380:6379
 
 volumes:
-  # data:
-  #   driver: local
+  data:
+    driver: local
   gitlibs:
     external: true
   m2:
