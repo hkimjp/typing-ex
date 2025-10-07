@@ -36,30 +36,10 @@ deploy: compile uberjar
     ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
     ssh ${SERV} systemctl status typing-ex
 
-# docker, need improvements
-
-docker-repl:
-    docker compose up -d
-    docker exec -it typing-ex-typing-ex-1 sh start-repl.sh
-
-docker-bash:
-    docker compose up -d
-    docker exec -it typing-ex-typing-ex-1 bash
-
-docker-uberjar:
-    docker compose up -d
-    docker exec -it typing-ex-typing-ex-1 lein uberjar
-    need improve
-
-docker-run:
-    docker compose up -d
-    docker exec -it typing-ex-typing-ex-1 sh run.sh
-
-down:
-    # must stop shadow-cljs
-    docker compose down
-
-clean:
-    rm -rf target
+eq: compile uberjar
+    scp target/typing-ex-*-standalone.jar eq.local:typing-ex/tp.jar
+    ssh eq.local sudo systemctl restart typing-ex
+    ssh eq.local sudo systemctl restart typing-ex_roll-call.timer
+    ssh eq.local systemctl status typing-ex
 
 
