@@ -17,6 +17,15 @@
 * last 7 days, accuracy をまとめる。
 
 
+## 4.48.0
+
+- added private functions
+
+    - (local? addr)
+    - (vpn? addr)
+    - (tobata? addr)
+
+(defn- tobata? [addr]
 ## 4.47.2 (2025-09-28)
 
 - FIXME: roll-call mode does not work.
