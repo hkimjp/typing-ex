@@ -15,7 +15,6 @@
    [typing-ex.boundary.restarts :as restarts]
    [typing-ex.boundary.results :as results]
    [typing-ex.view.page :as view]
-   ;;
    [taoensso.carmine :as car]
    [taoensso.timbre :as t]
    [clojure.edn :as edn]))
@@ -74,7 +73,7 @@
       (wcar* (car/set key pt))
       [::response/ok "exam!"])))
 
-(defmethod ig/init-key :typing-ex.handler.core/exam [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/exam [_ _]
   (fn [{[_ login ct] :ataraxy/result}]
     (let [key (str login ":" ct)
           ret (wcar* (car/get key))]
@@ -167,23 +166,34 @@
 </body>
 </html>")])
 
+(defn- local? [addr]
+  (str/starts-with? addr "[0:0:0"))
+
+(defn- vpn? [addr]
+  (t/info (str "vpn? " addr))
+  (str/starts-with? addr "150.69.77"))
+
+(defn- tobata? [addr]
+  (t/info (str "tobata? " addr))
+  (str/starts-with? addr "150.69"))
+
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
-    (t/info (str "/typing " (get-login req)))
-    (if (roll-call-time?)
-      (try
-        (let [addr (str (remote-ip req))]
-          (when-not (or
-                     (str/starts-with? addr "0:0") ; debug
-                     (str/starts-with? addr "150.69"))
-            (throw (Exception. (str "when-not:" addr))))
-          (when (str/starts-with? addr "150.69.77")
-            (throw (Exception. (str "when;" addr))))
-          (typing-ex req))
-        (catch Exception _
-          [::response/ok
-           "背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。"]))
-      (typing-ex req))))
+    (let [user (get-login req)
+          addr (str (remote-ip req))]
+      (t/info (str "/typing " user " from " addr))
+      (if (roll-call-time?)
+        (cond (local? addr)
+              (typing-ex req)
+              (vpn? addr)
+              [::response/ok
+               "背景が黄色のとき、ログインできるのは教室内の Wifi です。VPN 不可。"]
+              (not (tobata? addr))
+              [::response/ok
+               "背景が黄色のとき、学外からはダメです。"]
+              :else
+              (typing-ex req))
+        (typing-ex req)))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result :as req}]
@@ -232,7 +242,6 @@
 (defn- training-days
   "redis キャッシュを有効にする。"
   [n req db]
-  (tap> "training-days")
   (if-let [training-days (wcar* (car/get "training-days"))]
     (do
       (tap> "hit")
@@ -288,7 +297,6 @@
                           (= (get-login req) login)
                           (= (get-login req) "hkimura"))))
 
-;; req から login をとるのはどうかな。
 (defmethod ig/init-key :typing-ex.handler.core/todays [_ {:keys [db]}]
   (fn [{[_ login] :ataraxy/result}]
     (let [results (results/todays-score db login)]
@@ -327,24 +335,26 @@
 
 (defmethod ig/init-key :typing-ex.handler.core/stat! [_ {:keys [db]}]
   (fn [{{:keys [stat minutes]} :params}]
+    (println "stat! stat: " stat " minutes " minutes)
     (wcar* (car/setex "stat"
-                      (* 60 (Long/parseLong minutes))
+                      (* 60 (parse-long minutes))
                       stat))
     (redirect "/")))
 
-(defn- time-str
-  "Returns a string representation of a datetime in the local time zone."
-  [instant]
-  (jt/format
-   (jt/with-zone (jt/formatter "yyyy-MM-dd hh:mm a") (jt/zone-id))
-   instant))
+; (defn- time-str
+;   "Returns a string representation of a datetime in the local time zone."
+;   [instant]
+;   (println "*** time-str instant:" (str instant))
+;   (jt/format
+;    (jt/with-zone (jt/formatter "yyyy-MM-dd hh:mm a") (jt/zone-id))
+;    instant))
 
 (defmethod ig/init-key :typing-ex.handler.core/rc [_ {:keys [db]}]
   (fn [req]
     (let [login (get-login req)
           ret (->> (roll-calls/rc db login)
                    (map :created_at)
-                   (map time-str)
+                   ;(map time-str)
                    dedupe)]
       (view/rc-page ret login))))
 
@@ -384,10 +394,9 @@
           key (str "tp:acc:" login)]
       (view/page
        [:div
-        [:h2 "Typing: Accuracy " login]
+        [:h2 (format "Typing: Accuracy (%s)" login)]
         (view/headline 0)
-        [:br]
-        [:p "正答率97%以上を目指せ。"]
+        [:div {:style "margin-left:1rem;"} "正答率 97% 以上を目指せ。"]
         (into [:ol  {:style "margin-left:1rem;"}]
               (for [a (reverse (wcar* (car/lrange key 0 -1)))]
                 [:li a]))]))))

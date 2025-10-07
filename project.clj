@@ -1,4 +1,4 @@
-(defproject typing-ex "0.47.1"
+(defproject typing-ex "4.48.0"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -17,7 +17,7 @@
                  [com.taoensso/carmine "3.4.1"]
                  ;; [com.taoensso/encore "3.152.0"]
                  ;; [com.taoensso/telemere "1.0.1"]
-                 [org.clojure/clojure "1.12.2"]
+                 [org.clojure/clojure "1.12.3"]
                  [org.postgresql/postgresql "42.7.8"]
                  [org.clojure/tools.logging "1.3.0"]]
 

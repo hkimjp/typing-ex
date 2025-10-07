@@ -13,8 +13,12 @@ nrepl:
     lein repl
 
 dev:
-    just watch &
+    just watch >/dev/null 2>&1 &
     just nrepl
+
+kill:
+    pkill node
+    pkill java
 
 uberjar:
     lein uberjar
@@ -31,6 +35,8 @@ deploy: compile uberjar
     ssh ${SERV} sudo systemctl restart typing-ex
     ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
     ssh ${SERV} systemctl status typing-ex
+
+# docker, need improvements
 
 docker-repl:
     docker compose up -d
@@ -55,3 +61,5 @@ down:
 
 clean:
     rm -rf target
+
+

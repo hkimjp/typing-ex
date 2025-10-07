@@ -5,21 +5,39 @@
 * セッション終わりに間違った単語を一覧表示。
 * 日本語例文。
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
-* n 回で強制的にやめさす。
+* force stop after n times trials.
 * 最後の 1 文字の正誤の表示が遅れる。
-* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* enter over runs
+* enter over runs,
     * Firefox
     * Vivaldi
-* enter do not over runs
+* enter do not over run
     * Safari
     * Brave
+* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* last 7 days, accuracy をまとめる。
 
-## 0.47.1 (2025-09-25)
+
+## 4.48.0
+
+- added private functions
+
+    - (local? addr)
+    - (vpn? addr)
+    - (tobata? addr)
+
+(defn- tobata? [addr]
+## 4.47.2 (2025-09-28)
+
+- FIXME: roll-call mode does not work.
+- fixed `hander/core.clj` - did not consider ipv6
+- fixed `view/page.clj` - changed hiccup1 forms to hiccup2 forms
+
+
+## 4.47.1 (2025-09-25)
 
 - fixed: expiration was 12 hours. now 24 hours.
 
-## 0.47.0 (2025-09-24)
+## 4.47.0 (2025-09-24)
 
 - added menu `accuracy`
 - renamed Justfile entry `repl` to `dev`
@@ -35,7 +53,7 @@
 
 * add accuracy button
 
-## 0.46.0 (2025-09-01)
+## 4.46.0 (2025-09-01)
 
 - deleted results table. restart from today.
 
