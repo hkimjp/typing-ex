@@ -14,7 +14,15 @@
     * Safari
     * Brave
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* last 7 days, accuracy をまとめる。
+* display accuracies one by one.
+
+## 4.49.0
+
+- changed anotation in `page.clj`
+
+    [:p "タイピングは情報応用の平常点にはならない。"]
+
+- {:style "font-family: monospace"}, todays, total, max page.
 
 
 ## 4.48.0
