@@ -13,6 +13,7 @@ nrepl:
     lein repl
 
 dev:
+    @echo 'duct app. start by (dev) (go)'
     just watch >/dev/null 2>&1 &
     just nrepl
 

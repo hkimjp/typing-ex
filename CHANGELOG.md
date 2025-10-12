@@ -10,12 +10,30 @@
 * enter over runs,
     * Firefox
     * Vivaldi
-* enter do not over runs
+* enter do not over run
     * Safari
     * Brave
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
+* display accuracies one by one.
+
+## 4.49.0
+
+- changed anotation in `page.clj`
+
+    [:p "タイピングは情報応用の平常点にはならない。"]
+
+- {:style "font-family: monospace"}, todays, total, max page.
 
 
+## 4.48.0
+
+- added private functions
+
+    - (local? addr)
+    - (vpn? addr)
+    - (tobata? addr)
+
+(defn- tobata? [addr]
 ## 4.47.2 (2025-09-28)
 
 - FIXME: roll-call mode does not work.

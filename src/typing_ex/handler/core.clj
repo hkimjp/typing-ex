@@ -166,26 +166,34 @@
 </body>
 </html>")])
 
+(defn- local? [addr]
+  (str/starts-with? addr "[0:0:0"))
+
+(defn- vpn? [addr]
+  (t/info (str "vpn? " addr))
+  (str/starts-with? addr "150.69.77"))
+
+(defn- tobata? [addr]
+  (t/info (str "tobata? " addr))
+  (str/starts-with? addr "150.69"))
+
 (defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
   (fn [req]
-    (t/info (str "/typing " (get-login req)))
-    (if (roll-call-time?)
-      (try
-        (let [addr (str (remote-ip req))]
-          (when-not (or
-                     (str/starts-with? addr "0:0") ; local ipv4? need check
-                     (str/starts-with? addr "[0:0:0:0") ; local ipv6
-                     (str/starts-with? addr "124.159")  ; for debug.
-                     (str/starts-with? addr "150.69.90.34"))  ; for debug. 214
-            (throw (Exception. (str "you're " addr))))
-          (when (str/starts-with? addr "150.69.77")
-            (throw (Exception. (str "from: " addr))))
-          (typing-ex req))
-        (catch Exception e
-          [::response/ok
-           (str (.getMessage e)
-                "\n背景が黄色の時、ログインできるのは教室内の WiFi です。VPN 不可。")]))
-      (typing-ex req))))
+    (let [user (get-login req)
+          addr (str (remote-ip req))]
+      (t/info (str "/typing " user " from " addr))
+      (if (roll-call-time?)
+        (cond (local? addr)
+              (typing-ex req)
+              (vpn? addr)
+              [::response/ok
+               "背景が黄色のとき、ログインできるのは教室内の Wifi です。VPN 不可。"]
+              (not (tobata? addr))
+              [::response/ok
+               "背景が黄色のとき、学外からはダメです。"]
+              :else
+              (typing-ex req))
+        (typing-ex req)))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result :as req}]
