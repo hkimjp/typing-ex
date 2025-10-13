@@ -7,14 +7,15 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * force stop after n times trials.
 * 最後の 1 文字の正誤の表示が遅れる。
-* enter over runs,
+* enters over run,
     * Firefox
     * Vivaldi
-* enter do not over run
+* enters do not over run,
     * Safari
     * Brave
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 * display accuracies one by one.
+
 
 ## 4.49.0
 
