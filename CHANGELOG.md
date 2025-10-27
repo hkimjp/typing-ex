@@ -16,10 +16,11 @@
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 * display accuracies one by one.
 
-## 4.50.0
 
+## 4.50.0-SNAPSHOT
+
+- paint blue cirle when the accuracy is below 80%
 - added recipe `run`
-
 - update npm
 
 ```sh
