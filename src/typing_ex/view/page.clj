@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "4.48.0")
+(def ^:private version "4.50.0")
 
 ;--------------------------------
 (defn- ss
@@ -171,7 +171,7 @@
     [:p "[正確さ] + [残し秒数] + [ボーナス] でプログラム上の最高点は 169。"]
     (into [:ol
            (for [{:keys [max login]} max-pt]
-             [:li
+             [:li {:style "font-family: monospace"}
               max
               " "
               [:a {:href (str "/record/" login)
@@ -283,8 +283,7 @@
 
 (defn- todays-msg
   []
-  (let [msg ["好き嫌い言わずになんでも食べるのが健康の元。"
-             "タイピングは基本的スキルのひとつ。練習すれば誰でもできるようになる。"
+  (let [msg ["タイピングは基本的スキル。練習すれば誰でもできるようになる。"
              "出席取りだけの人、WIL や KONPY も出すだけになってないか？"]]
     (get msg (rand-int (count msg)))))
 
@@ -298,7 +297,8 @@
     [:p (todays-msg)]
     (into [:ol]
           (for [r ret]
-            [:li (ss (jt/local-date-time (:timestamp r)))
+            [:li {:style "font-family: monospace;"}
+             (ss (jt/local-date-time (:timestamp r)))
              [:span {:class "m"} " "]
              [:a {:href (str "/record/" (:login r))
                   :class (if (= login (:login r)) "yes" "other")}
@@ -314,13 +314,14 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "まとめてやっても平常点にはならない。平常点は平常につく。"]
+    [:p "タイピングは情報応用の平常点にはならない。練習は必要。"]
     (into [:ol]
           (for [r ret]
             (let [login (:login r)
                   sum (:sum r)]
               (when (< -1 sum)
-                [:li sum
+                [:li {:style "font-family: monospace"}
+                 sum
                  " "
                  [:a {:href (str "/record/" login)
                       :class (if (= user login) "yes" "other")}

@@ -7,14 +7,44 @@
 * 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
 * force stop after n times trials.
 * 最後の 1 文字の正誤の表示が遅れる。
-* enter over runs,
+* enters over run,
     * Firefox
     * Vivaldi
-* enter do not over run
+* enters do not over run,
     * Safari
     * Brave
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* last 7 days, accuracy をまとめる。
+* display accuracies one by one.
+
+
+## 4.50.0 (2025-10-27)
+
+- paint blue cirle when the accuracy is below 80%
+- added recipe `run`
+- update npm
+
+```sh
+npm notice
+npm notice New patch version of npm available! 11.6.0 -> 11.6.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.2
+npm notice To update run: npm install -g npm@11.6.2
+npm notice
+
+❯ npm install -g npm@11.6.2
+
+removed 23 packages, and changed 76 packages in 2s
+
+28 packages are looking for funding
+  run `npm fund` for details
+```
+
+## 4.49.0
+
+- changed anotation in `page.clj`
+
+    [:p "タイピングは情報応用の平常点にはならない。"]
+
+- {:style "font-family: monospace"}, todays, total, max page.
 
 
 ## 4.48.0
