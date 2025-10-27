@@ -16,6 +16,26 @@
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 * display accuracies one by one.
 
+## 4.50.0
+
+- added recipe `run`
+
+- update npm
+
+```sh
+npm notice
+npm notice New patch version of npm available! 11.6.0 -> 11.6.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.2
+npm notice To update run: npm install -g npm@11.6.2
+npm notice
+
+❯ npm install -g npm@11.6.2
+
+removed 23 packages, and changed 76 packages in 2s
+
+28 packages are looking for funding
+  run `npm fund` for details
+```
 
 ## 4.49.0
 

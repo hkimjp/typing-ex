@@ -17,6 +17,9 @@ dev:
     just watch >/dev/null 2>&1 &
     just nrepl
 
+run: compile
+    lein run
+
 kill:
     pkill node
     pkill java

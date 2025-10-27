@@ -61,8 +61,15 @@
                    :stroke "blue"
                    :fill   "none"}]]
       (for [[x y] points]
-        [:circle
-         {:cx x :cy y :r 4 :fill (if (<= y 43) "orange" "red")}])))))
+        (do
+          ; (println "y: " y)
+          [:circle
+           {:cx x :cy y :r 4 :fill
+            #_(if (<= y 43) "orange" "red")
+            (cond
+              (<= y 43) "orange" ; 97%
+              (<= y 53) "red"    ; 80%
+              :else "blue")}]))))))
 
 (defn scatter
   "w: width
