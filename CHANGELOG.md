@@ -17,7 +17,7 @@
 * display accuracies one by one.
 
 
-## 4.50.0-SNAPSHOT
+## 4.50.0 (2025-10-27)
 
 - paint blue cirle when the accuracy is below 80%
 - added recipe `run`
