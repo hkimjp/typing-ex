@@ -2,11 +2,11 @@
 
 ## Unreleased
 
-* セッション終わりに間違った単語を一覧表示。
-* 日本語例文。
-* 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
+* display wrongly typed words after each session
+* Japanese
+* server push comments
 * force stop after n times trials.
-* 最後の 1 文字の正誤の表示が遅れる。
+* delay judging last word
 * enters over run,
     * Firefox
     * Vivaldi
