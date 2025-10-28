@@ -13,8 +13,6 @@
 * enters do not over run,
     * Safari
     * Brave
-* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* display accuracies one by one.
 
 
 ## 4.50.0 (2025-10-27)
