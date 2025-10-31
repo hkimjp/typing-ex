@@ -62,7 +62,7 @@
                    :fill   "none"}]]
       (for [[x y] points]
         (do
-          ; (println "y: " y)
+          (println "accuracy y: " y)
           [:circle
            {:cx x :cy y :r 4 :fill
             #_(if (<= y 43) "orange" "red")

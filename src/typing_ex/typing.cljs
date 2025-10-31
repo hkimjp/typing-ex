@@ -9,7 +9,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "4.50.0")
+(def ^:private version "4.50.1")
 
 (def ^:private todays-limit 10)
 
@@ -283,11 +283,9 @@ of yonder warehouses will not suffice."])
     " 残り時間"]
    [:p
     "todays:"  [:br]
-    ;; (bar-chart 300 150 (map :pt (:todays @app-state)))
-    ;; (.log js/console (str "todays% " (:todays% @app-state)))
+    ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
     (bar-line-chart 300 150
-                    (map :pt (:todays @app-state))
-                    (:todays% @app-state))]
+                    (map :pt (:todays @app-state) (:todays% @app-state)))]
    [:p
     [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
     " "

@@ -6,8 +6,8 @@ prep:
 watch:
   npx shadow-cljs watch app
 
-compile:
-  npx shadow-cljs compile app
+release:
+  npx shadow-cljs release app
 
 nrepl:
     lein repl
@@ -17,7 +17,7 @@ dev:
     just watch >/dev/null 2>&1 &
     just nrepl
 
-run: compile
+run: release
     lein run
 
 kill:
@@ -34,13 +34,13 @@ systemd:
     ssh ${SERV} sudo systemctl daemon-reload
     ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
 
-deploy: compile uberjar
+deploy: release uberjar
     scp target/typing-ex-*-standalone.jar ${SERV}:typing-ex/tp.jar
     ssh ${SERV} sudo systemctl restart typing-ex
     ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
     ssh ${SERV} systemctl status typing-ex
 
-eq: compile uberjar
+eq: release uberjar
     scp target/typing-ex-*-standalone.jar eq.local:typing-ex/tp.jar
     ssh eq.local sudo systemctl restart typing-ex
     ssh eq.local sudo systemctl restart typing-ex_roll-call.timer

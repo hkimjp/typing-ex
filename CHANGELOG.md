@@ -16,6 +16,10 @@
 * exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
 * display accuracies one by one.
 
+## 4.50.1-SNAPSHOT
+
+- fixed Justfile - not compile. `release` is right.
+- chart is updated in every second. this is wrong.
 
 ## 4.50.0 (2025-10-27)
 
