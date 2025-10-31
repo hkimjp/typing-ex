@@ -40,11 +40,13 @@
        [:rect
         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
          :fill "green"}]))))
-
+; FIXME
+; redraw every seconds. better way?
 (defn bar-line-chart
   "w: width
    h: height
-   data: [1 2 3...]"
+   data: [1 2 3...]
+   data2: "
   [w h data data2]
   (let [n  (count data)
         dx (* 1.0 (/ w (count data)))
