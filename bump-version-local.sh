@@ -1,12 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env bash
 if [ -z "$1" ]; then
     echo "usage: $0 <version>"
     exit
 fi
 
 SED="/bin/sed"
-if [ -x "${HOMEBREW_PREFIX}/bin/gsed" ]; then
-    SED=${HOMEBREW_PREFIX}/bin/gsed
+if [ -x "${/run/current-system/sw/bin/sed}" ]; then
+    SED=${/run/current-system/sw/bin/sed}
 fi
 
 # package.json

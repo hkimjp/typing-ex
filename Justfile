@@ -27,23 +27,21 @@ kill:
 uberjar:
     lein uberjar
 
-systemd:
-    scp systemd/typing-ex.service ${SERV}:typing-ex/
-    scp systemd/typing-ex_roll-call.* ${SERV}:typing-ex/
-    ssh ${SERV} sudo cp ${SERV}:typing-ex/typing-ex* /lib/systemd/system
-    ssh ${SERV} sudo systemctl daemon-reload
-    ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
+systemd serv:
+    scp systemd/typing-ex.service {{serv}}:typing-ex/
+    scp systemd/typing-ex_roll-call.* {{serv}}:typing-ex/
+    ssh {{serv}} sudo cp {{serv}}:typing-ex/typing-ex* /lib/systemd/system
+    ssh {{serv}} sudo systemctl daemon-reload
+    ssh {{serv}} sudo systemctl restart typing-ex_roll-call.timer
 
-deploy: release uberjar
-    scp target/typing-ex-*-standalone.jar ${SERV}:typing-ex/tp.jar
-    ssh ${SERV} sudo systemctl restart typing-ex
-    ssh ${SERV} sudo systemctl restart typing-ex_roll-call.timer
-    ssh ${SERV} systemctl status typing-ex
+deploy serv: release uberjar
+    scp target/typing-ex-*-standalone.jar {{serv}}:typing-ex/tp.jar
+    ssh {{serv}} sudo systemctl restart typing-ex
+    ssh {{serv}} sudo systemctl restart typing-ex_roll-call.timer
+    ssh {{serv}} systemctl status typing-ex
 
-eq: release uberjar
-    scp target/typing-ex-*-standalone.jar eq.local:typing-ex/tp.jar
-    ssh eq.local sudo systemctl restart typing-ex
-    ssh eq.local sudo systemctl restart typing-ex_roll-call.timer
-    ssh eq.local systemctl status typing-ex
+stage:
+    just deploy ${STAGE}
 
-
+prod:
+    just deploy ${PROD}

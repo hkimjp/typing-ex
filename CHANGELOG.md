@@ -16,6 +16,21 @@
 
 ## 4.50.1-SNAPSHOT
 
+- updated libaries
+
+| :file           | :name                             | :current | :latest  |
+|-----------------|-----------------------------------|----------|----------|
+| project.clj     | com.github.seancorfield/next.jdbc | 1.3.1070 | 1.3.1093 |
+|                 | com.taoensso/carmine              | 3.4.1    | 3.5.0    |
+|                 | org.clojure/clojure               | 1.12.3   | 1.12.4   |
+|                 | org.clojure/tools.logging         | 1.3.0    | 1.3.1    |
+|                 | org.postgresql/postgresql         | 42.7.8   | 42.7.10  |
+
+- not update shadow-cljs.edn
+
+| :file           | :name                             | :current | :latest  |
+| shadow-cljs.edn | reagent                           | 1.3.0    | 2.0.1    |
+
 - fixed Justfile - not compile. `release` is right.
 - chart is updated in every second. this is wrong.
 
