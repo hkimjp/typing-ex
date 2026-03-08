@@ -14,7 +14,9 @@
     * Safari
     * Brave
 
-## 4.50.1-SNAPSHOT
+
+
+## 4.50.1 (2026-03-08)
 
 - updated libaries
 
