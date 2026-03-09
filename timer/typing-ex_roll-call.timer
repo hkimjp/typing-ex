@@ -1,12 +1,9 @@
 [Unit]
-Description=typing_ex stat=roll-call on Calendar time
+Description=typing-ex_roll-call timer
 
 [Timer]
 OnCalendar=Tue 10:20:00
 # OnCalendar=*:*:30
-# OnCalendar=Tue 8:45:00
-# OnCalendar=Thu 8:45:00
-# OnCalendar=Thu 10:25:00
 # 2025, first semester.
 # OnCalendar=Wed 8:45:00
 # 2025, second semester.

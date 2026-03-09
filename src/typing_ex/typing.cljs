@@ -9,7 +9,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "4.50.0")
+(def ^:private version "5.1.0")
 
 (def ^:private todays-limit 10)
 
@@ -158,11 +158,11 @@ of yonder warehouses will not suffice."])
       (swap! app-state update :todays-trials inc))))
 
 (defn- send-point-aux [url pt acc]
-  (go (let [ret (<! (http/post
-                     url
-                     {:form-params
-                      {:__anti-forgery-token (csrf-token), :pt pt, :acc acc}}))]
-        (js/console.log "send-point-aux: " url pt acc))))
+  (go (<! (http/post
+           url
+           {:form-params
+            {:__anti-forgery-token (csrf-token), :pt pt, :acc acc}}))
+      (js/console.log "send-point-aux: " url pt acc)))
 
 (defn send-point
   "(:todays @app-state) を更新する。
@@ -283,11 +283,9 @@ of yonder warehouses will not suffice."])
     " 残り時間"]
    [:p
     "todays:"  [:br]
-    ;; (bar-chart 300 150 (map :pt (:todays @app-state)))
-    ;; (.log js/console (str "todays% " (:todays% @app-state)))
+    ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
     (bar-line-chart 300 150
-                    (map :pt (:todays @app-state))
-                    (:todays% @app-state))]
+                    (map :pt (:todays @app-state)) (:todays% @app-state))]
    [:p
     [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
     " "

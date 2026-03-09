@@ -2,20 +2,57 @@
 
 ## Unreleased
 
-* セッション終わりに間違った単語を一覧表示。
-* 日本語例文。
-* 頑張ってる人、頑張ってない人にコメントを出せる。redis? pub/sub?
+* display wrongly typed words after each session
+* Japanese
+* server push comments
 * force stop after n times trials.
-* 最後の 1 文字の正誤の表示が遅れる。
+* delay judging last word
 * enters over run,
     * Firefox
     * Vivaldi
 * enters do not over run,
     * Safari
     * Brave
-* exam-mode, rollcall-mode を別ファイルで。リファクタ。オーバーホール。
-* display accuracies one by one.
+* not refresh graph while typing
+* add text mechanism (submit/accept)
 
+## 5.1.0 (2026-03-09)
+
+## 5.0.1 (2026-03-09)
+
+- updated warning message. "出席（前半）のタイプは学外からはできない。" etc.
+- docker or standalone-jar + systemd?
+  no problem including `redis` in container and making timer-script by hand,
+- added timer/
+- timer entry in Justfile
+- fix Justfile
+- redirect log
+- `just stage` go to background
+
+## 5.0.0 (2026-03-08)
+
+- port 8540
+- replaced hato with http-kit. auth mechanism
+
+## 4.50.2 (2026-03-08)
+
+- updated libaries
+
+| :file           | :name                             | :current | :latest  |
+|-----------------|-----------------------------------|----------|----------|
+| project.clj     | com.github.seancorfield/next.jdbc | 1.3.1070 | 1.3.1093 |
+|                 | com.taoensso/carmine              | 3.4.1    | 3.5.0    |
+|                 | org.clojure/clojure               | 1.12.3   | 1.12.4   |
+|                 | org.clojure/tools.logging         | 1.3.0    | 1.3.1    |
+|                 | org.postgresql/postgresql         | 42.7.8   | 42.7.10  |
+
+- not update shadow-cljs.edn
+
+| :file           | :name                             | :current | :latest  |
+| shadow-cljs.edn | reagent                           | 1.3.0    | 2.0.1    |
+
+- fixed Justfile - not compile. `release` is right.
+- chart is updated in every second. this is wrong.
 
 ## 4.50.0 (2025-10-27)
 
