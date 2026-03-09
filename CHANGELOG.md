@@ -13,10 +13,21 @@
 * enters do not over run,
     * Safari
     * Brave
-* systemd independent
 * not refresh graph while typing
 * add text mechanism (submit/accept)
-* docker or standalone jar?
+
+## 5.1.0-SNAPSHOT
+
+## 5.0.1 (2026-03-09)
+
+- updated warning message. "出席（前半）のタイプは学外からはできない。" etc.
+- docker or standalone-jar + systemd?
+  no problem including `redis` in container and making timer-script by hand,
+- added timer/
+- timer entry in Justfile
+- fix Justfile
+- redirect log
+- `just stage` go to background
 
 ## 5.0.0 (2026-03-08)
 

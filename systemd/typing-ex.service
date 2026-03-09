@@ -1,5 +1,5 @@
 [Unit]
-Description=typing exercise for hkimura literacy classes
+Description=typing exercise for hkimura classes
 
 [Service]
 WorkingDirectory=/home/ubuntu/typing-ex/systemd

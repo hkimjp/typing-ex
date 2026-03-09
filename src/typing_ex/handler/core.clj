@@ -189,10 +189,10 @@
               (typing-ex req)
               (vpn? addr)
               [::response/ok
-               "背景が黄色のとき、ログインできるのは教室内の Wifi です。VPN 不可。"]
+               "出席（前半）のタイプは VPN 不可。"]
               (not (tobata? addr))
               [::response/ok
-               "背景が黄色のとき、学外からはダメです。"]
+               "出席（前半）のタイプは学外からはできない。"]
               :else
               (typing-ex req))
         (typing-ex req)))))

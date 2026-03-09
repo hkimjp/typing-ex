@@ -27,21 +27,38 @@ kill:
 uberjar:
     lein uberjar
 
-systemd serv:
-    scp systemd/typing-ex.service {{ serv }}:typing-ex/systemd
-    scp systemd/typing-ex_roll-call.* {{ serv }}:typing-ex/systemd
-    ssh {{ serv }} sudo cp {{ serv }}:typing-ex/systemd/typing-ex* /lib/systemd/system
-    ssh {{ serv }} sudo systemctl daemon-reload
+start:
+    java -jar --enable-native-access=ALL-UNNAMED tp.jar \
+        > log/typing-ex.log 2> log/typing-ex_error.log
 
-deploy serv: release uberjar
-    just systemd {{ serv }}
-    scp target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/tp.jar
-    ssh {{ serv }} sudo systemctl restart typing-ex
-    ssh {{ serv }} sudo systemctl restart typing-ex_roll-call.timer
-    ssh {{ serv }} systemctl status typing-ex
+stop:
+    #!/usr/bin/env bash
+    if [[ `ps ax | grep '[t]p.jar'` ]]; then
+        kill `ps ax | grep '[t]p.jar' | awk '{print $1}'`
+    fi
+
+restart:
+    just stop
+    just start
+
+timer serv:
+    ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
+    scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/systemd/
+    ssh {{ serv }} 'sudo cp typing-ex/timer/typing-ex_roll-call.* /lib/systemd/system/'
+    ssh {{ serv }} 'sudo systemctl daemon-reload'
+    ssh {{ serv }} 'sudo systemctl enable typing-ex_roll-call.timer'
+    ssh {{ serv }} 'sudo systemctl start typing-ex_roll-call.timer'
+    ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
+
+deploy serv: #release uberjar
+    # scp Justfile .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
+    #ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar'
+    scp Justfile .env {{ serv }}:typing-ex/
+    ssh {{ serv }} 'cd typing-ex && just restart &'
+
 
 stage:
-    just deploy ${STAGE}
+    just deploy ${STAGE} &
 
 prod:
     just deploy ${PROD}
