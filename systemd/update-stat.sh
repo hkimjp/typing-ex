@@ -1,8 +1,13 @@
-#!/bin/sh
-# changed 2024-09-09
-# psql -U postgres -h localhost -d typing_ex \
-#    -c "update stat set stat='$1', updated_at=now()"
-# echo `date` typing-ex stat $1
+#!/usr/bin/env bash
+# > heglp set
+# Command: SET
+# Summary: Set the string value of a key
+# Complexity: O(1)
+# Args:
+#      key (key)
+#      value (string)
+#      expiration (enum)
+#      condition (enum)
 
 redis-cli set stat roll-call ex 900
 echo `date` exec typing-ex/systemd/update-stat.sh

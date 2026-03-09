@@ -13,8 +13,28 @@
 * enters do not over run,
     * Safari
     * Brave
+* not refresh graph while typing
+* add text mechanism (submit/accept)
 
-## 4.50.1-SNAPSHOT
+## 5.1.0-SNAPSHOT
+
+## 5.0.1 (2026-03-09)
+
+- updated warning message. "出席（前半）のタイプは学外からはできない。" etc.
+- docker or standalone-jar + systemd?
+  no problem including `redis` in container and making timer-script by hand,
+- added timer/
+- timer entry in Justfile
+- fix Justfile
+- redirect log
+- `just stage` go to background
+
+## 5.0.0 (2026-03-08)
+
+- port 8540
+- replaced hato with http-kit. auth mechanism
+
+## 4.50.2 (2026-03-08)
 
 - updated libaries
 
