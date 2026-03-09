@@ -16,7 +16,7 @@
 * not refresh graph while typing
 * add text mechanism (submit/accept)
 
-## 5.1.0-SNAPSHOT
+## 5.1.0 (2026-03-09)
 
 ## 5.0.1 (2026-03-09)
 
