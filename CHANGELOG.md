@@ -13,10 +13,17 @@
 * enters do not over run,
     * Safari
     * Brave
+* systemd independent
+* not refresh graph while typing
+* add text mechanism (submit/accept)
+* docker or standalone jar?
 
+## 5.0.0 (2026-03-08)
 
+- port 8540
+- replaced hato with http-kit. auth mechanism
 
-## 4.50.1 (2026-03-08)
+## 4.50.2 (2026-03-08)
 
 - updated libaries
 

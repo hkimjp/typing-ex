@@ -2,7 +2,7 @@
 Description=typing exercise for hkimura literacy classes
 
 [Service]
-WorkingDirectory=/home/ubuntu/typing-ex
+WorkingDirectory=/home/ubuntu/typing-ex/systemd
 ExecStart=/bin/sh tp-start.sh
 ExecStop=/bin/sh tp-stop.sh
 TimeoutSec=300

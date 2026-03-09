@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "4.50.1")
+(def ^:private version "5.0.0")
 
 ;--------------------------------
 (defn- ss
@@ -59,7 +59,7 @@
       [:div {:class "container"}
        contents
        [:hr]
-       "hkimura, " version]]))])
+       "hkimura " version]]))])
 
 (defn alert-form [_]
   (page
@@ -94,38 +94,36 @@
   [n]
   [:div {:style "margin-left:1rem;"}
    [:div.row
-    [:div.d-inline-
+    [:div.d-inline
      [:a {:href "/"
           :class "btn btn-primary btn-sm"} "Go!"]
-     [:span {:class "m"} ""]
+     " "
      ; [:a {:href "https://py99.melt.kyutech.ac.jp/"
      ;      :class "btn btn-info btn-sm"}
      ;  "Py99"]
      ; " "
      [:a {:href "/rc"
           :class "btn roll-call btn-sm"} "RC"]
-     [:span {:class "m"} ""]
+     " "
      [:a {:href "https://kp.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "KP"]
-     [:span {:class "m"} ""]
-
+     " "
      [:a {:href "https://qa.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
       "QA"]
-     [:span {:class "m"} ""]
-     [:a {:href "https://mx.melt.kyutech.ac.jp/"
+     " "
+     [:a {:href "https://jpy.melt.kyutech.ac.jp/"
           :class "btn btn-info btn-sm"}
-      "MX"]
-     [:span {:class "m"} ""]
-     [:a {:href "https://l22.melt.kyutech.ac.jp/"
+      "JPY"]
+     " "
+     [:a {:href "https://p.melt.kyutech.ac.jp/"
           :class "btn btn-success btn-sm"}
-      "L22"]
-     [:span {:class "m"} ""]
-     [:a {:href "https://wil.melt.kyutech.ac.jp/"
-          :class "btn btn-success btn-sm"}
-      "WIL"]
-     [:span {:class "m"} ""]
+      "p"]
+     " "
+     ; [:a {:href "https://wil.melt.kyutech.ac.jp/"
+     ;      :class "btn btn-success btn-sm"}
+     ;  "WIL"]
      ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
      ;;       :class "btn btn-success btn-sm"}
      ;;   "RP"]
@@ -133,19 +131,19 @@
      [:a {:href "/logout"
           :class "btn btn-warning btn-sm"} "Logout"]]]
    [:div.row
-    [:div.d-inline-flex
+    [:div.d-inline
      [:a {:href "/todays"
           :class "btn btn-danger btn-sm"}
       "todays"]
-     [:span {:class "m"} ""]
+     " "
      [:a {:href "/day-by-day"
           :class "btn btn-primary btn-sm"}
       "last 7 days"]
-     [:span {:class "m"} ""]
+     " "
      [:a {:href "/accuracy"
           :class "btn btn-primary btn-sm"}
       "accuracy"]
-     [:span {:class "m"} ""]
+     " "
      ; [:a {:href "/days/7"
      ;      :class "btn btn-primary btn-sm"}
      ;  "training days"]
@@ -153,7 +151,7 @@
      [:a {:href "/total/7"
           :class "btn btn-primary btn-sm"}
       "total"]
-     [:span {:class "m"} ""]
+     " "
      [:a {:href "/max/7"
           :class "btn btn-primary btn-sm"}
       "max"]]]])
@@ -283,8 +281,7 @@
 
 (defn- todays-msg
   []
-  (let [msg ["タイピングは基本的スキル。練習すれば誰でもできるようになる。"
-             "出席取りだけの人、WIL や KONPY も出すだけになってないか？"]]
+  (let [msg ["タイピングは基本的スキル。練習すれば誰でもできるようになる。"]]
     (get msg (rand-int (count msg)))))
 
 ;; view of /todays
@@ -314,7 +311,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピングは情報応用の平常点にはならない。練習は必要。"]
+    [:p "タイピング練習は情報基礎の平常点。"]
     (into [:ol]
           (for [r ret]
             (let [login (:login r)
@@ -384,5 +381,3 @@
     (into [:ol
            (for [{:keys [acc login]} acc-login]
              [:li (format "%f %s" acc login)])])]))
-
-

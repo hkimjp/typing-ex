@@ -3,11 +3,13 @@
   (:require
    [ataraxy.response :as response]
    [buddy.hashers :as hashers]
+   [clojure.edn :as edn]
    [clojure.string :as str]
    [environ.core :refer [env]]
-   [hato.client :as hc]
+   ;[hato.client :as hc]
    [integrant.core :as ig]
    [java-time.api :as jt]
+   [org.httpkit.client :as hk]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [ring.util.response :refer [redirect]]
    [typing-ex.boundary.drills  :as drills]
@@ -16,10 +18,7 @@
    [typing-ex.boundary.results :as results]
    [typing-ex.view.page :as view]
    [taoensso.carmine :as car]
-   [taoensso.timbre :as t]
-   [clojure.edn :as edn]))
-
-(def ^:private l22 "https://l22.melt.kyutech.ac.jp/api/user/")
+   [taoensso.timbre :as t]))
 
 (defonce  my-conn-pool (car/connection-pool {}))
 (def      my-conn-spec {:uri "redis://redis:6379"})
@@ -101,19 +100,22 @@
   (fn [req]
     (view/login-page req)))
 
-(defn- find-user [login]
-  (let [url (str l22 login)
-        body (:body (hc/get url {:as :json}))]
-    body))
+(defn find-user [login]
+  (-> (str (env :auth) login)
+      (hk/get {:headers {"Accept" "application/edn"}})
+      deref
+      :body
+      slurp
+      clojure.edn/read-string))
 
-(defn auth?
-  "when TP_DEV defined, check login only."
-  [login password]
-  (if (env :tp-dev)
-    (and (= "hkimura" login) true)
-    (let [ret (find-user login)]
-      (and (some? ret)
-           (hashers/check password (:password ret))))))
+(defn auth? [login password]
+  (if-not (env :auth)
+    (= login "hkimura") ; "admin"?
+    (try
+      (t/info "auth" login "against" (env :auth))
+      (hashers/check password (:password (find-user login)))
+      (catch Exception e
+        (t/info {:level :error :msg (.getMessage e)})))))
 
 (defmethod ig/init-key :typing-ex.handler.core/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
@@ -340,14 +342,6 @@
                       (* 60 (parse-long minutes))
                       stat))
     (redirect "/")))
-
-; (defn- time-str
-;   "Returns a string representation of a datetime in the local time zone."
-;   [instant]
-;   (println "*** time-str instant:" (str instant))
-;   (jt/format
-;    (jt/with-zone (jt/formatter "yyyy-MM-dd hh:mm a") (jt/zone-id))
-;    instant))
 
 (defmethod ig/init-key :typing-ex.handler.core/rc [_ {:keys [db]}]
   (fn [req]

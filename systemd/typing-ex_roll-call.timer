@@ -2,16 +2,15 @@
 Description=typing_ex stat=roll-call on Calendar time
 
 [Timer]
+OnCalendar=Tue 10:20:00
 # OnCalendar=*:*:30
 # OnCalendar=Tue 8:45:00
-# OnCalendar=Tue 10:25:00
 # OnCalendar=Thu 8:45:00
 # OnCalendar=Thu 10:25:00
-
 # 2025, first semester.
 # OnCalendar=Wed 8:45:00
 # 2025, second semester.
-OnCalendar=Tue 10:25:00
+# OnCalendar=Tue 10:25:00
 
 [Install]
 WantedBy=timers.target
