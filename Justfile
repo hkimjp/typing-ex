@@ -29,7 +29,7 @@ uberjar:
 
 start:
     java -jar --enable-native-access=ALL-UNNAMED tp.jar \
-        > log/typing-ex.log 2> log/typing-ex_error.log
+        > log/typing-ex.log 2> log/typing-ex_error.log &
 
 stop:
     #!/usr/bin/env bash
@@ -40,10 +40,11 @@ stop:
 restart:
     just stop
     just start
+    @echo restarted
 
 timer serv:
     ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
-    scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/systemd/
+    scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/timer/
     ssh {{ serv }} 'sudo cp typing-ex/timer/typing-ex_roll-call.* /lib/systemd/system/'
     ssh {{ serv }} 'sudo systemctl daemon-reload'
     ssh {{ serv }} 'sudo systemctl enable typing-ex_roll-call.timer'
@@ -57,7 +58,7 @@ deploy serv: release uberjar
 
 
 stage:
-    just deploy ${STAGE} &
+    just deploy ${STAGE}
 
 prod:
     just deploy ${PROD}
