@@ -50,10 +50,9 @@ timer serv:
     ssh {{ serv }} 'sudo systemctl start typing-ex_roll-call.timer'
     ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
 
-deploy serv: #release uberjar
-    # scp Justfile .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
-    #ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar'
-    scp Justfile .env {{ serv }}:typing-ex/
+deploy serv: release uberjar
+    scp Justfile .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
+    ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar'
     ssh {{ serv }} 'cd typing-ex && just restart &'
 
 
