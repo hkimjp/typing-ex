@@ -14,6 +14,7 @@
 ## 5.1.2-SNAPSHOT
 
 - docker container does not under stand DATABASE_URL
+- should use env_file in compose.yaml
 - removed db-dumps, initdb.d, systemd
 
 ## 5.1.1 (2026-03-09)
