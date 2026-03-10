@@ -11,7 +11,7 @@
 * add text mechanism (submit/accept)
 * while java -jar tp.jar is OK, but docker compose up NG.
 
-## 5.2.0-SNAPSHOT
+## 5.2.0 (2026-03-10)
 
 - released 5.2.0 - just stage went as exptected
 
