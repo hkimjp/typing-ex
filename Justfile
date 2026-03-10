@@ -40,16 +40,15 @@ stop:
         kill `ps ax | grep '[t]p.jar' | awk '{print $1}'`
     fi
 
-restart:
-    just stop
-    just start
-    @echo restarted
-
 up:
-    docker compose up
+    docker compose up -d
 
 down:
     docker compose down
+
+restart:
+    just down
+    just up
 
 timer serv:
     ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
@@ -61,10 +60,8 @@ timer serv:
     ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
 
 deploy serv: release uberjar
-    scp Justfile .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
-    ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar'
-    ssh {{ serv }} 'cd typing-ex && just restart &'
-
+    scp Justfile compose.yaml .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
+    ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar && just restart'
 
 stage:
     just deploy ${STAGE}

@@ -11,6 +11,10 @@
 * add text mechanism (submit/accept)
 * while java -jar tp.jar is OK, but docker compose up NG.
 
+## 5.2.0-SNAPSHOT
+
+- released 5.2.0 - just stage went as exptected
+
 ## 5.1.2 (2026-03-10)
 
 - docker container does not under stand DATABASE_URL
