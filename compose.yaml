@@ -16,6 +16,7 @@ services:
     restart: unless-stopped
     volumes:
       - data:/var/lib/postgresql
+      - ./dumps:/dumps
 
   redis:
     image: redis:8

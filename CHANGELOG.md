@@ -11,6 +11,12 @@
 * add text mechanism (submit/accept)
 * while java -jar tp.jar is OK, but docker compose up NG.
 
+## 5.2.1 (2026-03-10)
+
+- compose.yaml
+- (re)created dumps/ folder
+- gitignore /dumps/* but /dumps/.keep
+
 ## 5.2.0 (2026-03-10)
 
 - released 5.2.0 - just stage went as exptected

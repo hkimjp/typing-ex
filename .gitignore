@@ -42,3 +42,5 @@ pom.xml.asc
 start.sh
 stop.sh
 restart.sh
+dumps/*
+!dumps/.keep
