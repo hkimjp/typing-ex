@@ -27,6 +27,9 @@ kill:
 uberjar:
     lein uberjar
 
+standalone:
+    java -jar --enable-native-access=ALL-UNNAMED target/typing-ex-5.1.1-standalone.jar
+
 start:
     java -jar --enable-native-access=ALL-UNNAMED tp.jar \
         > log/typing-ex.log 2> log/typing-ex_error.log &
@@ -41,6 +44,12 @@ restart:
     just stop
     just start
     @echo restarted
+
+up:
+    docker compose up
+
+down:
+    docker compose down
 
 timer serv:
     ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
@@ -62,3 +71,6 @@ stage:
 
 prod:
     just deploy ${PROD}
+
+clean:
+    rm -rf target

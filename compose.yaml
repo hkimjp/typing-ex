@@ -1,29 +1,23 @@
 services:
   tp:
     image: eclipse-temurin:25-jre
-    enviromnent:
-      - DATABASE_URL
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
     ports:
       - "8540:8540"
     entrypoint: >
-      sh -c "java -jar --enable-native-access=ALL-UNNAMED tp.jar"
+      sh -c "java -jar --enable-native-access=ALL-UNNAMED target/typing-ex-5.1.1-standalone.jar"
 
   db:
     image: postgres:18
     restart: unless-stopped
-    environment:
-      - POSTGRES_PASSWORD
     volumes:
       - data:/var/lib/postgresql
 
   redis:
     image: redis:8
     restart: unless-stopped
-    volumes:
-      - ./redis:/data
 
 volumes:
   data:
