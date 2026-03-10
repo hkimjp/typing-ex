@@ -27,9 +27,12 @@ kill:
 uberjar:
     lein uberjar
 
+standalone:
+    java -jar --enable-native-access=ALL-UNNAMED target/typing-ex-5.1.1-standalone.jar
+
 start:
     java -jar --enable-native-access=ALL-UNNAMED tp.jar \
-        > log/typing-ex.log 2> log/typing-ex_error.log
+        > log/typing-ex.log 2> log/typing-ex_error.log &
 
 stop:
     #!/usr/bin/env bash
@@ -37,28 +40,34 @@ stop:
         kill `ps ax | grep '[t]p.jar' | awk '{print $1}'`
     fi
 
+up:
+    docker compose up -d
+
+down:
+    docker compose down
+
 restart:
-    just stop
-    just start
+    just down
+    just up
 
 timer serv:
     ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
-    scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/systemd/
+    scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/timer/
     ssh {{ serv }} 'sudo cp typing-ex/timer/typing-ex_roll-call.* /lib/systemd/system/'
     ssh {{ serv }} 'sudo systemctl daemon-reload'
     ssh {{ serv }} 'sudo systemctl enable typing-ex_roll-call.timer'
     ssh {{ serv }} 'sudo systemctl start typing-ex_roll-call.timer'
     ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
 
-deploy serv: #release uberjar
-    # scp Justfile .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
-    #ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar'
-    scp Justfile .env {{ serv }}:typing-ex/
-    ssh {{ serv }} 'cd typing-ex && just restart &'
-
+deploy serv: release uberjar
+    scp Justfile compose.yaml .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
+    ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar && just restart'
 
 stage:
-    just deploy ${STAGE} &
+    just deploy ${STAGE}
 
 prod:
     just deploy ${PROD}
+
+clean:
+    rm -rf target

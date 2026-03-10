@@ -7,14 +7,23 @@
 * server push comments
 * force stop after n times trials.
 * delay judging last word
-* enters over run,
-    * Firefox
-    * Vivaldi
-* enters do not over run,
-    * Safari
-    * Brave
 * not refresh graph while typing
 * add text mechanism (submit/accept)
+* while java -jar tp.jar is OK, but docker compose up NG.
+
+## 5.2.0 (2026-03-10)
+
+- released 5.2.0 - just stage went as exptected
+
+## 5.1.2 (2026-03-10)
+
+- docker container does not under stand DATABASE_URL
+- should use env_file in compose.yaml
+- removed db-dumps, initdb.d, systemd
+
+## 5.1.1 (2026-03-09)
+
+- fix typo in Justfile
 
 ## 5.1.0 (2026-03-09)
 

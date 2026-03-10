@@ -1,4 +1,4 @@
-(defproject typing-ex "5.1.0"
+(defproject typing-ex "5.2.0"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -12,7 +12,6 @@
                  [duct/module.sql "0.6.1"]
                  [duct/module.web "0.7.4"]
                  [environ "1.2.0"]
-                 ; [hato "1.0.0"]
                  [hiccup "2.0.0"]
                  [http-kit/http-kit "2.8.1"]
                  [com.taoensso/carmine "3.5.0"]

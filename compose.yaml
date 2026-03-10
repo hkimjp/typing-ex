@@ -1,8 +1,7 @@
 services:
   tp:
     image: eclipse-temurin:25-jre
-    enviromnent:
-      - DATABASE_URL
+    env_file: ".env"
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
@@ -13,17 +12,17 @@ services:
 
   db:
     image: postgres:18
+    env_file: ".env"
     restart: unless-stopped
-    environment:
-      - POSTGRES_PASSWORD
     volumes:
       - data:/var/lib/postgresql
 
   redis:
     image: redis:8
+    env_file: ".env"
     restart: unless-stopped
-    volumes:
-      - ./redis:/data
+    ports:
+      - "127.0.0.1:16379:6379"
 
 volumes:
   data:

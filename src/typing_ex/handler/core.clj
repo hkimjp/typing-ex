@@ -6,7 +6,6 @@
    [clojure.edn :as edn]
    [clojure.string :as str]
    [environ.core :refer [env]]
-   ;[hato.client :as hc]
    [integrant.core :as ig]
    [java-time.api :as jt]
    [org.httpkit.client :as hk]
@@ -20,9 +19,16 @@
    [taoensso.carmine :as car]
    [taoensso.timbre :as t]))
 
+(defn- check-env []
+  (doseq [v [:prod :stage :port :auth :postgres-password :database-url
+             :redis :tp-start]]
+    (t/info v (env v))))
+
+(check-env)
+
 (defonce  my-conn-pool (car/connection-pool {}))
-(def      my-conn-spec {:uri "redis://redis:6379"})
-(def      my-wcar-opts {:pool my-conn-pool, :spec my-conn-spec})
+(def      my-conn-spec {:uri (or (env :redis) "redis://redis:6379")})
+(def      my-wcar-opts {:pool my-conn-pool :spec my-conn-spec})
 (defmacro wcar* [& body] `(car/wcar my-wcar-opts ~@body))
 
 (def ^:private redis-expire 3600)
