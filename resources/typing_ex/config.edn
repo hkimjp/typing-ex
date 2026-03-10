@@ -2,6 +2,9 @@
 
  {:duct.core/project-ns typing-ex
 
+  :duct.database/sql
+  {:connection-uri #duct/env ["DATABASE_URL"]}
+
   :duct.router/ataraxy
   {:middleware {:auth #ig/ref :typing-ex.middleware/auth}
 
@@ -50,14 +53,11 @@
 
   :typing-ex.middleware/auth  {:db #ig/ref :duct.database/sql}
 
-;; day-by-day
   :typing-ex.handler.core/day-by-day {:db #ig/ref :duct.database/sql}
 
-  ;; exam
   :typing-ex.handler.core/exam! {}
   :typing-ex.handler.core/exam  {}
 
-  ;; alert
   :typing-ex.handler.core/alert {}
   :typing-ex.handler.core/alert-form {}
   :typing-ex.handler.core/alert! {}
@@ -88,7 +88,6 @@
   :typing-ex.handler.core/trials        {:db #ig/ref :duct.database/sql}
   :typing-ex.handler.core/typing        {:db #ig/ref :duct.database/sql}
 
-  ;; accuracy
   :typing-ex.handler.core/accuracy {}}
 
  :duct.profile/dev   #duct/include "dev"

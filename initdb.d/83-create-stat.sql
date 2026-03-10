@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS stat;
-
-CREATE TABLE stat (
-  stat VARCHAR(20),
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
-
-INSERT INTO stat (stat) VALUES ('normal');

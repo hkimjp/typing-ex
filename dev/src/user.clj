@@ -6,3 +6,9 @@
   (require 'dev)
   (in-ns 'dev)
   :loaded)
+
+(comment
+  (require '[environ.core :refer [env]])
+  (env :database-url)
+  (env :postgres-password)
+  :rcf)
