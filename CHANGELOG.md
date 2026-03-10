@@ -11,7 +11,7 @@
 * add text mechanism (submit/accept)
 * while java -jar tp.jar is OK, but docker compose up NG.
 
-## 5.1.2-SNAPSHOT
+## 5.1.2 (2026-03-10)
 
 - docker container does not under stand DATABASE_URL
 - should use env_file in compose.yaml
