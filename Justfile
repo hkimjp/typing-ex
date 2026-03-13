@@ -71,3 +71,4 @@ prod:
 
 clean:
     rm -rf target
+    fd -I \.bak$ --exec rm

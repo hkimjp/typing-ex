@@ -2,14 +2,14 @@
 
 ## Unreleased
 
-* display wrongly typed words after each session
-* Japanese
+* display type-missed words after each session
+* Japanese example
 * server push comments
 * force stop after n times trials.
 * delay judging last word
 * not refresh graph while typing
-* add text mechanism (submit/accept)
-* while java -jar tp.jar is OK, but docker compose up NG.
+* upload texts mechanism (submit/accept)
+
 
 ## 5.2.2-SNAPSHOT
 
