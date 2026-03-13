@@ -11,6 +11,11 @@
 * add text mechanism (submit/accept)
 * while java -jar tp.jar is OK, but docker compose up NG.
 
+## 5.2.2-SNAPSHOT
+
+- make `weekly points` action
+- remove unused {:keys [db]}
+
 ## 5.2.1 (2026-03-10)
 
 - compose.yaml

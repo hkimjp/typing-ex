@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.2.1")
+(def ^:private version "5.2.2")
 
 ;--------------------------------
 (defn- ss
@@ -137,24 +137,30 @@
       "todays"]
      " "
      [:a {:href "/day-by-day"
-          :class "btn btn-primary btn-sm"}
+          :class "btn btn-danger btn-sm"}
       "last 7 days"]
      " "
-     [:a {:href "/accuracy"
-          :class "btn btn-primary btn-sm"}
-      "accuracy"]
+     [:a
+      {:class "btn btn-danger btn-sm"}
+      "weekly points"]
      " "
+     [:a {:href "/total/7"
+          :class "btn btn-primary btn-sm"}
+      "class"]
+     " "
+     ;;[:a {:href "/accuracy"
+     ;;     :class "btn btn-primary btn-sm"}
+     ;; "accuracy"]
+     ;;" "
      ; [:a {:href "/days/7"
      ;      :class "btn btn-primary btn-sm"}
      ;  "training days"]
      ; [:span {:class "m"} ""]
-     [:a {:href "/total/7"
-          :class "btn btn-primary btn-sm"}
-      "total"]
-     " "
-     [:a {:href "/max/7"
-          :class "btn btn-primary btn-sm"}
-      "max"]]]])
+     ; " "
+     ; [:a {:href "/max/7"
+     ;      :class "btn btn-primary btn-sm"}
+     ;  "max"]
+     ]]])
 
 (defn scores-page
   "maxpt: 最高点
