@@ -9,13 +9,13 @@ watch:
 release:
     npx shadow-cljs release app
 
-nrepl:
+repl:
     lein repl
 
 dev:
     @echo 'duct app. start by (dev) (go)'
     just watch &
-    just nrepl
+    just repl
 
 run: release
     lein run
