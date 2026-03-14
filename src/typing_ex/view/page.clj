@@ -51,9 +51,9 @@
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/style.css"}]
-      ;; [:script {:type  "text/javascript"
-      ;;           :src   "/js/bootstrap.bundle.min.js"
-      ;;           :defer "true"}]
+      [:script {:type  "text/javascript"
+                :src   "/js/bootstrap.bundle.min.js"
+                :defer "true"}]
       [:script {:type  "text/javascript"
                 :src   "/js/compiled/main.js"
                 :defer "true"}]

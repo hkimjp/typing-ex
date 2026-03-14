@@ -11,8 +11,9 @@
 * upload texts mechanism (submit/accept)
 
 
-## 5.2.2-SNAPSHOT
+## 5.2.2 (2026-03-14)
 
+- improve `typing.clj`
 - make `weekly points` action
 - remove unused {:keys [db]}
 

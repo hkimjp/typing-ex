@@ -91,19 +91,19 @@ of yonder warehouses will not suffice."])
              (= all (+ goods bads)) (+ score seconds (- bs))
              :else (- score bs)))))
 
-(defn- exam-point!
-  "check mode, "
-  [login count pt]
-  (go (let [stat (-> (<! (http/get "/stat")) :body)]
-        (when (= stat "exam")
-          (let [ret (<! (http/post
-                         "/exam"
-                         {:form-params
-                          {:__anti-forgery-token (csrf-token),
-                           :login login
-                           :count count
-                           :pt pt}}))]
-            (.log js/console (str "exam-point! /exam" ret)))))))
+;; (defn- exam-point!
+;;   "check mode, "
+;;   [login count pt]
+;;   (go (let [stat (-> (<! (http/get "/stat")) :body)]
+;;         (when (= stat "exam")
+;;           (let [ret (<! (http/post
+;;                          "/exam"
+;;                          {:form-params
+;;                           {:__anti-forgery-token (csrf-token),
+;;                            :login login
+;;                            :count count
+;;                            :pt pt}}))]
+;;             (.log js/console (str "exam-point! /exam" ret)))))))
 
 (defn- ratio-f
   "return typing collectness. function name is wrong."
@@ -256,7 +256,7 @@ of yonder warehouses will not suffice."])
     nil))
 
 (defn results-component []
-  [:div.drill (apply str (:results @app-state))])
+  [:span.drill (apply str (:results @app-state))])
 
 (defn ex-page
   []
@@ -270,25 +270,24 @@ of yonder warehouses will not suffice."])
                :on-key-up #(check-key (.-key %))
                :on-change (fn [e] (swap! app-state assoc :answer
                                          (-> e .-target .-value)))}]
-   [results-component]
-   [:div {:id "next"} (:next @app-state)]
-   [:p
-    [:input {:id    "seconds"
-             :class "btn btn-success btn-sm"
-             :style {:font-family "monospace"}
-             :value (:seconds @app-state)
-             :size 2
+
+   [:div "Next: " [:span {:id "next"} (:next @app-state)]]
+   [:div "Status: " [results-component]]
+   [:div "Remain: " [:span {:id "seconds"} (:seconds @app-state) " (s)"]
+    #_[:input {:id    "seconds"
+               :class "btn btn-outline-success btn-sm"
+               :style {:font-family "monospace"}
+               :value (:seconds @app-state)
+               :size 2
              ;;:on-click #(show-send-reset-display!)
-             :read-only "readOnly"}]
-    " 残り時間"]
+               :read-only "readOnly"}]]
+
     ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
    ; [:p
    ;  "todays:"  [:br]
-
-   ;  (bar-line-chart 300 150
    ;                  (map :pt (:todays @app-state)) (:todays% @app-state))]
    [:p
-    [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
+    [:a {:href (str "/record/" (get-login)) :class "btn btn-danger btn-sm"} "record"]
     " "
     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
    [:hr]

@@ -14,7 +14,7 @@ nrepl:
 
 dev:
     @echo 'duct app. start by (dev) (go)'
-    just watch
+    just watch &
     just nrepl
 
 run: release
