@@ -51,8 +51,11 @@
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/style.css"}]
+      ;; [:script {:type  "text/javascript"
+      ;;           :src   "/js/bootstrap.bundle.min.js"
+      ;;           :defer "true"}]
       [:script {:type  "text/javascript"
-                :src   "/js/bootstrap.bundle.min.js"
+                :src   "/js/compiled/main.js"
                 :defer "true"}]
       [:title "Typing-Ex"]]
      [:body
@@ -91,7 +94,7 @@
 ; changed to public
 (defn headline
   "リンクボタンの並び。"
-  [n]
+  [_n]
   [:div {:style "margin-left:1rem;"}
    [:div.row
     [:div.d-inline

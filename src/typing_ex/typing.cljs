@@ -281,11 +281,12 @@ of yonder warehouses will not suffice."])
              ;;:on-click #(show-send-reset-display!)
              :read-only "readOnly"}]
     " 残り時間"]
-   [:p
-    "todays:"  [:br]
     ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
-    (bar-line-chart 300 150
-                    (map :pt (:todays @app-state)) (:todays% @app-state))]
+   ; [:p
+   ;  "todays:"  [:br]
+
+   ;  (bar-line-chart 300 150
+   ;                  (map :pt (:todays @app-state)) (:todays% @app-state))]
    [:p
     [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
     " "
