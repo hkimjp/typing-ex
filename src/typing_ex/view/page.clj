@@ -56,9 +56,6 @@
               :type "text/css"
               :href "/css/style.css"}]
       [:script {:type  "text/javascript"
-                :src   "/js/bootstrap.bundle.min.js"
-                :defer "true"}]
-      [:script {:type  "text/javascript"
                 :src   "/js/compiled/main.js"
                 :defer "true"}]
       [:title "Typing-Ex"]]
@@ -67,6 +64,9 @@
        contents
        [:hr]
        "hkimura " version]
+      [:script {:type  "text/javascript"
+                :src   "/js/bootstrap.bundle.min.js"
+                :defer "true"}]
       ;; [:script {:src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       ;;             :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
       ;;             :crossorigin  "anonymous"}]

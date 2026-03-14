@@ -11,6 +11,9 @@
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 widh CDN
 
+## 5.2.4 (2026-03-14)
+
+- bootstrap again
 
 ## 5.2.3 (2026-03-14)
 
