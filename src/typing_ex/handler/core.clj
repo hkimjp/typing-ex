@@ -65,7 +65,16 @@
           [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
          [:tbody
           (for [{:keys [week count pt]} (results/weekly-points db login)]
-            [:tr [:td week] [:td count] [:td pt]])]]]))))
+            [:tr [:td week] [:td count] [:td pt]])]]
+        [:div
+          [:ul
+            [:li "一回の練習には 1 分しか、かからない。10 回練習しても 10 分だ。"]
+            [:li "30 点はかなり低い点数。 10 回練習すれば 300 点 取れる。"]
+            [:li "一週間に 3 日練習したら、回数は 30 回、点数は 1000点 くらいになる。"]
+            [:li "30 回、1000 点を超えたら、その週のタイピング平常点は 1 。"]
+            [:li "過去週のデータは書き変わらない。"]
+            [:li "今期は何週あるのかな？"]
+            ]]]))))
 
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
