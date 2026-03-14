@@ -48,18 +48,28 @@
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/bootstrap.min.css"}]
+      ;; [:link {:href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      ;;         :rel "stylesheet"
+      ;;         :integrity "sha384-64UC4BEhTGwk3eGpak4nO2jqtl7liTS+juXkSJ2gPAQPmlClQO7s5UgCeR6US48g"
+      ;;         :crossorigin "anonymous"}]
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/style.css"}]
       [:script {:type  "text/javascript"
                 :src   "/js/bootstrap.bundle.min.js"
                 :defer "true"}]
+      [:script {:type  "text/javascript"
+                :src   "/js/compiled/main.js"
+                :defer "true"}]
       [:title "Typing-Ex"]]
      [:body
       [:div {:class "container"}
        contents
        [:hr]
-       "hkimura " version]]))])
+       "hkimura " version]
+      #_[:script {:src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                  :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
+                  :crossorigin  "anonymous"}]]))])
 
 (defn alert-form [_]
   (page
@@ -91,7 +101,7 @@
 ; changed to public
 (defn headline
   "リンクボタンの並び。"
-  [n]
+  [_n]
   [:div {:style "margin-left:1rem;"}
    [:div.row
     [:div.d-inline

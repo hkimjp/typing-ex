@@ -9,10 +9,17 @@
 * delay judging last word
 * not refresh graph while typing
 * upload texts mechanism (submit/accept)
+* bootstrap 5.3.8 widh CDN
+* weekly points
 
 
-## 5.2.2-SNAPSHOT
+## 5.2.3 (2026-03-14)
 
+- 
+
+## 5.2.2 (2026-03-14)
+
+- improve `typing.clj`
 - make `weekly points` action
 - remove unused {:keys [db]}
 
