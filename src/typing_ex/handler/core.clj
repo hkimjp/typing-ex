@@ -53,6 +53,17 @@
    (get-in req [:headers "x-real-ip"])
    (get req :remote-addr)))
 
+(defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
+  (fn [request]
+    (let [login (get-login request)]
+      (view/page
+       [:div
+        [:h2 (format "Weekly Points (%s)" login)]
+        [:table
+         [:tr [:th "week"] [:th "回数"]　[:th "点数"]]
+         (for [{:keys [week count pt]} (results/weekly-points db login)]
+           [:tr [:td week] [:td count] [:td pt]])]]))))
+
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
   (fn [request]
