@@ -59,10 +59,13 @@
       (view/page
        [:div
         [:h2 (format "Weekly Points (%s)" login)]
-        [:table
-         [:tr [:th "week"] [:th "回数"]　[:th "点数"]]
-         (for [{:keys [week count pt]} (results/weekly-points db login)]
-           [:tr [:td week] [:td count] [:td pt]])]]))))
+        (view/headline 1)
+        [:table.table.table-striped
+         [:thead
+          [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
+         [:tbody
+          (for [{:keys [week count pt]} (results/weekly-points db login)]
+            [:tr [:td week] [:td count] [:td pt]])]]]))))
 
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
@@ -137,7 +140,7 @@
 (defmethod ig/init-key :typing-ex.handler.core/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
     (if (and (seq login) (auth? login password))
-      (-> (redirect "/total/7")
+      (-> (redirect "/todays")
           (assoc-in [:session :identity] (keyword login)))
       (-> (redirect "/login")
           (dissoc :session)
