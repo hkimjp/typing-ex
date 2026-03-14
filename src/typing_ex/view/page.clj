@@ -67,9 +67,10 @@
        contents
        [:hr]
        "hkimura " version]
-      #_[:script {:src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-                  :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
-                  :crossorigin  "anonymous"}]]))])
+      ;; [:script {:src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      ;;             :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
+      ;;             :crossorigin  "anonymous"}]
+      ]))])
 
 (defn alert-form [_]
   (page
@@ -150,8 +151,8 @@
           :class "btn btn-danger btn-sm"}
       "last 7 days"]
      " "
-     [:a
-      {:class "btn btn-danger btn-sm"}
+     [:a {:href "/weekly-points"
+          :class "btn btn-danger btn-sm"}
       "weekly points"]
      " "
      [:a {:href "/total/7"

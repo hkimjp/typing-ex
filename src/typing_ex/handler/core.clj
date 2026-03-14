@@ -53,6 +53,14 @@
    (get-in req [:headers "x-real-ip"])
    (get req :remote-addr)))
 
+(defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
+  (fn [request]
+    (let [login (get-login request)]
+      (view/page
+       [:div
+        [:h2 (format "Weekly Points (%s)" login)]
+        [:p "under construction"]]))))
+
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
   (fn [request]

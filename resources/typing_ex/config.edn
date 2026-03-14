@@ -9,7 +9,9 @@
   {:middleware {:auth #ig/ref :typing-ex.middleware/auth}
 
    :routes
-   {[:get  "/login"] [:typing-ex.handler.core/login]
+   {[:get "/weekly-points"] ^:auth [:typing-ex.handler.core/weekly-points]
+    ;;
+    [:get  "/login"] [:typing-ex.handler.core/login]
     [:post "/login" {params :form-params}] [:typing-ex.handler.core/login-post params]
     [:get  "/logout"] [:typing-ex.handler.core/logout]
     [:get "/"] ^:auth [:typing-ex.handler.core/typing]
@@ -52,6 +54,8 @@
     [:get "/accuracy"] ^:auth [:typing-ex.handler.core/accuracy]}}
 
   :typing-ex.middleware/auth  {:db #ig/ref :duct.database/sql}
+
+  :typing-ex.handler.core/weekly-points {:db #ig/ref :duct.database/sql}
 
   :typing-ex.handler.core/day-by-day {:db #ig/ref :duct.database/sql}
 
