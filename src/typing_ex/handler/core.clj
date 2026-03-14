@@ -59,7 +59,10 @@
       (view/page
        [:div
         [:h2 (format "Weekly Points (%s)" login)]
-        [:p "under construction"]]))))
+        [:table
+         [:tr [:th "week"] [:th "回数"]　[:th "点数"]]
+         (for [{:keys [week count pt]} (results/weekly-points db login)]
+           [:tr [:td week] [:td count] [:td pt]])]]))))
 
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]

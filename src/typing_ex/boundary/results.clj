@@ -4,11 +4,13 @@
    [duct.database.sql]
    [next.jdbc.date-time]
    [next.jdbc.sql :as sql]
-   [typing-ex.boundary.utils :refer [ds-opt]]))
+   [typing-ex.boundary.utils :refer [ds-opt]]
+   [integrant.core :as ig]))
 
 ;;(next.jdbc.date-time/read-as-local)
 
 (defprotocol Results
+  (weekly-points [db login])
   (day-by-day [db user])
   (insert-pt [db rcv])
   (sum [db n])
@@ -26,6 +28,20 @@
 
 (extend-protocol Results
   duct.database.sql.Boundary
+
+  (weekly-points [db login]
+    (let [sql "select week, count, pt from
+                (select extract(week from timestamp) as week,
+                        count(*) as count,
+                        sum(pt) as pt
+                 from results
+                 where login=?
+                 -- and timestamp > CURRENT_TIMESTAMP - interval '7 days'
+                 group by week) as rslt
+                 order by week"
+          ret (sql/query (ds-opt db) [sql login])]
+      ;; (println "ret:" ret)
+      ret))
 
   (day-by-day [db user]
     (let [sql "select timestamp::DATE, pt from results
