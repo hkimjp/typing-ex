@@ -9,6 +9,9 @@
 * delay judging last word
 * not refresh graph while typing
 * upload texts mechanism (submit/accept)
+* bootstrap 5.3.8 widh CDN
+* weekly points
+
 
 ## 5.2.3 (2026-03-14)
 

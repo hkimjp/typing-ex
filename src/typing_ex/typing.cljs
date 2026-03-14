@@ -5,7 +5,7 @@
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   [typing-ex.plot :refer [bar-chart bar-line-chart]]
+   ;[typing-ex.plot :refer [bar-chart bar-line-chart]]
    [goog.string :as gstring]
    [goog.string.format]))
 
@@ -273,7 +273,7 @@ of yonder warehouses will not suffice."])
 
    [:div "Next: " [:span {:id "next"} (:next @app-state)]]
    [:div "Status: " [results-component]]
-   [:div "Remain: " [:span {:id "seconds"} (:seconds @app-state) " (s)"]
+   [:div "Remain: " [:span {:id "seconds"} (:seconds @app-state)]
     #_[:input {:id    "seconds"
                :class "btn btn-outline-success btn-sm"
                :style {:font-family "monospace"}
@@ -287,9 +287,9 @@ of yonder warehouses will not suffice."])
    ;  "todays:"  [:br]
    ;                  (map :pt (:todays @app-state)) (:todays% @app-state))]
    [:p
-    [:a {:href (str "/record/" (get-login)) :class "btn btn-danger btn-sm"} "record"]
+    [:a {:href (str "/record/" (get-login)) :class "btn btn-primary btn-sm"} "Graph"]
     " "
-    [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
+    [:a {:href "/logout" :class "btn btn-warning btn-sm"} "Logout"]]
    [:hr]
    [:div "hkimura, " version]])
 
