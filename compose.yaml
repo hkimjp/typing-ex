@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "8540:8540"
+      - "${PORT}:3000"
     entrypoint: >
       sh -c "java -jar --enable-native-access=ALL-UNNAMED tp.jar"
 

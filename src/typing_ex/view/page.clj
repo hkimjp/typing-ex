@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.2.2")
+(def ^:private version "5.2.4")
 
 ;--------------------------------
 (defn- ss
@@ -52,14 +52,11 @@
       ;;         :rel "stylesheet"
       ;;         :integrity "sha384-64UC4BEhTGwk3eGpak4nO2jqtl7liTS+juXkSJ2gPAQPmlClQO7s5UgCeR6US48g"
       ;;         :crossorigin "anonymous"}]
-      [:link {:rel  "stylesheet"
+      [:link {:rel "stylesheet"
               :type "text/css"
               :href "/css/style.css"}]
-      [:script {:type  "text/javascript"
-                :src   "/js/bootstrap.bundle.min.js"
-                :defer "true"}]
-      [:script {:type  "text/javascript"
-                :src   "/js/compiled/main.js"
+      [:script {:type "text/javascript"
+                :src  "/js/compiled/main.js"
                 :defer "true"}]
       [:title "Typing-Ex"]]
      [:body
@@ -67,9 +64,13 @@
        contents
        [:hr]
        "hkimura " version]
+      [:script {:type  "text/javascript"
+                :src   "/js/bootstrap.bundle.min.js"
+                :defer "true"}]
       ;; [:script {:src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      ;;             :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
-      ;;             :crossorigin  "anonymous"}]
+      ;;           :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
+      ;;           :crossorigin  "anonymous"}]
+      ;;
       ]))])
 
 (defn alert-form [_]
@@ -101,77 +102,35 @@
 
 ; changed to public
 (defn headline
-  "リンクボタンの並び。"
+  "リンクボタンの並び。n は後方互換のために残っている。"
   [_n]
   [:div {:style "margin-left:1rem;"}
    [:div.row
     [:div.d-inline
      [:a {:href "/"
-          :class "btn btn-primary btn-sm"} "Go!"]
-     " "
-     ; [:a {:href "https://py99.melt.kyutech.ac.jp/"
-     ;      :class "btn btn-info btn-sm"}
-     ;  "Py99"]
-     ; " "
+          :class "btn btn-primary btn-sm"} "Go!"] " "
      [:a {:href "/rc"
-          :class "btn roll-call btn-sm"} "RC"]
-     " "
+          :class "btn roll-call btn-sm"} "RC"] " "
      [:a {:href "https://kp.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"}
-      "KP"]
-     " "
+          :class "btn btn-info btn-sm"} "KP"] " "
      [:a {:href "https://qa.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"}
-      "QA"]
-     " "
+          :class "btn btn-info btn-sm"} "QA"] " "
      [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"}
-      "JPY"]
-     " "
+          :class "btn btn-info btn-sm"} "JPY"] " "
      [:a {:href "https://p.melt.kyutech.ac.jp/"
-          :class "btn btn-success btn-sm"}
-      "p"]
-     " "
-     ; [:a {:href "https://wil.melt.kyutech.ac.jp/"
-     ;      :class "btn btn-success btn-sm"}
-     ;  "WIL"]
-     ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
-     ;;       :class "btn btn-success btn-sm"}
-     ;;   "RP"]
-     ;;  " "
+          :class "btn btn-success btn-sm"} "p"] " "
      [:a {:href "/logout"
           :class "btn btn-warning btn-sm"} "Logout"]]]
    [:div.row
     [:div.d-inline
      [:a {:href "/todays"
-          :class "btn btn-danger btn-sm"}
-      "todays"]
-     " "
+          :class "btn btn-danger btn-sm"} "todays"] " "
      [:a {:href "/day-by-day"
-          :class "btn btn-danger btn-sm"}
-      "last 7 days"]
-     " "
+          :class "btn btn-danger btn-sm"} "last 7 days"] " "
      [:a {:href "/weekly-points"
-          :class "btn btn-danger btn-sm"}
-      "weekly points"]
-     " "
+          :class "btn btn-danger btn-sm"} "weekly points"] " "
      [:a {:href "/total/7"
-          :class "btn btn-primary btn-sm"}
-      "class"]
-     " "
-     ;;[:a {:href "/accuracy"
-     ;;     :class "btn btn-primary btn-sm"}
-     ;; "accuracy"]
-     ;;" "
-     ; [:a {:href "/days/7"
-     ;      :class "btn btn-primary btn-sm"}
-     ;  "training days"]
-     ; [:span {:class "m"} ""]
-     ; " "
-     ; [:a {:href "/max/7"
-     ;      :class "btn btn-primary btn-sm"}
-     ;  "max"]
-     ]]])
+          :class "btn btn-primary btn-sm"} "class"] " "]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -284,7 +243,10 @@
         [:li "Exercises (today/total) " (count todays) "/" (count scores)]
         ;; [:li [:a {:href (str "/restarts-page/" login)} "Today's Go!"]]
         [:li "Last Exercise " (ss (str (:timestamp (last scores))))]])
-     [:p [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]])))
+     [:p
+      [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
+      " "
+      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]])))
 
 ;; use in core.clj.
 (defn active-users-page [ret]
