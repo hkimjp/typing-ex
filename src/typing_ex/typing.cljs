@@ -5,7 +5,7 @@
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   ;[typing-ex.plot :refer [bar-chart bar-line-chart]]
+   [typing-ex.plot :refer [bar-line-chart]]
    [goog.string :as gstring]
    [goog.string.format]))
 
@@ -281,11 +281,12 @@ of yonder warehouses will not suffice."])
                :size 2
              ;;:on-click #(show-send-reset-display!)
                :read-only "readOnly"}]]
-
     ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
-   ; [:p
-   ;  "todays:"  [:br]
-   ;                  (map :pt (:todays @app-state)) (:todays% @app-state))]
+   [:p
+    "todays:"  [:br]
+    (bar-line-chart 300 150
+                    (map :pt (:todays @app-state)) (:todays% @app-state))]
+   ;;
    [:p
     [:a {:href (str "/record/" (get-login)) :class "btn btn-primary btn-sm"} "Graph"]
     " "

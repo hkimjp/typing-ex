@@ -7,17 +7,16 @@
 * server push comments
 * force stop after n times trials.
 * delay judging last word
-* not refresh graph while typing
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 - does not go well
 * delete old typing data
   delete from results where timestamp < '2026-03-01';
-* (reset) in dev namespace?
 
 
 ## 5.2.4 (2026-03-14)
 
 - **changed** after login, go to `/todays`
+- **resume** display scores and accuracies.
 
 ## 5.2.3 (2026-03-14)
 
