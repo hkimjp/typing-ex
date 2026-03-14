@@ -48,6 +48,10 @@
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/bootstrap.min.css"}]
+      ;; [:link {:href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      ;;         :rel "stylesheet"
+      ;;         :integrity "sha384-64UC4BEhTGwk3eGpak4nO2jqtl7liTS+juXkSJ2gPAQPmlClQO7s5UgCeR6US48g"
+      ;;         :crossorigin "anonymous"}]
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/style.css"}]
@@ -62,7 +66,10 @@
       [:div {:class "container"}
        contents
        [:hr]
-       "hkimura " version]]))])
+       "hkimura " version]
+      #_[:script {:src "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                  :integrity "sha384-jdSIJTK9l6XwXj3RixpVDXtMcA2bFd9O81RlLAwhpr2oXRqvQP88rr16IeFXTgFE"
+                  :crossorigin  "anonymous"}]]))])
 
 (defn alert-form [_]
   (page

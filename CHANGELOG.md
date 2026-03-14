@@ -10,6 +10,9 @@
 * not refresh graph while typing
 * upload texts mechanism (submit/accept)
 
+## 5.2.3 (2026-03-14)
+
+- 
 
 ## 5.2.2 (2026-03-14)
 
