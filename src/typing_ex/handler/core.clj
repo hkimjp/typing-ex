@@ -19,12 +19,11 @@
    [taoensso.carmine :as car]
    [taoensso.timbre :as t]))
 
-(defn- check-env []
-  (doseq [v [:prod :stage :port :auth :postgres-password :database-url
-             :redis :tp-start]]
-    (t/info v (env v))))
-
-(check-env)
+; (defn- check-env []
+;   (doseq [v [:prod :stage :port :auth :postgres-password :database-url
+;              :redis :tp-start]]
+;     (t/info v (env v))))
+; (check-env)
 
 (defonce  my-conn-pool (car/connection-pool {}))
 (def      my-conn-spec {:uri (or (env :redis) "redis://redis:6379")})
@@ -34,6 +33,8 @@
 (def ^:private redis-expire 3600)
 
 (def typing-start (or (env :tp-start) "2025-09-01"))
+(def ^:private thres-count 30)
+(def ^:private thres-point 1000)
 
 (defn admin? [s]
   (let [admins #{"hkimura"}]
@@ -53,6 +54,9 @@
    (get-in req [:headers "x-real-ip"])
    (get req :remote-addr)))
 
+(defn- smiles [n thres]
+  (apply str (mapv (fn [_] "🙂") (range (quot n thres)))))
+
 (defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
   (fn [request]
     (let [login (get-login request)]
@@ -65,7 +69,9 @@
           [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
          [:tbody
           (for [{:keys [week count pt]} (results/weekly-points db login)]
-            [:tr [:td week] [:td count] [:td pt]])]]
+            [:tr [:td week]
+             [:td count (smiles count thres-count)]
+             [:td pt (smiles pt thres-point)]])]]
         [:div
          [:ul
           [:li "一回の練習には 1 分しか、かからない。10 回練習しても 10 分だ。"]

@@ -255,7 +255,7 @@
 
 ;; view of /todays
 (defn todays-act-page [ret login]
-  ;;(println "todays-act-page " (str ret))
+  (println "ret: " ret " login: " login)
   (page
    [:h2 "Typing: Todays"]
    (headline 7)
@@ -268,12 +268,7 @@
              [:span {:class "m"} " "]
              [:a {:href (str "/record/" (:login r))
                   :class (if (= login (:login r)) "yes" "other")}
-              (:login r)]
-             [:span {:class "m"} " "]
-             ;; 2024-05-12, link to their literacy reports.
-             ; [:a {:href (str "https://hp.melt.kyutech.ac.jp/" (:login r))}
-             ;  "(RP)"]
-             ]))]))
+              (:login r)]]))]))
 
 (defn sums-page [ret user n]
   (page
