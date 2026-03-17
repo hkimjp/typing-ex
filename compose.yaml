@@ -2,6 +2,7 @@ services:
   tp:
     image: eclipse-temurin:25-jre
     env_file: ".env"
+    restart: unless-stopped
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app

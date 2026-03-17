@@ -5,13 +5,22 @@
 * display type-missed words after each session
 * Japanese example
 * server push comments
-* force stop after n times trials.
+* force stop after n times trials
 * delay judging last word
+* display words wrongly typed
 * upload texts mechanism (submit/accept)
-* bootstrap 5.3.8 - does not go well
+* bootstrap 5.3.8 - does not go well (currently 5.3.7)
 * delete old typing data
   delete from results where timestamp < '2026-03-01';
+* Redis, too much 
 
+## 5.2.5-SNAPSHOT
+
+- TZ="Asia/Tokyo" in `.env`
+- container 'restart: unless-stopped'
+- removed DATABASE_PASSWORD from `.env`
+- (def ^:private thres-count 30)
+- (def ^:private thres-point 1000)
 
 ## 5.2.4 (2026-03-14)
 
