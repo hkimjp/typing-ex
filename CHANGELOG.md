@@ -12,7 +12,7 @@
 * bootstrap 5.3.8 - does not go well (currently 5.3.7)
 * delete old typing data
   delete from results where timestamp < '2026-03-01';
-
+* Redis, too much 
 
 ## 5.2.5-SNAPSHOT
 
