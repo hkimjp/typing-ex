@@ -9,7 +9,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "5.2.4")
+(def ^:private version "5.2.5-SNAPSHOT")
 
 (def ^:private todays-limit 10)
 

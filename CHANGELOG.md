@@ -13,6 +13,11 @@
   delete from results where timestamp < '2026-03-01';
 
 
+## 5.2.5-SNAPSHOT
+
+- code duplication in page.clj and core.clj?
+
+
 ## 5.2.4 (2026-03-14)
 
 - **changed** after login, go to `/todays`
