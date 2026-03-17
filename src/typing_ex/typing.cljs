@@ -165,8 +165,7 @@ of yonder warehouses will not suffice."])
       (js/console.log "send-point-aux: " url pt acc)))
 
 (defn send-point
-  "(:todays @app-state) を更新する。
-   (:todays@ @app-state) も更新する。"
+  "(:todays @app-state) を更新する。(:todays@ @app-state) も更新する。"
   [pt]
   (if (zero? (count (:answer @app-state)))
     (when-not (empty? (:words @app-state))
