@@ -111,14 +111,14 @@
     [:a {:href "/logout"
          :class "btn btn-warning btn-sm"} "Logout"]]
    [:div.d-inline.g-3
-    [:a {:href "/todays"
-         :class "btn btn-danger btn-sm"} "todays"] " "
     [:a {:href "/day-by-day"
          :class "btn btn-danger btn-sm"} "last 7 days"] " "
     [:a {:href "/weekly-points"
          :class "btn btn-danger btn-sm"} "weekly points"] " "
+    [:a {:href "/todays"
+         :class "btn btn-primary btn-sm"} "todays"] " "
     [:a {:href "/total/7"
-         :class "btn btn-primary btn-sm"} "class"]]])
+         :class "btn btn-primary btn-sm"} "totals"]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -245,10 +245,10 @@
          (for [[u & _] ret]
            [:li (ss (:timestamp u)) " " (:login u)]))))
 
-(defn- todays-msg
-  []
-  (let [msg ["タイピングは基本的スキル。練習すれば誰でもできるようになる。"]]
-    (get msg (rand-int (count msg)))))
+(defn abbrev10 [coll]
+  (if (< 10 (count coll))
+    (print-str (interpose " " (take 10 coll)) " ...")
+    (print-str (interpose " " coll))))
 
 ;; view of /todays
 (defn todays-act-page [ret login]
@@ -256,7 +256,7 @@
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
-    [:p (todays-msg)]
+    [:p "タイピング練習した時刻。10回以上は ... で表示。"]
     [:ol
      (for [r ret]
        (let [name (-> r first :login)
@@ -269,7 +269,7 @@
                         "other")}
            name]
           " "
-          [:span (interpose " " tp)]]))]]))
+          [:span (abbrev10 tp)]]))]]))
 
 (defn sums-page [ret user n]
   (page
