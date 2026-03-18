@@ -261,7 +261,6 @@
      (for [r ret]
        (let [name (-> r first :login)
              tp (-> (mapv #(-> % :timestamp jt/local-time str (subs 0 5)) r))]
-         (println "tp: " tp)
          [:li {:style "font-family: monospace;"}
           [:a {:href (str "/record/" name)
                :class (if (= login name)

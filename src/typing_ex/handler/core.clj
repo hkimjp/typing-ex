@@ -366,7 +366,7 @@
 
 (defmethod ig/init-key :typing-ex.handler.core/stat! [_ {:keys [db]}]
   (fn [{{:keys [stat minutes]} :params}]
-    (println "stat! stat: " stat " minutes " minutes)
+    ;(println "stat! stat: " stat " minutes " minutes)
     (wcar* (car/setex "stat"
                       (* 60 (parse-long minutes))
                       stat))
@@ -377,7 +377,6 @@
     (let [login (get-login req)
           ret (->> (roll-calls/rc db login)
                    (map :created_at)
-                   ;(map time-str)
                    dedupe)]
       (view/rc-page ret login))))
 
