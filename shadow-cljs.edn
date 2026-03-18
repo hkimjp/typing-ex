@@ -14,7 +14,7 @@
 
                 :modules
                 {:main
-                 {:entries [typing-ex.typing]}}
+                 {:entries [typing-ex.typing]}};
 
                 :devtools
                 ;; before live-reloading any code call this function

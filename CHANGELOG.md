@@ -9,10 +9,16 @@
 * delay judging last word
 * display words wrongly typed
 * upload texts mechanism (submit/accept)
-* bootstrap 5.3.8 - does not go well (currently 5.3.7)
+* bootstrap 5.3.8 - (currently 5.3.7)
 * delete old typing data
   delete from results where timestamp < '2026-03-01';
-* Redis, too much 
+* using Redis is too much 
+* date format /todayssxx
+* group by date /day-by-day
+* last 7 days - display timestamp, not only dates.
+* weekly max 1+1
+* header ボタン均等割付け
+
 
 ## 5.2.5-SNAPSHOT
 

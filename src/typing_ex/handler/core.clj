@@ -92,7 +92,6 @@
           (view/page
            [:div
             [:h2 (format "Typing: last 7 days (%s)" login)]
-            ;; defined in view/page.clj as a private function
             (view/headline 1)
             [:br]
             [:ol {:style "margin-left:1rem;"}
