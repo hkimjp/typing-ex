@@ -15,13 +15,18 @@
 * using Redis is too much 
 * date format /todayssxx
 * group by date /day-by-day
-* last 7 days - display timestamp, not only dates.
-* weekly max 1+1
 * header ボタン均等割付け
 
+## 5.3.1
 
-## 5.2.5 (2026-03-18)
+* change - after login, go to /day-by-day
+* adjust format of timestamp
 
+
+## 5.3.0 (2026-03-18)
+
+- last 7 days - display timestamp, not only dates.
+- weekly max 1+1
 - TZ="Asia/Tokyo" in `.env`
 - container 'restart: unless-stopped'
 - removed DATABASE_PASSWORD from `.env`

@@ -102,11 +102,7 @@
              (println results)
              (for [{:keys [timestamp pt]} results]
                [:li (subs (str timestamp) 0 16) " " pt])]]))))))
-(comment
-  (def s (java.util.Date.))
-  s
-  (str s)
-  (jt/format "YYYY-MM-DD HH:mm" s))
+
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
   (fn [{{:keys [login count pt]} :params}]
@@ -162,7 +158,7 @@
 (defmethod ig/init-key :typing-ex.handler.core/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
     (if (and (seq login) (auth? login password))
-      (-> (redirect "/todays")
+      (-> (redirect "/day-by-day")
           (assoc-in [:session :identity] (keyword login)))
       (-> (redirect "/login")
           (dissoc :session)
