@@ -17,10 +17,17 @@
 * group by date /day-by-day
 * header ボタン均等割付け
 
+## 5.4.0
+
+- changed - `/todays` lists today's training times.
+  logically rearranged the order of buttons.
+  last 7 days, weekly points, todays, totals.
+  former twos are private data, later twos are class data.
+
 ## 5.3.1
 
-* change - after login, go to /day-by-day
-* adjust format of timestamp
+- changed - after login, go to /day-by-day
+- adjusted format of timestamp
 
 
 ## 5.3.0 (2026-03-18)
