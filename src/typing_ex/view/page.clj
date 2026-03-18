@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.2.2")
+(def ^:private version "5.3.0")
 
 ;--------------------------------
 (defn- ss
@@ -48,18 +48,20 @@
       [:link {:rel  "stylesheet"
               :type "text/css"
               :href "/css/bootstrap.min.css"}]
-      [:link {:rel  "stylesheet"
+      [:link {:rel "stylesheet"
               :type "text/css"
               :href "/css/style.css"}]
-      [:script {:type  "text/javascript"
-                :src   "/js/bootstrap.bundle.min.js"
-                :defer "true"}]
       [:title "Typing-Ex"]]
      [:body
       [:div {:class "container"}
        contents
        [:hr]
-       "hkimura " version]]))])
+       "hkimura " version]
+      [:script {:type  "text/javascript"
+                :src   "/js/bootstrap.bundle.min.js"
+                :defer "true"}]
+      [:script {:src "/js/compiled/main.js"
+                :type "text/javascript"}]]))])
 
 (defn alert-form [_]
   (page
@@ -90,77 +92,33 @@
 
 ; changed to public
 (defn headline
-  "リンクボタンの並び。"
-  [n]
-  [:div {:style "margin-left:1rem;"}
-   [:div.row
-    [:div.d-inline
-     [:a {:href "/"
-          :class "btn btn-primary btn-sm"} "Go!"]
-     " "
-     ; [:a {:href "https://py99.melt.kyutech.ac.jp/"
-     ;      :class "btn btn-info btn-sm"}
-     ;  "Py99"]
-     ; " "
-     [:a {:href "/rc"
-          :class "btn roll-call btn-sm"} "RC"]
-     " "
-     [:a {:href "https://kp.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"}
-      "KP"]
-     " "
-     [:a {:href "https://qa.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"}
-      "QA"]
-     " "
-     [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"}
-      "JPY"]
-     " "
-     [:a {:href "https://p.melt.kyutech.ac.jp/"
-          :class "btn btn-success btn-sm"}
-      "p"]
-     " "
-     ; [:a {:href "https://wil.melt.kyutech.ac.jp/"
-     ;      :class "btn btn-success btn-sm"}
-     ;  "WIL"]
-     ;;  [:a {:href "https://rp.melt.kyutech.ac.jp/"
-     ;;       :class "btn btn-success btn-sm"}
-     ;;   "RP"]
-     ;;  " "
-     [:a {:href "/logout"
-          :class "btn btn-warning btn-sm"} "Logout"]]]
-   [:div.row
-    [:div.d-inline
-     [:a {:href "/todays"
-          :class "btn btn-danger btn-sm"}
-      "todays"]
-     " "
-     [:a {:href "/day-by-day"
-          :class "btn btn-danger btn-sm"}
-      "last 7 days"]
-     " "
-     [:a
-      {:class "btn btn-danger btn-sm"}
-      "weekly points"]
-     " "
-     [:a {:href "/total/7"
-          :class "btn btn-primary btn-sm"}
-      "class"]
-     " "
-     ;;[:a {:href "/accuracy"
-     ;;     :class "btn btn-primary btn-sm"}
-     ;; "accuracy"]
-     ;;" "
-     ; [:a {:href "/days/7"
-     ;      :class "btn btn-primary btn-sm"}
-     ;  "training days"]
-     ; [:span {:class "m"} ""]
-     ; " "
-     ; [:a {:href "/max/7"
-     ;      :class "btn btn-primary btn-sm"}
-     ;  "max"]
-     ]]])
+  "リンクボタンの並び。n は後方互換のために残っている。"
+  [_n]
+  [:div {:style "margin-left:1rem; width:300px;"}
+   [:div.d-inline
+    [:a {:href "/"
+         :class "btn btn-primary btn-sm"} "Go!"] " "
+    [:a {:href "/rc"
+         :class "btn roll-call btn-sm"} "RC"] " "
+    [:a {:href "https://kp.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "KP"] " "
+    [:a {:href "https://qa.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "QA"] " "
+    [:a {:href "https://jpy.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "JPY"] " "
+    [:a {:href "https://p.melt.kyutech.ac.jp/"
+         :class "btn btn-success btn-sm"} "p"] " "
+    [:a {:href "/logout"
+         :class "btn btn-warning btn-sm"} "Logout"]]
+   [:div.d-inline.g-3
+    [:a {:href "/todays"
+         :class "btn btn-danger btn-sm"} "todays"] " "
+    [:a {:href "/day-by-day"
+         :class "btn btn-danger btn-sm"} "last 7 days"] " "
+    [:a {:href "/weekly-points"
+         :class "btn btn-danger btn-sm"} "weekly points"] " "
+    [:a {:href "/total/7"
+         :class "btn btn-primary btn-sm"} "class"]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -267,13 +225,15 @@
      [:br]
      (when true ;; (or me? admin?)
        [:ul
-        [:li "Max " (apply max (map :pt scores))]
-        [:li "Average (last 10) " avg]
-        [:li "Exercise days " (select-count-distinct scores)]
-        [:li "Exercises (today/total) " (count todays) "/" (count scores)]
-        ;; [:li [:a {:href (str "/restarts-page/" login)} "Today's Go!"]]
-        [:li "Last Exercise " (ss (str (:timestamp (last scores))))]])
-     [:p [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]])))
+        [:li [:span.b "Max: "] (apply max (map :pt scores))]
+        [:li [:span.b "Average (last 10) "]  avg]
+        [:li [:span.b "Exercise days: "] (select-count-distinct scores)]
+        [:li [:span.b "Exercises (today/total): "] (count todays) "/" (count scores)]
+        [:li [:span.b "Last Exercise: "] (ss (str (:timestamp (last scores))))]])
+     [:p
+      [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
+      " "
+      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]])))
 
 ;; use in core.clj.
 (defn active-users-page [ret]
@@ -292,7 +252,7 @@
 
 ;; view of /todays
 (defn todays-act-page [ret login]
-  ;;(println "todays-act-page " (str ret))
+  (println "ret: " ret " login: " login)
   (page
    [:h2 "Typing: Todays"]
    (headline 7)
@@ -305,12 +265,7 @@
              [:span {:class "m"} " "]
              [:a {:href (str "/record/" (:login r))
                   :class (if (= login (:login r)) "yes" "other")}
-              (:login r)]
-             [:span {:class "m"} " "]
-             ;; 2024-05-12, link to their literacy reports.
-             ; [:a {:href (str "https://hp.melt.kyutech.ac.jp/" (:login r))}
-             ;  "(RP)"]
-             ]))]))
+              (:login r)]]))]))
 
 (defn sums-page [ret user n]
   (page

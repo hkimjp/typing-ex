@@ -5,14 +5,41 @@
 * display type-missed words after each session
 * Japanese example
 * server push comments
-* force stop after n times trials.
+* force stop after n times trials
 * delay judging last word
-* not refresh graph while typing
+* display words wrongly typed
 * upload texts mechanism (submit/accept)
+* bootstrap 5.3.8 - (currently 5.3.7)
+* delete old typing data
+  delete from results where timestamp < '2026-03-01';
+* using Redis is too much 
+* date format /todayssxx
+* group by date /day-by-day
+* last 7 days - display timestamp, not only dates.
+* weekly max 1+1
+* header ボタン均等割付け
 
 
-## 5.2.2-SNAPSHOT
+## 5.2.5 (2026-03-18)
 
+- TZ="Asia/Tokyo" in `.env`
+- container 'restart: unless-stopped'
+- removed DATABASE_PASSWORD from `.env`
+- (def ^:private thres-count 30)
+- (def ^:private thres-point 1000)
+
+## 5.2.4 (2026-03-14)
+
+- **changed** after login, go to `/todays`
+- **resume** display scores and accuracies.
+
+## 5.2.3 (2026-03-14)
+
+- weekly points - show count, sum(pt) in table format
+
+## 5.2.2 (2026-03-14)
+
+- improve `typing.clj`
 - make `weekly points` action
 - remove unused {:keys [db]}
 

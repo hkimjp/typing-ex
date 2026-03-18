@@ -5,11 +5,11 @@
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   [typing-ex.plot :refer [bar-chart bar-line-chart]]
+   [typing-ex.plot :refer [bar-line-chart]]
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "5.2.2")
+(def ^:private version "5.3.0")
 
 (def ^:private todays-limit 10)
 
@@ -91,19 +91,19 @@ of yonder warehouses will not suffice."])
              (= all (+ goods bads)) (+ score seconds (- bs))
              :else (- score bs)))))
 
-(defn- exam-point!
-  "check mode, "
-  [login count pt]
-  (go (let [stat (-> (<! (http/get "/stat")) :body)]
-        (when (= stat "exam")
-          (let [ret (<! (http/post
-                         "/exam"
-                         {:form-params
-                          {:__anti-forgery-token (csrf-token),
-                           :login login
-                           :count count
-                           :pt pt}}))]
-            (.log js/console (str "exam-point! /exam" ret)))))))
+;; (defn- exam-point!
+;;   "check mode, "
+;;   [login count pt]
+;;   (go (let [stat (-> (<! (http/get "/stat")) :body)]
+;;         (when (= stat "exam")
+;;           (let [ret (<! (http/post
+;;                          "/exam"
+;;                          {:form-params
+;;                           {:__anti-forgery-token (csrf-token),
+;;                            :login login
+;;                            :count count
+;;                            :pt pt}}))]
+;;             (.log js/console (str "exam-point! /exam" ret)))))))
 
 (defn- ratio-f
   "return typing collectness. function name is wrong."
@@ -165,8 +165,7 @@ of yonder warehouses will not suffice."])
       (js/console.log "send-point-aux: " url pt acc)))
 
 (defn send-point
-  "(:todays @app-state) を更新する。
-   (:todays@ @app-state) も更新する。"
+  "(:todays @app-state) を更新する。(:todays@ @app-state) も更新する。"
   [pt]
   (if (zero? (count (:answer @app-state)))
     (when-not (empty? (:words @app-state))
@@ -256,7 +255,7 @@ of yonder warehouses will not suffice."])
     nil))
 
 (defn results-component []
-  [:div.drill (apply str (:results @app-state))])
+  [:span.drill (apply str (:results @app-state))])
 
 (defn ex-page
   []
@@ -270,26 +269,27 @@ of yonder warehouses will not suffice."])
                :on-key-up #(check-key (.-key %))
                :on-change (fn [e] (swap! app-state assoc :answer
                                          (-> e .-target .-value)))}]
-   [results-component]
-   [:div {:id "next"} (:next @app-state)]
-   [:p
-    [:input {:id    "seconds"
-             :class "btn btn-success btn-sm"
-             :style {:font-family "monospace"}
-             :value (:seconds @app-state)
-             :size 2
+
+   [:div [:span.b "Next: "] [:span {:id "next"} (:next @app-state)]]
+   [:div [:span.b "Status: "] [results-component]]
+   [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]
+    #_[:input {:id    "seconds"
+               :class "btn btn-outline-success btn-sm"
+               :style {:font-family "monospace"}
+               :value (:seconds @app-state)
+               :size 2
              ;;:on-click #(show-send-reset-display!)
-             :read-only "readOnly"}]
-    " 残り時間"]
-   [:p
-    "todays:"  [:br]
+               :read-only "readOnly"}]]
     ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
+   [:p
+    [:span.b "todays:"]  [:br]
     (bar-line-chart 300 150
                     (map :pt (:todays @app-state)) (:todays% @app-state))]
+   ;;
    [:p
-    [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]
+    [:a {:href (str "/record/" (get-login)) :class "btn btn-primary btn-sm"} "Graph"]
     " "
-    [:a {:href "/logout" :class "btn btn-warning btn-sm"} "logout"]]
+    [:a {:href "/logout" :class "btn btn-warning btn-sm"} "Logout"]]
    [:hr]
    [:div "hkimura, " version]])
 

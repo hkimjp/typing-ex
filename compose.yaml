@@ -2,11 +2,12 @@ services:
   tp:
     image: eclipse-temurin:25-jre
     env_file: ".env"
+    restart: unless-stopped
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
     ports:
-      - "8540:8540"
+      - "${PORT}:${PORT}"
     entrypoint: >
       sh -c "java -jar --enable-native-access=ALL-UNNAMED tp.jar"
 
@@ -22,8 +23,6 @@ services:
     image: redis:8
     env_file: ".env"
     restart: unless-stopped
-    ports:
-      - "127.0.0.1:16379:6379"
 
 volumes:
   data:

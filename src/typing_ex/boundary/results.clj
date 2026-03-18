@@ -4,11 +4,12 @@
    [duct.database.sql]
    [next.jdbc.date-time]
    [next.jdbc.sql :as sql]
-   [typing-ex.boundary.utils :refer [ds-opt]]))
-
-;;(next.jdbc.date-time/read-as-local)
+   [typing-ex.boundary.utils :refer [ds-opt]]
+   ;[integrant.core :as ig]
+   ))
 
 (defprotocol Results
+  (weekly-points [db login])
   (day-by-day [db user])
   (insert-pt [db rcv])
   (sum [db n])
@@ -20,21 +21,41 @@
   ;; (find-ex-days-thres [db days thres])
   (find-ex-days [db days])
   (todays-act [db])
-  ;; 2024-04-18
   (users [db])
   (login-timestamp [db]))
 
 (extend-protocol Results
   duct.database.sql.Boundary
 
+  (weekly-points [db login]
+    (let [sql "select week, count, pt from
+                (select extract(week from timestamp) as week,
+                        count(*) as count,
+                        sum(pt) as pt
+                 from results
+                 where login=?
+                 -- and timestamp > CURRENT_TIMESTAMP - interval '7 days'
+                 group by week) as rslt
+                 order by week"
+          ret (sql/query (ds-opt db) [sql login])]
+      ret))
+
+  ; (day-by-day [db user]
+  ;   (let [sql "select timestamp::DATE, pt from results
+  ;              where login=?
+  ;              and timestamp > now() - interval '1 week'
+  ;              order by id"
+  ;         ret (sql/query (ds-opt db) [sql user])]
+  ;     (mapv (fn [{:keys [timestamp pt]}]
+  ;             [(str timestamp) pt]) ret)))
+
   (day-by-day [db user]
-    (let [sql "select timestamp::DATE, pt from results
+    (let [sql "select timestamp, pt from results
                where login=?
                and timestamp > now() - interval '1 week'
                order by id"
           ret (sql/query (ds-opt db) [sql user])]
-      (mapv (fn [{:keys [timestamp pt]}]
-              [(str timestamp) pt]) ret)))
+      ret))
 
   (insert-pt [db login-pt]
     (sql/insert! (ds-opt db) :results login-pt))

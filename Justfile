@@ -9,13 +9,13 @@ watch:
 release:
     npx shadow-cljs release app
 
-nrepl:
+repl:
     lein repl
 
 dev:
     @echo 'duct app. start by (dev) (go)'
-    just watch >/dev/null 2>&1 &
-    just nrepl
+    just watch &
+    just repl
 
 run: release
     lein run
@@ -60,7 +60,8 @@ timer serv:
     ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
 
 deploy serv: release uberjar
-    scp Justfile compose.yaml .env target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
+    @echo must manually set up '.env'
+    scp Justfile compose.yaml target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
     ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar && just restart'
 
 stage:
