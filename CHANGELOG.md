@@ -20,7 +20,7 @@
 * header ボタン均等割付け
 
 
-## 5.2.5-SNAPSHOT
+## 5.2.5 (2026-03-18)
 
 - TZ="Asia/Tokyo" in `.env`
 - container 'restart: unless-stopped'
