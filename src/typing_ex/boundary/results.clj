@@ -40,14 +40,22 @@
           ret (sql/query (ds-opt db) [sql login])]
       ret))
 
+  ; (day-by-day [db user]
+  ;   (let [sql "select timestamp::DATE, pt from results
+  ;              where login=?
+  ;              and timestamp > now() - interval '1 week'
+  ;              order by id"
+  ;         ret (sql/query (ds-opt db) [sql user])]
+  ;     (mapv (fn [{:keys [timestamp pt]}]
+  ;             [(str timestamp) pt]) ret)))
+
   (day-by-day [db user]
-    (let [sql "select timestamp::DATE, pt from results
+    (let [sql "select timestamp, pt from results
                where login=?
                and timestamp > now() - interval '1 week'
                order by id"
           ret (sql/query (ds-opt db) [sql user])]
-      (mapv (fn [{:keys [timestamp pt]}]
-              [(str timestamp) pt]) ret)))
+      ret))
 
   (insert-pt [db login-pt]
     (sql/insert! (ds-opt db) :results login-pt))

@@ -38,6 +38,10 @@ span.mmm {
     margin-left: 2em;
 }
 
+span.b {
+    font-weight: bold;
+}
+
 span.m {
     margin-left: 0.5em;
 }

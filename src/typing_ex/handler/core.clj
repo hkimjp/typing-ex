@@ -55,7 +55,10 @@
    (get req :remote-addr)))
 
 (defn- smiles [n thres]
-  (apply str (mapv (fn [_] "🙂") (range (quot n thres)))))
+  ;(apply str (mapv (fn [_] "🙂") (range (quot n thres))))
+  (if  (< n thres)
+    ""
+    "🙂"))
 
 (defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
   (fn [request]
@@ -64,6 +67,7 @@
        [:div
         [:h2 (format "Weekly Points (%s)" login)]
         (view/headline 1)
+        [:p "1 週間ごとの練習回数とスコア。🙂の数が平常点だな。"]
         [:table.table.table-striped
          [:thead
           [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
@@ -74,12 +78,11 @@
              [:td pt (smiles pt thres-point)]])]]
         [:div
          [:ul
-          [:li "一回の練習には 1 分しか、かからない。10 回練習しても 10 分だ。"]
+          [:li "一回の練習には 1 分しかかからない。10 回練習しても 10 分だ。"]
           [:li "30 点はかなり低い点数。 10 回練習すれば 300 点 取れる。"]
           [:li "一週間に 3 日練習したら、回数は 30 回、点数は 1000点 くらいになる。"]
           [:li "30 回、1000 点を超えたら、その週のタイピング平常点は 1 。"]
-          [:li "過去週のデータは書き変わらない。"]
-          [:li "今期は何週あるのかな？"]]]]))))
+          [:li "過去週のデータは書き変わらない。"]]]]))))
 
 ;; day-by-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
@@ -91,13 +94,19 @@
         (let [results (results/day-by-day db login)]
           (view/page
            [:div
-            [:h2 (format "Typing: last 7 days (%s)" login)]
+            [:h2 (format "Typing: Last 7 days (%s)" login)]
             (view/headline 1)
             [:br]
+            [:p "直近の7日間のタイピング練習に入った時刻とスコア。"]
             [:ol {:style "margin-left:1rem;"}
-             (for [[date pt] results]
-               [:li date " " pt])]]))))))
-
+             (println results)
+             (for [{:keys [timestamp pt]} results]
+               [:li (subs (str timestamp) 0 16) " " pt])]]))))))
+(comment
+  (def s (java.util.Date.))
+  s
+  (str s)
+  (jt/format "YYYY-MM-DD HH:mm" s))
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
   (fn [{{:keys [login count pt]} :params}]

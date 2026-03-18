@@ -94,33 +94,31 @@
 (defn headline
   "リンクボタンの並び。n は後方互換のために残っている。"
   [_n]
-  [:div {:style "margin-left:1rem;"}
-   [:div.row
-    [:div.d-inline
-     [:a {:href "/"
-          :class "btn btn-primary btn-sm"} "Go!"] " "
-     [:a {:href "/rc"
-          :class "btn roll-call btn-sm"} "RC"] " "
-     [:a {:href "https://kp.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"} "KP"] " "
-     [:a {:href "https://qa.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"} "QA"] " "
-     [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-          :class "btn btn-info btn-sm"} "JPY"] " "
-     [:a {:href "https://p.melt.kyutech.ac.jp/"
-          :class "btn btn-success btn-sm"} "p"] " "
-     [:a {:href "/logout"
-          :class "btn btn-warning btn-sm"} "Logout"]]]
-   [:div.row
-    [:div.d-inline
-     [:a {:href "/todays"
-          :class "btn btn-danger btn-sm"} "todays"] " "
-     [:a {:href "/day-by-day"
-          :class "btn btn-danger btn-sm"} "last 7 days"] " "
-     [:a {:href "/weekly-points"
-          :class "btn btn-danger btn-sm"} "weekly points"] " "
-     [:a {:href "/total/7"
-          :class "btn btn-primary btn-sm"} "class"] " "]]])
+  [:div {:style "margin-left:1rem; width:300px;"}
+   [:div.d-inline
+    [:a {:href "/"
+         :class "btn btn-primary btn-sm"} "Go!"] " "
+    [:a {:href "/rc"
+         :class "btn roll-call btn-sm"} "RC"] " "
+    [:a {:href "https://kp.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "KP"] " "
+    [:a {:href "https://qa.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "QA"] " "
+    [:a {:href "https://jpy.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "JPY"] " "
+    [:a {:href "https://p.melt.kyutech.ac.jp/"
+         :class "btn btn-success btn-sm"} "p"] " "
+    [:a {:href "/logout"
+         :class "btn btn-warning btn-sm"} "Logout"]]
+   [:div.d-inline.g-3
+    [:a {:href "/todays"
+         :class "btn btn-danger btn-sm"} "todays"] " "
+    [:a {:href "/day-by-day"
+         :class "btn btn-danger btn-sm"} "last 7 days"] " "
+    [:a {:href "/weekly-points"
+         :class "btn btn-danger btn-sm"} "weekly points"] " "
+    [:a {:href "/total/7"
+         :class "btn btn-primary btn-sm"} "class"]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -227,12 +225,11 @@
      [:br]
      (when true ;; (or me? admin?)
        [:ul
-        [:li "Max " (apply max (map :pt scores))]
-        [:li "Average (last 10) " avg]
-        [:li "Exercise days " (select-count-distinct scores)]
-        [:li "Exercises (today/total) " (count todays) "/" (count scores)]
-        ;; [:li [:a {:href (str "/restarts-page/" login)} "Today's Go!"]]
-        [:li "Last Exercise " (ss (str (:timestamp (last scores))))]])
+        [:li [:span.b "Max: "] (apply max (map :pt scores))]
+        [:li [:span.b "Average (last 10) "]  avg]
+        [:li [:span.b "Exercise days: "] (select-count-distinct scores)]
+        [:li [:span.b "Exercises (today/total): "] (count todays) "/" (count scores)]
+        [:li [:span.b "Last Exercise: "] (ss (str (:timestamp (last scores))))]])
      [:p
       [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
       " "

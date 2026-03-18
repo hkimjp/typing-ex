@@ -270,9 +270,9 @@ of yonder warehouses will not suffice."])
                :on-change (fn [e] (swap! app-state assoc :answer
                                          (-> e .-target .-value)))}]
 
-   [:div "Next: " [:span {:id "next"} (:next @app-state)]]
-   [:div "Status: " [results-component]]
-   [:div "Remain: " [:span {:id "seconds"} (:seconds @app-state)]
+   [:div [:span.b "Next: "] [:span {:id "next"} (:next @app-state)]]
+   [:div [:span.b "Status: "] [results-component]]
+   [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]
     #_[:input {:id    "seconds"
                :class "btn btn-outline-success btn-sm"
                :style {:font-family "monospace"}
@@ -282,7 +282,7 @@ of yonder warehouses will not suffice."])
                :read-only "readOnly"}]]
     ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
    [:p
-    "todays:"  [:br]
+    [:span.b "todays:"]  [:br]
     (bar-line-chart 300 150
                     (map :pt (:todays @app-state)) (:todays% @app-state))]
    ;;
