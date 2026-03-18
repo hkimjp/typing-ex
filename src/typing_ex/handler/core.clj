@@ -84,7 +84,7 @@
           [:li "30 回、1000 点を超えたら、その週のタイピング平常点は 1 。"]
           [:li "過去週のデータは書き変わらない。"]]]]))))
 
-;; day-by-day
+;; day-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
   (fn [request]
     (let [login (-> (get-login request) str)]
@@ -99,14 +99,9 @@
             [:br]
             [:p "直近の7日間のタイピング練習に入った時刻とスコア。"]
             [:ol {:style "margin-left:1rem;"}
-             (println results)
              (for [{:keys [timestamp pt]} results]
                [:li (subs (str timestamp) 0 16) " " pt])]]))))))
-(comment
-  (def s (java.util.Date.))
-  s
-  (str s)
-  (jt/format "YYYY-MM-DD HH:mm" s))
+
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
   (fn [{{:keys [login count pt]} :params}]
@@ -162,7 +157,7 @@
 (defmethod ig/init-key :typing-ex.handler.core/login-post [_ _]
   (fn [{[_ {:strs [login password]}] :ataraxy/result}]
     (if (and (seq login) (auth? login password))
-      (-> (redirect "/todays")
+      (-> (redirect "/day-by-day")
           (assoc-in [:session :identity] (keyword login)))
       (-> (redirect "/login")
           (dissoc :session)
@@ -347,14 +342,24 @@
       [::response/forbidden
        "<h1>Admin Only</h1><p>Only admin can view this page. Sorry.</p>"])))
 
+; (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
+;   (fn [req]
+;     (let [ret (->> (results/todays-act db)
+;                    (partition-by :login)
+;                    (map first)
+;                    (sort-by :timestamp)
+;                    reverse)]
+;       (view/todays-act-page ret (get-login req)))))
+
 (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
   (fn [req]
     (let [ret (->> (results/todays-act db)
-                   (partition-by :login)
-                   (map first)
-                   (sort-by :timestamp)
-                   reverse)]
+                   (partition-by :login))]
+      (def r ret)
       (view/todays-act-page ret (get-login req)))))
+
+(comment
+  :rcf)
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
