@@ -84,7 +84,7 @@
           [:li "30 回、1000 点を超えたら、その週のタイピング平常点は 1 。"]
           [:li "過去週のデータは書き変わらない。"]]]]))))
 
-;; day-by-day
+;; day-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
   (fn [request]
     (let [login (-> (get-login request) str)]
@@ -99,7 +99,6 @@
             [:br]
             [:p "直近の7日間のタイピング練習に入った時刻とスコア。"]
             [:ol {:style "margin-left:1rem;"}
-             (println results)
              (for [{:keys [timestamp pt]} results]
                [:li (subs (str timestamp) 0 16) " " pt])]]))))))
 
@@ -343,14 +342,24 @@
       [::response/forbidden
        "<h1>Admin Only</h1><p>Only admin can view this page. Sorry.</p>"])))
 
+; (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
+;   (fn [req]
+;     (let [ret (->> (results/todays-act db)
+;                    (partition-by :login)
+;                    (map first)
+;                    (sort-by :timestamp)
+;                    reverse)]
+;       (view/todays-act-page ret (get-login req)))))
+
 (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
   (fn [req]
     (let [ret (->> (results/todays-act db)
-                   (partition-by :login)
-                   (map first)
-                   (sort-by :timestamp)
-                   reverse)]
+                   (partition-by :login))]
+      (def r ret)
       (view/todays-act-page ret (get-login req)))))
+
+(comment
+  :rcf)
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
