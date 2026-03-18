@@ -252,20 +252,24 @@
 
 ;; view of /todays
 (defn todays-act-page [ret login]
-  (println "ret: " ret " login: " login)
   (page
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
     [:p (todays-msg)]
-    (into [:ol]
-          (for [r ret]
-            [:li {:style "font-family: monospace;"}
-             (ss (jt/local-date-time (:timestamp r)))
-             [:span {:class "m"} " "]
-             [:a {:href (str "/record/" (:login r))
-                  :class (if (= login (:login r)) "yes" "other")}
-              (:login r)]]))]))
+    [:ol
+     (for [r ret]
+       (let [name (-> r first :login)
+             tp (-> (mapv #(-> % :timestamp jt/local-time str (subs 0 5)) r))]
+         (println "tp: " tp)
+         [:li {:style "font-family: monospace;"}
+          [:a {:href (str "/record/" name)
+               :class (if (= login name)
+                        "yes"
+                        "other")}
+           name]
+          " "
+          [:span (interpose " " tp)]]))]]))
 
 (defn sums-page [ret user n]
   (page

@@ -14,7 +14,7 @@
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will overwrite
-(def ^:private timeout 60)
+(def ^:private timeout 10)
 
 (def interval (atom 1000)) ;; milli second
 
