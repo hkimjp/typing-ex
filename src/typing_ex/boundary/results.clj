@@ -5,9 +5,8 @@
    [next.jdbc.date-time]
    [next.jdbc.sql :as sql]
    [typing-ex.boundary.utils :refer [ds-opt]]
-   [integrant.core :as ig]))
-
-;;(next.jdbc.date-time/read-as-local)
+   ;[integrant.core :as ig]
+   ))
 
 (defprotocol Results
   (weekly-points [db login])
@@ -22,7 +21,6 @@
   ;; (find-ex-days-thres [db days thres])
   (find-ex-days [db days])
   (todays-act [db])
-  ;; 2024-04-18
   (users [db])
   (login-timestamp [db]))
 
@@ -40,7 +38,6 @@
                  group by week) as rslt
                  order by week"
           ret (sql/query (ds-opt db) [sql login])]
-      ;; (println "ret:" ret)
       ret))
 
   (day-by-day [db user]
