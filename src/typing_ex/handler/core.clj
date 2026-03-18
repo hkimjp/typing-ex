@@ -79,9 +79,9 @@
         [:div
          [:ul
           [:li "一回の練習には 1 分しかかからない。10 回練習しても 10 分だ。"]
-          [:li "30 点はかなり低い点数。 10 回練習すれば 300 点 取れる。"]
+          [:li "30 点は低めの点数。 10 回練習すれば 300 点 取れる。"]
           [:li "一週間に 3 日練習したら、回数は 30 回、点数は 1000点 くらいになる。"]
-          [:li "30 回、1000 点を超えたら、その週のタイピング平常点は 1 。"]
+          [:li "30 回を超えて 1、1000 点を超えて 1、そうするとその週のタイピング平常点は 2。"]
           [:li "過去週のデータは書き変わらない。"]]]]))))
 
 ;; day-day
@@ -342,24 +342,12 @@
       [::response/forbidden
        "<h1>Admin Only</h1><p>Only admin can view this page. Sorry.</p>"])))
 
-; (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
-;   (fn [req]
-;     (let [ret (->> (results/todays-act db)
-;                    (partition-by :login)
-;                    (map first)
-;                    (sort-by :timestamp)
-;                    reverse)]
-;       (view/todays-act-page ret (get-login req)))))
-
 (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
   (fn [req]
     (let [ret (->> (results/todays-act db)
                    (partition-by :login))]
       (def r ret)
       (view/todays-act-page ret (get-login req)))))
-
-(comment
-  :rcf)
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
