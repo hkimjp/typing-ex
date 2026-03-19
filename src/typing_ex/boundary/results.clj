@@ -123,7 +123,7 @@
      (ds-opt db)
      ["select login, timestamp from results
        where timestamp::DATE=current_date
-       order by login, timestamp desc"]))
+       order by login, timestamp asc"]))
 
   ;; 2024-04-18
   (users

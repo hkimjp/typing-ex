@@ -13,13 +13,12 @@
 * delete old typing data
   delete from results where timestamp < '2026-03-01';
 * using Redis is too much 
-* date format /todayssxx
-* group by date /day-by-day
-* header ボタン均等割付け
+* ignore the last enter-key
 
 
 ## 5.4.1
 
+- changed - order of /todays, todays-act, from desc to asc.
 - headline
 - PORT_DEV
 - some notes
