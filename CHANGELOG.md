@@ -17,7 +17,14 @@
 * group by date /day-by-day
 * header ボタン均等割付け
 
-## 5.4.0
+
+## 5.4.1
+
+- headline
+- PORT_DEV
+- some notes
+
+## 5.4.0 (2026-03-18)
 
 - changed - `/todays` lists today's training times.
   logically rearranged the order of buttons.
