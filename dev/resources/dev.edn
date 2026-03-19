@@ -1,4 +1,4 @@
 {:duct.core/environment :development
  :duct.database/sql
  {:connection-uri #duct/env ["DATABASE_URL"]}
- :duct.server.http/jetty {:port #duct/env ["PORT" Int] :join? false}}
+ :duct.server.http/jetty {:port #duct/env ["PORT_DEV" Int] :join? false}}

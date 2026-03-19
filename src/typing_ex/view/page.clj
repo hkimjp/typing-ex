@@ -94,7 +94,7 @@
 (defn headline
   "リンクボタンの並び。n は後方互換のために残っている。"
   [_n]
-  [:div {:style "margin-left:1rem; width:300px;"}
+  [:div {:style "margin-left:1rem;"}
    [:div.d-inline
     [:a {:href "/"
          :class "btn btn-primary btn-sm"} "Go!"] " "
@@ -110,7 +110,8 @@
          :class "btn btn-success btn-sm"} "p"] " "
     [:a {:href "/logout"
          :class "btn btn-warning btn-sm"} "Logout"]]
-   [:div.d-inline.g-3
+   [:br]
+   [:div.d-inline
     [:a {:href "/day-by-day"
          :class "btn btn-danger btn-sm"} "last 7 days"] " "
     [:a {:href "/weekly-points"
@@ -196,8 +197,7 @@
      [:h2 "Typing: " login " Records"]
      [:p "付け焼き刃はもろい。毎日 10 分 x 3 セット。"
       [:br]
-      "TOTAL は全スコア、TODAYS は本日分（10回以上練習）、
-          DAY BY DAY は一日平均。"]
+      "TOTAL は全スコア、DAY BY DAY は一日平均。10回以上練習で TODAYS が現れる。"]
      ;; start date
      [:div.d-inline-flex
       [:div.px-2.mx-auto
@@ -226,7 +226,7 @@
      (when true ;; (or me? admin?)
        [:ul
         [:li [:span.b "Max: "] (apply max (map :pt scores))]
-        [:li [:span.b "Average (last 10) "]  avg]
+        [:li [:span.b "Average (last 10): "]  avg]
         [:li [:span.b "Exercise days: "] (select-count-distinct scores)]
         [:li [:span.b "Exercises (today/total): "] (count todays) "/" (count scores)]
         [:li [:span.b "Last Exercise: "] (ss (str (:timestamp (last scores))))]])
@@ -275,7 +275,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習は情報基礎の平常点。"]
+    [:p "タイピング練習は情報基礎の平常点。ユーザ名をクリックしてみよう。"]
     (into [:ol]
           (for [r ret]
             (let [login (:login r)
