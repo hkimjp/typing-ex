@@ -195,7 +195,11 @@
         todays (filter #(today? (:timestamp %)) scores)]
     (page
      [:h2 "Typing: " login " Records"]
-     [:p "付け焼き刃はもろい。毎日 10 分 x 3 セット。"
+     [:p "毎日 10 分 x 3 セット。"
+      [:span {:style "color: red"} " --- 100点"]
+      [:span {:style "color: blue"} " --- 60点"]
+      [:span {:style "color: green"} " --- 30点"]
+      [:span {:style "color: black"} " --- 0点"]
       [:br]
       "TOTAL は全スコア、DAY BY DAY は一日平均。10回以上練習で TODAYS が現れる。"]
      ;; start date
