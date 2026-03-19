@@ -100,7 +100,7 @@
             [:p "直近の7日間のタイピング練習に入った時刻とスコア。"]
             [:ol {:style "margin-left:1rem;"}
              (for [{:keys [timestamp pt]} results]
-               [:li (subs (str timestamp) 0 16) " " pt])]]))))))
+               [:li (subs (str timestamp) 0 16) ", " pt])]]))))))
 
 ;; exam!
 (defmethod ig/init-key :typing-ex.handler.core/exam! [_ _]
