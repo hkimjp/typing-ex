@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "${PORT}:${PORT}"
+      - "127.0.0.1:${PORT}:${PORT}"
     entrypoint: >
       sh -c "java -jar --enable-native-access=ALL-UNNAMED tp.jar"
 

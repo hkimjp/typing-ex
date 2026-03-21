@@ -15,7 +15,10 @@
 * using Redis is too much 
 * ignore the last enter-key
 
+## 5.4.2
 
+- improved `.env` and `compose.yaml`
+ 
 ## 5.4.1
 
 - changed - order of /todays, todays-act, from desc to asc.
