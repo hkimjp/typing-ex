@@ -15,7 +15,12 @@
 * using Redis is too much 
 * ignore the last enter-key
 
-## 5.4.2
+
+## 5.4.3-SNAPSHOT
+
+- color of 'jpy' should be same with 'p'
+
+- ## 5.4.2
 
 - improved `.env` and `compose.yaml`
  

@@ -105,7 +105,7 @@
     [:a {:href "https://qa.melt.kyutech.ac.jp/"
          :class "btn btn-info btn-sm"} "QA"] " "
     [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "JPY"] " "
+         :class "btn btn-success btn-sm"} "JPY"] " "
     [:a {:href "https://p.melt.kyutech.ac.jp/"
          :class "btn btn-success btn-sm"} "p"] " "
     [:a {:href "/logout"

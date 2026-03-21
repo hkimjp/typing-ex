@@ -4,7 +4,13 @@ prep:
     npm install
 
 watch:
-    npx shadow-cljs watch app
+    #!/usr/bin/env bash
+    if [[ `ps ax | rg '[s]hadow-cljs'` ]]; then \
+        echo "shadow-cljs is already running"; \
+        kill `ps ax | rg shadow-cljs | awk '{print $1}'`; \
+    else \
+        npx shadow-cljs watch app; \
+    fi
 
 release:
     npx shadow-cljs release app
