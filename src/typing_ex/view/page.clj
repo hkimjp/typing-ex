@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.4.0")
+(def ^:private version "5.4.3")
 
 ;--------------------------------
 (defn- ss
@@ -94,23 +94,24 @@
 (defn headline
   "リンクボタンの並び。n は後方互換のために残っている。"
   [_n]
-  [:div {:style "margin-left:1rem; width:300px;"}
+  [:div {:style "margin-left:1rem;"}
    [:div.d-inline
     [:a {:href "/"
          :class "btn btn-primary btn-sm"} "Go!"] " "
     [:a {:href "/rc"
          :class "btn roll-call btn-sm"} "RC"] " "
-    [:a {:href "https://kp.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "KP"] " "
+    [:a {:href "https://jpy.melt.kyutech.ac.jp/"
+         :class "btn btn-success btn-sm"} "JPY"] " "
+    [:a {:href "https://kpy.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "KPY"] " "
     [:a {:href "https://qa.melt.kyutech.ac.jp/"
          :class "btn btn-info btn-sm"} "QA"] " "
-    [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "JPY"] " "
     [:a {:href "https://p.melt.kyutech.ac.jp/"
          :class "btn btn-success btn-sm"} "p"] " "
     [:a {:href "/logout"
          :class "btn btn-warning btn-sm"} "Logout"]]
-   [:div.d-inline.g-3
+   [:br]
+   [:div.d-inline
     [:a {:href "/day-by-day"
          :class "btn btn-danger btn-sm"} "last 7 days"] " "
     [:a {:href "/weekly-points"
@@ -118,7 +119,9 @@
     [:a {:href "/todays"
          :class "btn btn-primary btn-sm"} "todays"] " "
     [:a {:href "/total/7"
-         :class "btn btn-primary btn-sm"} "totals"]]])
+         :class "btn btn-primary btn-sm"} "totals"]]
+   [:br]
+   [:div "学外からの JPY と p は VPN が必要。"]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -194,10 +197,13 @@
         todays (filter #(today? (:timestamp %)) scores)]
     (page
      [:h2 "Typing: " login " Records"]
-     [:p "付け焼き刃はもろい。毎日 10 分 x 3 セット。"
+     [:p "毎日 10 分 x 3 セット。"
+      [:span {:style "color: red"} " --- 100点"]
+      [:span {:style "color: blue"} " --- 60点"]
+      [:span {:style "color: green"} " --- 30点"]
+      [:span {:style "color: black"} " --- 0点"]
       [:br]
-      "TOTAL は全スコア、TODAYS は本日分（10回以上練習）、
-          DAY BY DAY は一日平均。"]
+      "TOTAL は全スコア、DAY BY DAY は一日平均。10回以上練習で TODAYS が現れる。"]
      ;; start date
      [:div.d-inline-flex
       [:div.px-2.mx-auto
@@ -226,7 +232,7 @@
      (when true ;; (or me? admin?)
        [:ul
         [:li [:span.b "Max: "] (apply max (map :pt scores))]
-        [:li [:span.b "Average (last 10) "]  avg]
+        [:li [:span.b "Average (last 10): "]  avg]
         [:li [:span.b "Exercise days: "] (select-count-distinct scores)]
         [:li [:span.b "Exercises (today/total): "] (count todays) "/" (count scores)]
         [:li [:span.b "Last Exercise: "] (ss (str (:timestamp (last scores))))]])
@@ -261,7 +267,6 @@
      (for [r ret]
        (let [name (-> r first :login)
              tp (-> (mapv #(-> % :timestamp jt/local-time str (subs 0 5)) r))]
-         (println "tp: " tp)
          [:li {:style "font-family: monospace;"}
           [:a {:href (str "/record/" name)
                :class (if (= login name)
@@ -276,7 +281,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習は情報基礎の平常点。"]
+    [:p "タイピング練習は情報基礎の平常点。ユーザ名をクリックしてみよう。"]
     (into [:ol]
           (for [r ret]
             (let [login (:login r)

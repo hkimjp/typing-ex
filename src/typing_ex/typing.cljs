@@ -9,11 +9,15 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "5.4.0")
+(comment
+  (System/getenv "Home")
+  :rcf)
+
+(def ^:private version "5.4.3")
 
 (def ^:private todays-limit 10)
 
-;; bump-version.sh will overwrite
+;; bump-version.sh will rewrite
 (def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
