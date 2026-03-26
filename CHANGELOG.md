@@ -14,11 +14,18 @@
   delete from results where timestamp < '2026-03-01';
 * using Redis is too much 
 * ignore the last enter-key
+* sun.misc.Unsafe
+    ```
+    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+    WARNING: sun.misc.Unsafe::objectFieldOffset has been called by    org.jboss.threads.JBossExecutors (file:/Users/hkim/.m2/repository/org/jboss/threads   /jboss-threads/3.5.0.Final/jboss-threads-3.5.0.Final.jar)
+    WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
+    WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+    ```
 
-
-## 5.4.3-SNAPSHOT
+## 5.4.3 (2026-03-26)
 
 - color of 'jpy' should be same with 'p'
+- button order - jpy,kpy,qa,p,logout
 
 - ## 5.4.2
 

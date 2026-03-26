@@ -13,7 +13,7 @@
   (System/getenv "Home")
   :rcf)
 
-(def ^:private version "5.4.2")
+(def ^:private version "5.4.3")
 
 (def ^:private todays-limit 10)
 

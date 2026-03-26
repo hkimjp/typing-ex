@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.4.2")
+(def ^:private version "5.4.3")
 
 ;--------------------------------
 (defn- ss
@@ -100,12 +100,12 @@
          :class "btn btn-primary btn-sm"} "Go!"] " "
     [:a {:href "/rc"
          :class "btn roll-call btn-sm"} "RC"] " "
-    [:a {:href "https://kp.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "KP"] " "
-    [:a {:href "https://qa.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "QA"] " "
     [:a {:href "https://jpy.melt.kyutech.ac.jp/"
          :class "btn btn-success btn-sm"} "JPY"] " "
+    [:a {:href "https://kpy.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "KPY"] " "
+    [:a {:href "https://qa.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "QA"] " "
     [:a {:href "https://p.melt.kyutech.ac.jp/"
          :class "btn btn-success btn-sm"} "p"] " "
     [:a {:href "/logout"
@@ -119,7 +119,9 @@
     [:a {:href "/todays"
          :class "btn btn-primary btn-sm"} "todays"] " "
     [:a {:href "/total/7"
-         :class "btn btn-primary btn-sm"} "totals"]]])
+         :class "btn btn-primary btn-sm"} "totals"]]
+   [:br]
+   [:div "学外からの JPY と p は VPN が必要。"]])
 
 (defn scores-page
   "maxpt: 最高点
