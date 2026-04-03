@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.4.3")
+(def ^:private version "5.4.4")
 
 ;--------------------------------
 (defn- ss
@@ -88,7 +88,9 @@
    [:ul
     [:li "焦らず、ゆっくり、正しい指使いがタイピングが上達の早道。"]
     [:li "10 分練習したら休憩入れよう。"]
-    [:li "練習しないと平常点にならない。"]]))
+    [:li "練習しないと平常点にならない。"]
+    [:li "Invalid Anti-Foregry-Token はパスワードの賞味期限切れ。"
+     "再ログインしてください。"]]))
 
 ; changed to public
 (defn headline
