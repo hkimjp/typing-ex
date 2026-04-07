@@ -17,17 +17,35 @@
 * sun.misc.Unsafe
     ```
     WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-    WARNING: sun.misc.Unsafe::objectFieldOffset has been called by    org.jboss.threads.JBossExecutors (file:/Users/hkim/.m2/repository/org/jboss/threads   /jboss-threads/3.5.0.Final/jboss-threads-3.5.0.Final.jar)
+    WARNING: sun.misc.Unsafe::objectFieldOffset has been called by
+    org.jboss.threads.JBossExecutors (file:/Users/hkim/.m2/repository/org/jboss/threads
+    jboss-threads/3.5.0.Final/jboss-threads-3.5.0.Final.jar)
     WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
+## 5.4.5 (2026-04-07)
+
+- fixed - tuesday, 10:20 で roll-call time にならない。
+
+  コンテナ内の redis に setex stat 900 roll-call を流せば良い。
+
+    docker exec <container> setex stat 900 roll-call
+
+  これを at コマンドから流す。
+  `-it` オプションをつけててコマンドが実行されなかった（本当か？）
+- added `at/roll-call.sh`
+- added `.env-templ`
+
+## 5.4.4 (2026-04-03)
+
+- Invalid anti-forgery-token の説明。
 
 ## 5.4.3 (2026-03-26)
 
 - color of 'jpy' should be same with 'p'
 - button order - jpy,kpy,qa,p,logout
 
-- ## 5.4.2
+## 5.4.2
 
 - improved `.env` and `compose.yaml`
  
