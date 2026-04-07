@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.4.4")
+(def ^:private version "5.4.5")
 
 ;--------------------------------
 (defn- ss
@@ -294,10 +294,7 @@
                  " "
                  [:a {:href (str "/record/" login)
                       :class (if (= user login) "yes" "other")}
-                  login]]))))]
-   ;; [:p "from " (env :tp-start)]
-   ;;(headline n)
-   ))
+                  login]]))))]))
 
 (defn stat-page
   "stat は redis-cli> get stat の結果。
@@ -321,7 +318,6 @@
       [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]])))
 
 ;; roll-call
-;; FIXME: 表示で工夫するよりも、データベースに入れる時に加工するか？
 (defn rc-page [ret login]
   (page
    [:h2 (format "Typing: 出席データ(%s)" login)]
@@ -347,7 +343,7 @@
   [acc-login]
   (page
    [:h2 "Typing: Accuracies"]
-   (headline 1) ;
+   (headline 1)
    [:div {:style "margin-left:1rem;"}
     [:p "under construction."]
     (into [:ol

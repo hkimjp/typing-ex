@@ -23,6 +23,18 @@
     WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
+## 5.4.5 (2026-04-07)
+
+- fixed - tuesday, 10:20 で roll-call time にならない。
+
+  コンテナ内の redis に setex stat 900 roll-call を流せば良い。
+
+    docker exec <container> setex stat 900 roll-call
+
+  これを at コマンドから流す。
+  `-it` オプションをつけててコマンドが実行されなかった（本当か？）
+- added `at/roll-call.sh`
+- added `.env-templ`
 
 ## 5.4.4 (2026-04-03)
 

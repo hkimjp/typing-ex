@@ -13,7 +13,7 @@
   (System/getenv "Home")
   :rcf)
 
-(def ^:private version "5.4.4")
+(def ^:private version "5.4.5")
 
 (def ^:private todays-limit 10)
 
@@ -94,20 +94,6 @@ of yonder warehouses will not suffice."])
              (= all goods) (+ score seconds 10) ;; bonus 10
              (= all (+ goods bads)) (+ score seconds (- bs))
              :else (- score bs)))))
-
-;; (defn- exam-point!
-;;   "check mode, "
-;;   [login count pt]
-;;   (go (let [stat (-> (<! (http/get "/stat")) :body)]
-;;         (when (= stat "exam")
-;;           (let [ret (<! (http/post
-;;                          "/exam"
-;;                          {:form-params
-;;                           {:__anti-forgery-token (csrf-token),
-;;                            :login login
-;;                            :count count
-;;                            :pt pt}}))]
-;;             (.log js/console (str "exam-point! /exam" ret)))))))
 
 (defn- ratio-f
   "return typing collectness. function name is wrong."
