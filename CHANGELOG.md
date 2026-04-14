@@ -25,7 +25,7 @@
     ```
 * ignore Enter against dialog.
 
-## 5.4.7-SNAPSHOT (2026-04-15)
+## 5.4.7 (2026-04-15) (2026-04-15)
 
 - improve `todays` menu - current version lists the timestamp in alphabetical
   user names. it is better recent timestamp first.
