@@ -24,7 +24,13 @@
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
 
-## 5.4.6-SNAPSHOT
+## 5.4.7-SNAPSHOT (2026-04-15)
+
+- improve `todays` menu - current version lists the timestamp in alphabetical
+  user names. it is better recent timestamp first.
+
+
+## 5.4.6
 
 - can update libraries?
 

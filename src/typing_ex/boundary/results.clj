@@ -117,14 +117,22 @@
           ret (sql/query (ds-opt db) [q])]
       ret))
 
+  ; (todays-act
+  ;   [db]
+  ;   (sql/query
+  ;    (ds-opt db)
+  ;    ["select login, timestamp from results
+  ;      where timestamp::DATE=current_date
+  ;      order by login, timestamp asc"]))
+
+    ; 2026-04-15
   (todays-act
     [db]
     (sql/query
      (ds-opt db)
      ["select login, timestamp from results
        where timestamp::DATE=current_date
-       order by login, timestamp asc"]))
-
+       order by login, timestamp desc"]))
   ;; 2024-04-18
   (users
     [db]
