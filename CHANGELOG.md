@@ -23,15 +23,21 @@
     WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
+* ignore Enter against dialog.
+
+
 
 ## 5.4.6-SNAPSHOT
 
+- changed todays button display - last trained first
 - can update libraries?
 
 | :file           | :name          | :current | :latest |
 |-----------------|----------------|----------|---------|
 | project.clj     | integrant/repl | 0.5.0    | 0.5.1   |
 | shadow-cljs.edn | reagent        | 1.3.0    | 2.0.1   |
+
+after updating, `shadow-cljs - Reconnecting ...` appears on the browser.
 
 - no use `timer` folder. deleted.
 
