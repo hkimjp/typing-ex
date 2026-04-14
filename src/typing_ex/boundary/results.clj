@@ -40,15 +40,6 @@
           ret (sql/query (ds-opt db) [sql login])]
       ret))
 
-  ; (day-by-day [db user]
-  ;   (let [sql "select timestamp::DATE, pt from results
-  ;              where login=?
-  ;              and timestamp > now() - interval '1 week'
-  ;              order by id"
-  ;         ret (sql/query (ds-opt db) [sql user])]
-  ;     (mapv (fn [{:keys [timestamp pt]}]
-  ;             [(str timestamp) pt]) ret)))
-
   (day-by-day [db user]
     (let [sql "select timestamp, pt from results
                where login=?
@@ -117,13 +108,14 @@
           ret (sql/query (ds-opt db) [q])]
       ret))
 
+  ; 2026-04-15
   (todays-act
     [db]
     (sql/query
      (ds-opt db)
      ["select login, timestamp from results
        where timestamp::DATE=current_date
-       order by login, timestamp asc"]))
+       order by login, timestamp desc"]))
 
   ;; 2024-04-18
   (users

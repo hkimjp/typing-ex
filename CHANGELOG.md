@@ -23,6 +23,27 @@
     WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
+* ignore Enter against dialog.
+
+## 5.4.7 (2026-04-15) (2026-04-15)
+
+- improve `todays` menu - current version lists the timestamp in alphabetical
+  user names. it is better recent timestamp first.
+
+## 5.4.6 (2026-04-14)
+
+- changed todays button display - last trained first
+- can update libraries?
+
+| :file           | :name          | :current | :latest |
+|-----------------|----------------|----------|---------|
+| project.clj     | integrant/repl | 0.5.0    | 0.5.1   |
+| shadow-cljs.edn | reagent        | 1.3.0    | 2.0.1   |
+
+after updating, `shadow-cljs - Reconnecting ...` appears on the browser.
+
+- no use `timer` folder. deleted.
+
 ## 5.4.5 (2026-04-07)
 
 - fixed - tuesday, 10:20 で roll-call time にならない。

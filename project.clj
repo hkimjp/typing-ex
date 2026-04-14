@@ -1,4 +1,4 @@
-(defproject typing-ex "5.4.5"
+(defproject typing-ex "5.4.7"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -35,7 +35,7 @@
    :profiles/dev {}
    :project/dev  {:source-paths   ["dev/src"]
                   :resource-paths ["dev/resources"]
-                  :dependencies   [[integrant/repl "0.5.0"]
+                  :dependencies   [[integrant/repl "0.5.1"]
                                    [hawk "0.2.11"]
                                    [eftest "0.6.0"]
                                    [fipp "0.6.29"]
