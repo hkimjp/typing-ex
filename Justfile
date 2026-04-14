@@ -56,14 +56,15 @@ restart:
     just down
     just up
 
-timer serv:
-    ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
-    scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/timer/
-    ssh {{ serv }} 'sudo cp typing-ex/timer/typing-ex_roll-call.* /lib/systemd/system/'
-    ssh {{ serv }} 'sudo systemctl daemon-reload'
-    ssh {{ serv }} 'sudo systemctl enable typing-ex_roll-call.timer'
-    ssh {{ serv }} 'sudo systemctl start typing-ex_roll-call.timer'
-    ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
+# moved to standalone timer
+# timer serv:
+#     ssh {{ serv }} 'mkdir -p typing-ex/timer typing-ex/log'
+#     scp timer/typing-ex_roll-call.* {{ serv }}:typing-ex/timer/
+#     ssh {{ serv }} 'sudo cp typing-ex/timer/typing-ex_roll-call.* /lib/systemd/system/'
+#     ssh {{ serv }} 'sudo systemctl daemon-reload'
+#     ssh {{ serv }} 'sudo systemctl enable typing-ex_roll-call.timer'
+#     ssh {{ serv }} 'sudo systemctl start typing-ex_roll-call.timer'
+#     ssh {{ serv }} 'sudo systemctl status typing-ex_roll-call.timer'
 
 deploy serv: release uberjar
     @echo must manually set up '.env'
