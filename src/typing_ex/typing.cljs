@@ -13,12 +13,12 @@
   (System/getenv "Home")
   :rcf)
 
-(def ^:private version "5.4.5")
+(def ^:private version "5.4.6")
 
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will rewrite
-(def ^:private timeout 10)
+(def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
 

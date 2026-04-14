@@ -27,7 +27,7 @@
 
 
 
-## 5.4.6-SNAPSHOT
+## 5.4.6 (2026-04-14)
 
 - changed todays button display - last trained first
 - can update libraries?
