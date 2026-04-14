@@ -108,14 +108,14 @@
           ret (sql/query (ds-opt db) [q])]
       ret))
 
-  ;; changed - removed login from `order by` sequence
+  ; 2026-04-15
   (todays-act
     [db]
     (sql/query
      (ds-opt db)
      ["select login, timestamp from results
        where timestamp::DATE=current_date
-       order by timestamp asc"]))
+       order by login, timestamp desc"]))
 
   ;; 2024-04-18
   (users

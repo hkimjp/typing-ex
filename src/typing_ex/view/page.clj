@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.4.6")
+(def ^:private version "5.4.7-SNAPSHOT")
 
 ;--------------------------------
 (defn- ss
@@ -260,16 +260,15 @@
 
 ;; view of /todays
 (defn todays-act-page [ret login]
-  ; develop
-  (println ret)
   (page
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習した時刻。10回以上は ... で表示。"]
+    [:p "タイピング練習した時刻。最近練習した人が上で、最近練習した時刻が左。"
+     "10回以上は ... で表示。"]
     [:ol
      (for [r (->> ret
-                  (sort-by (fn [coll] (:timestamp (last coll))))
+                  (sort-by #(:timestamp (first %)))
                   reverse)]
        (let [name (-> r first :login)
              tp (-> (mapv #(-> % :timestamp jt/local-time str (subs 0 5)) r))]

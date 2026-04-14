@@ -9,11 +9,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(comment
-  (System/getenv "Home")
-  :rcf)
-
-(def ^:private version "5.4.6")
+(def ^:private version "5.4.7-SNAPSHOT")
 
 (def ^:private todays-limit 10)
 
