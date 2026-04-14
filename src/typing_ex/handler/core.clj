@@ -336,7 +336,6 @@
        "<h1>Admin Only</h1><p>Only admin can view this page. Sorry.</p>"])))
 
 (defmethod ig/init-key :typing-ex.handler.core/todays-act
-  "本日のタイピングレコードを返す。"
   [_ {:keys [db]}]
   (fn [req]
     (let [ret (->> (results/todays-act db)
