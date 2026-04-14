@@ -18,7 +18,7 @@
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will rewrite
-(def ^:private timeout 60)
+(def ^:private timeout 10)
 
 (def interval (atom 1000)) ;; milli second
 
@@ -125,15 +125,6 @@ of yonder warehouses will not suffice."])
           ;; msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")
           ]
       (js/alert (str s1 \newline s2))
-      #_(when-not (js/confirm msg)
-          (js/alert (str
-                   ;; (str @points-debug) " => " pt
-                     "\n\n"
-                     (:answer @app-state)
-                     "\n\n"
-                     (apply str (:results @app-state))
-                     "\n\n"
-                     (:text  @app-state))))
       ;; /alert で取れる情報(文字列)をアラートに出す。
       ;; challenge を出す時でもいいんじゃ？
       ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
@@ -262,14 +253,7 @@ of yonder warehouses will not suffice."])
 
    [:div [:span.b "Next: "] [:span {:id "next"} (:next @app-state)]]
    [:div [:span.b "Status: "] [results-component]]
-   [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]
-    #_[:input {:id    "seconds"
-               :class "btn btn-outline-success btn-sm"
-               :style {:font-family "monospace"}
-               :value (:seconds @app-state)
-               :size 2
-             ;;:on-click #(show-send-reset-display!)
-               :read-only "readOnly"}]]
+   [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]]
     ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
    [:p
     [:span.b "todays:"]  [:br]

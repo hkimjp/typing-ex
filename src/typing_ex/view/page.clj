@@ -260,13 +260,17 @@
 
 ;; view of /todays
 (defn todays-act-page [ret login]
+  ; develop
+  (println ret)
   (page
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
     [:p "タイピング練習した時刻。10回以上は ... で表示。"]
     [:ol
-     (for [r ret]
+     (for [r (->> ret
+                  (sort-by (fn [coll] (:timestamp (last coll))))
+                  reverse)]
        (let [name (-> r first :login)
              tp (-> (mapv #(-> % :timestamp jt/local-time str (subs 0 5)) r))]
          [:li {:style "font-family: monospace;"}

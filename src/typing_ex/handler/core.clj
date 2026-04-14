@@ -19,12 +19,6 @@
    [taoensso.carmine :as car]
    [taoensso.timbre :as t]))
 
-; (defn- check-env []
-;   (doseq [v [:prod :stage :port :auth :postgres-password :database-url
-;              :redis :tp-start]]
-;     (t/info v (env v))))
-; (check-env)
-
 (defonce  my-conn-pool (car/connection-pool {}))
 (def      my-conn-spec {:uri (or (env :redis) "redis://redis:6379")})
 (def      my-wcar-opts {:pool my-conn-pool :spec my-conn-spec})
@@ -72,7 +66,7 @@
           [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
          [:tbody
           (for [{:keys [week count pt]} (results/weekly-points db login)]
-            [:tr [:td week]
+            [:tr [:td (- week 15)]
              [:td count (smiles count thres-count)]
              [:td pt (smiles pt thres-point)]])]]
         [:div
@@ -80,7 +74,7 @@
           [:li "一回の練習には 1 分しかかからない。10 回練習しても 10 分だ。"]
           [:li "30 点は低めの点数。 10 回練習すれば 300 点 取れる。"]
           [:li "一週間に 3 日練習したら、回数は 30 回、点数は 1000点 くらいになる。"]
-          [:li "30 回を超えて 🙂、1000 点を超えて 🙂"]
+          [:li "30 回を超えて 🙂、1000 点を超えて 🙂。"]
           [:li "過去週のデータは書き変わらない。"]]]]))))
 
 ;; day-day
@@ -341,6 +335,7 @@
       [::response/forbidden
        "<h1>Admin Only</h1><p>Only admin can view this page. Sorry.</p>"])))
 
+; もう一踏ん張りする。
 (defmethod ig/init-key :typing-ex.handler.core/todays-act [_ {:keys [db]}]
   (fn [req]
     (let [ret (->> (results/todays-act db)
