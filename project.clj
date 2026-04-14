@@ -35,7 +35,7 @@
    :profiles/dev {}
    :project/dev  {:source-paths   ["dev/src"]
                   :resource-paths ["dev/resources"]
-                  :dependencies   [[integrant/repl "0.5.0"]
+                  :dependencies   [[integrant/repl "0.5.1"]
                                    [hawk "0.2.11"]
                                    [eftest "0.6.0"]
                                    [fipp "0.6.29"]

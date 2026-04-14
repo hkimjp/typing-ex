@@ -23,6 +23,18 @@
     WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
+
+## 5.4.6-SNAPSHOT
+
+- can update libraries?
+
+| :file           | :name          | :current | :latest |
+|-----------------|----------------|----------|---------|
+| project.clj     | integrant/repl | 0.5.0    | 0.5.1   |
+| shadow-cljs.edn | reagent        | 1.3.0    | 2.0.1   |
+
+
+
 ## 5.4.5 (2026-04-07)
 
 - fixed - tuesday, 10:20 で roll-call time にならない。
