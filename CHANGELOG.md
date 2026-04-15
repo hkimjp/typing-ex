@@ -24,6 +24,8 @@
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
 * ignore Enter against dialog.
+* bar-chart totals.
+
 
 ## 5.4.7 (2026-04-15) (2026-04-15)
 
