@@ -24,6 +24,9 @@
 * ignore Enter against dialog.
 * bar-chart totals.
 
+## 5.5.1
+
+- (quot sum 6)
 
 ## 5.5.0 (2026-04-16)
 

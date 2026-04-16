@@ -290,11 +290,12 @@
     [:ol
      (for [r ret]
        (let [login (:login r)
-             sum (:sum r)
-             s (quot sum 3)]
+             sum (:sum r)]
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
-            [:div {:style (str "display:inline-block; background:red; width: " s "px; margin: 2px;")} "　"]
+            [:div {:style (str "display:inline-block; background:red; width: "
+                               (quot sum 6)
+                               "px; margin: 2px;")} "　"]
             sum
             " "
             [:a {:href (str "/record/" login)
