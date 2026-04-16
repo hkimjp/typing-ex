@@ -10,8 +10,6 @@
 * display words wrongly typed
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 - (currently 5.3.7)
-* delete old typing data
-  delete from results where timestamp < '2026-03-01';
 * using Redis is too much 
 * ignore the last enter-key
 * sun.misc.Unsafe
@@ -25,7 +23,11 @@
     ```
 * ignore Enter against dialog.
 
-## 5.4.7 (2026-04-15) (2026-04-15)
+## 5.5.0-SNAPSHOT
+
+- totals bar chart
+
+## 5.4.7 (2026-04-15)
 
 - improve `todays` menu - current version lists the timestamp in alphabetical
   user names. it is better recent timestamp first.

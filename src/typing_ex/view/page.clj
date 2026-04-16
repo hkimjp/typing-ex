@@ -287,17 +287,19 @@
    (headline n)
    [:div {:style "margin-left:1rem;"}
     [:p "タイピング練習は情報基礎の平常点。ユーザ名をクリックしてみよう。"]
-    (into [:ol]
-          (for [r ret]
-            (let [login (:login r)
-                  sum (:sum r)]
-              (when (< -1 sum)
-                [:li {:style "font-family: monospace"}
-                 sum
-                 " "
-                 [:a {:href (str "/record/" login)
-                      :class (if (= user login) "yes" "other")}
-                  login]]))))]))
+    [:ol
+     (for [r ret]
+       (let [login (:login r)
+             sum (:sum r)
+             s (quot sum 3)]
+         (when (< -1 sum)
+           [:li {:style "font-family: monospace"}
+            [:div {:style (str "display:inline-block; background:red; width: " s "px; margin: 2px;")} "　"]
+            sum
+            " "
+            [:a {:href (str "/record/" login)
+                 :class (if (= user login) "yes" "other")}
+             login]])))]]))
 
 (defn stat-page
   "stat は redis-cli> get stat の結果。
