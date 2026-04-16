@@ -22,15 +22,19 @@
     WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
     ```
 * ignore Enter against dialog.
-* bar-chart totals.
+
+
+## 5.5.2 (2026-04-16)
+
+- improve text.
 
 ## 5.5.1
 
-- (quot sum 6)
+- changed - shrinked bar chart width by (quot sum 6)
 
 ## 5.5.0 (2026-04-16)
 
-- totals bar chart
+* totals by bar chart.
 
 ## 5.4.7 (2026-04-15)
 
