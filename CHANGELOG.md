@@ -23,7 +23,7 @@
     ```
 * ignore Enter against dialog.
 
-## 5.5.0-SNAPSHOT
+## 5.5.0 (2026-04-16)
 
 - totals bar chart
 
