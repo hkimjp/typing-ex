@@ -312,7 +312,7 @@
      [:form
       {:method "post" :action "/stat"}
       (h/raw (anti-forgery-field))
-      (for [val ["normal" "roll-call" "exam"]]
+      (for [val ["normal" "roll-call" "exam" "ban"]]
         [:div
          [:input
           (if (= stat val)

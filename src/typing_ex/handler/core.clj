@@ -216,8 +216,8 @@
       (t/info (str "/typing " user " from " addr))
       (if (roll-call-time?)
         (cond (local? addr) (typing-ex req)
-              (vpn? addr) [::response/ok "出席（前半）のタイプは VPN 不可。"]
-              (not (tobata? addr)) [::response/ok "出席（前半）のタイプは学外からはできない。"]
+              (vpn? addr) [::response/ok "出席記録は VPN 不可。"]
+              (not (tobata? addr)) [::response/ok "出席記録は学外からはできない。"]
               :else  (typing-ex req))
         (typing-ex req)))))
 
