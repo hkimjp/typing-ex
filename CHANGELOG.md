@@ -10,7 +10,6 @@
 * display words wrongly typed
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 - (currently 5.3.7)
-* using Redis is too much 
 * ignore the last enter-key
 * sun.misc.Unsafe
     ```
@@ -23,9 +22,21 @@
     ```
 * ignore Enter against dialog.
 
+## 5.6.0
+
+- ban time 
+
+## 5.5.2 (2026-04-16)
+
+- improve text.
+
+## 5.5.1
+
+- changed - shrinked bar chart width by (quot sum 6)
+
 ## 5.5.0 (2026-04-16)
 
-- totals bar chart
+* totals by bar chart.
 
 ## 5.4.7 (2026-04-15)
 

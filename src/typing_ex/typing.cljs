@@ -240,7 +240,7 @@ of yonder warehouses will not suffice."])
    [:h2 "Typing: Challenge"]
    [:pre {:id "example"} (:text @app-state)]
    [:textarea {:name "answer"
-               :placeholder "単語間のスペースは一個で。手元を見ずに。"
+               :placeholder "単語間のスペースは一個で。手元を見ずに。授業中は授業に集中するのが当たり前。"
                :id "drill"
                :value (:answer @app-state)
                :on-key-up #(check-key (.-key %))
