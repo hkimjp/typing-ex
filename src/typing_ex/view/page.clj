@@ -122,8 +122,7 @@
          :class "btn btn-primary btn-sm"} "todays"] " "
     [:a {:href "/total/7"
          :class "btn btn-primary btn-sm"} "totals"]]
-   [:br]
-   [:div "学外からの JPY と p は VPN が必要。"]])
+   [:br]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -264,8 +263,8 @@
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習した時刻。最近練習した人が上で、最近練習した時刻が左。"
-     "10回以上は ... で表示。"]
+    [:p "練習した時刻。最近練習した人が上で、最近練習した時刻が左。"
+     "10回以上は後ろを ... で表示。"]
     [:ol
      (for [r (->> ret
                   (sort-by #(:timestamp (first %)))
@@ -286,7 +285,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習は情報基礎の平常点。ユーザ名をクリックしてみよう。"]
+    [:p "直近の7日間。授業当日は週〆と同じになる。"]
     [:ol
      (for [r ret]
        (let [login (:login r)

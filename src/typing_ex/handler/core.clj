@@ -60,7 +60,7 @@
        [:div
         [:h2 (format "Weekly Points (%s)" login)]
         (view/headline 1)
-        [:p "1 週間ごとの練習回数とスコア。🙂の数が平常点だな。"]
+        [:p "1 週間ごとの練習回数とスコア。🙂の数が平常点になる。"]
         [:table.table.table-striped
          [:thead
           [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
@@ -86,11 +86,10 @@
             (assoc :flash "need login"))
         (let [results (results/day-by-day db login)]
           (view/page
-           [:div
-            [:h2 (format "Typing: Last 7 days (%s)" login)]
-            (view/headline 1)
-            [:br]
-            [:p "直近の7日間のタイピング練習に入った時刻とスコア。"]
+           [:h2 (format "Typing: Last 7 days (%s)" login)]
+           (view/headline 1)
+           [:div {:style "margin-left: 1rem;"}
+            [:p "直近の7日間、タイピング練習に入った時刻とスコア。"]
             [:ol {:style "margin-left:1rem;"}
              (for [{:keys [timestamp pt]} results]
                [:li (subs (str timestamp) 0 16) ", " pt])]]))))))
