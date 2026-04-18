@@ -7,6 +7,8 @@
   (in-ns 'dev)
   :loaded)
 
+(println "duct app. (dev) (go)")
+
 (comment
   (require '[environ.core :refer [env]])
   (env :database-url)

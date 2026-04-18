@@ -2,3 +2,7 @@
 
 must exec this script 2026-04-14 before 10:20 once.
 then every Tuesday at 10:20, this script will be executed repeatedly.
+
+# at/ban-time.sh
+
+ban typing-ex between 10:40 and 12:00.

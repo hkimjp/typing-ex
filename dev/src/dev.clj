@@ -41,7 +41,6 @@
 (defn q [sql]
   (jdbc/query (db) sql))
 
-(println "duct app. (dev) (go)")
 (comment
   (keys system)
   (db)

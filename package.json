@@ -16,7 +16,7 @@
   "license": "UNLICENSED",
   "name": "typing-ex",
   "description": "情報リテラシー 2022 授業用タイプ練習アプリ。",
-  "version": "5.5.0",
+  "version": "0.5.6-SNAPSHOT",
   "main": "index.js",
   "directories": {
     "test": "test"

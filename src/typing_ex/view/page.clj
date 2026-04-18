@@ -8,7 +8,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.5.0")
+(def ^:private version "0.5.6-SNAPSHOT")
 
 ;--------------------------------
 (defn- ss
@@ -102,18 +102,6 @@
          :class "btn btn-primary btn-sm"} "Go!"] " "
     [:a {:href "/rc"
          :class "btn roll-call btn-sm"} "RC"] " "
-    [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-         :class "btn btn-success btn-sm"} "JPY"] " "
-    [:a {:href "https://kpy.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "KPY"] " "
-    [:a {:href "https://qa.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "QA"] " "
-    [:a {:href "https://p.melt.kyutech.ac.jp/"
-         :class "btn btn-success btn-sm"} "p"] " "
-    [:a {:href "/logout"
-         :class "btn btn-warning btn-sm"} "Logout"]]
-   [:br]
-   [:div.d-inline
     [:a {:href "/day-by-day"
          :class "btn btn-danger btn-sm"} "last 7 days"] " "
     [:a {:href "/weekly-points"
@@ -121,9 +109,17 @@
     [:a {:href "/todays"
          :class "btn btn-primary btn-sm"} "todays"] " "
     [:a {:href "/total/7"
-         :class "btn btn-primary btn-sm"} "totals"]]
-   [:br]
-   [:div "学外からの JPY と p は VPN が必要。"]])
+         :class "btn btn-primary btn-sm"} "totals"]] " "
+   [:a {:href "https://jpy.melt.kyutech.ac.jp/"
+        :class "btn btn-success btn-sm"} "JPY"] " "
+   [:a {:href "https://kpy.melt.kyutech.ac.jp/"
+        :class "btn btn-info btn-sm"} "KPY"] " "
+   [:a {:href "https://qa.melt.kyutech.ac.jp/"
+        :class "btn btn-info btn-sm"} "QA"] " "
+   [:a {:href "https://p.melt.kyutech.ac.jp/"
+        :class "btn btn-success btn-sm"} "p"] " "
+   [:a {:href "/logout"
+        :class "btn btn-warning btn-sm"} "Logout"]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -264,8 +260,8 @@
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習した時刻。最近練習した人が上で、最近練習した時刻が左。"
-     "10回以上は ... で表示。"]
+    [:p "本日の練習のようす。最近練習した人が上で、最近練習した時刻が左。"
+     "10回以上は後ろを ... で表示。"]
     [:ol
      (for [r (->> ret
                   (sort-by #(:timestamp (first %)))
@@ -286,7 +282,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "タイピング練習は情報基礎の平常点。ユーザ名をクリックしてみよう。"]
+    [:p "直近の7日間。授業当日のこれが週〆だな。毎週クリアすべきか。"]
     [:ol
      (for [r ret]
        (let [login (:login r)

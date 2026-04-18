@@ -58,6 +58,7 @@ restart:
 
 deploy serv: release uberjar
     @echo must manually set up '.env'
+    scp at/*.sh {{serv}}:typing-ex/at/
     scp Justfile compose.yaml target/typing-ex-*-standalone.jar {{ serv }}:typing-ex/
     ssh {{ serv }} 'cd typing-ex && mv typing-ex-*-standalone.jar tp.jar && just restart'
 
