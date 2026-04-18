@@ -23,13 +23,14 @@
 * ignore Enter against dialog.
 * `last 7 days` is not `last week`
 
-## 5.7.0-SNAPSHOT
+## 5.7.1
 
-- navi one line
+- changed - navi one line
+- checked ban-time
 
 ## 5.6.0
 
-- ban time 
+- ban-time
 
 ## 5.5.2 (2026-04-16)
 
