@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.7.1")
+(def ^:private version "5.8.0")
 
 ;--------------------------------
 (defn- ss
