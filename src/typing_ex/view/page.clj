@@ -2,13 +2,14 @@
   (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
+   [clojure.string :as str]
    [environ.core :refer [env]]
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.7.1")
+(def ^:private version "5.8.0")
 
 ;--------------------------------
 (defn- ss
@@ -277,26 +278,35 @@
           " "
           [:span (abbrev10 tp)]]))]]))
 
+(def ^:private *zsp* "　")
+
+(defn- repli
+  "replicate string `s` for `n` times"
+  [s n]
+  (str/join " " (for [_ (range n)] s)))
+
 (defn sums-page [ret user n]
   (page
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "直近の7日間。授業当日のこれが週〆だな。毎週クリアすべきか。"]
+    [:p "直近の7日間。授業当日のこれが週〆だな。毎週リセットすべきか。"]
     [:ol
      (for [r ret]
        (let [login (:login r)
              sum (:sum r)]
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
-            [:div {:style (str "display:inline-block; background:red; width: "
-                               (quot sum 6)
-                               "px; margin: 2px;")} "　"]
-            sum
-            " "
-            [:a {:href (str "/record/" login)
-                 :class (if (= user login) "yes" "other")}
-             login]])))]]))
+            [:div
+             [:span (repli "⭐️" (quot sum 1000))]
+             [:div {:style (str "display:inline-block; background:red; width: "
+                                (quot (mod sum 1000) 2)
+                                "px; margin: 2px;")} *zsp*]
+             sum
+             " "
+             [:a {:href (str "/record/" login)
+                  :class (if (= user login) "yes" "other")}
+              login]]])))]]))
 
 (defn stat-page
   "stat は redis-cli> get stat の結果。

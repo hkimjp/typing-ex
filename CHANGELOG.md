@@ -23,6 +23,12 @@
 * ignore Enter against dialog.
 * `last 7 days` is not `last week`
 
+
+## 5.8.0 (2026-04-18)
+
+- changed text - 毎週クリア=> 毎週リセット
+- display 1000 pt = 1 star
+
 ## 5.7.1
 
 - changed - navi one line
