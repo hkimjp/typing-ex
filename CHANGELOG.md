@@ -23,6 +23,9 @@
 * ignore Enter against dialog.
 * `last 7 days` is not `last week`
 
+## 5.7.0-SNAPSHOT
+
+- navi one line
 
 ## 5.6.0
 
