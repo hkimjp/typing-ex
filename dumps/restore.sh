@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# if this fails,
+# login to container, exec dropdb ... from inside shell.
 
 if [ -z "$2" ]; then
   echo "usage: $0 <db> <dump file>"

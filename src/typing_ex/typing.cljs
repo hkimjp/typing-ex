@@ -239,14 +239,14 @@ of yonder warehouses will not suffice."])
   [:div {:class (:stat @app-state)}
    [:h2 "Typing: Challenge"]
    [:pre {:id "example"} (:text @app-state)]
-   [:textarea {:name "answer"
-               :placeholder "単語間のスペースは一個で。手元を見ずに。授業中は授業に集中するのが当たり前。"
-               :id "drill"
-               :value (:answer @app-state)
-               :on-key-up #(check-key (.-key %))
-               :on-change (fn [e] (swap! app-state assoc :answer
-                                         (-> e .-target .-value)))}]
-
+   [:textarea
+    {:name "answer"
+     :placeholder "単語間のスペースは一個で。手元を見ずに。授業中のタイピング練習は良くない。"
+     :id "drill"
+     :value (:answer @app-state)
+     :on-key-up #(check-key (.-key %))
+     :on-change (fn [e] (swap! app-state assoc :answer
+                               (-> e .-target .-value)))}]
    [:div [:span.b "Next: "] [:span {:id "next"} (:next @app-state)]]
    [:div [:span.b "Status: "] [results-component]]
    [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]]
