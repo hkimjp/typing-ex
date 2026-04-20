@@ -29,12 +29,11 @@
 
   (weekly-points [db login]
     (let [sql "select week, count, pt from
-                (select extract(week from timestamp) as week,
+                (select extract(week from timestamp - interval '1 day') as week,
                         count(*) as count,
                         sum(pt) as pt
                  from results
                  where login=?
-                 -- and timestamp > CURRENT_TIMESTAMP - interval '7 days'
                  group by week) as rslt
                  order by week"
           ret (sql/query (ds-opt db) [sql login])]

@@ -7,7 +7,6 @@
 * server push comments
 * force stop after n times trials
 * delay judging last word
-* display words wrongly typed
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 - (currently 5.3.7)
 * ignore the last enter-key
@@ -24,6 +23,18 @@
 * `last 7 days` is not `last week`
 
 
+## 5.8.1 (2026-04-20)
+
+- changed `boundary/results/weekly-points` - weeks should start tuesday.
+
+- from outside container exec `restore.sh` got error;
+
+  ```
+  pg_restore: error: could not read from input file: end of file
+  ```
+  success login to container, then exec `restore.sh` from inside shell.
+
+
 ## 5.8.0 (2026-04-18)
 
 - changed text - 毎週クリア=> 毎週リセット
@@ -36,7 +47,7 @@
 
 ## 5.6.0
 
-- ban-time
+- ban-time -
 
 ## 5.5.2 (2026-04-16)
 

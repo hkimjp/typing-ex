@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.8.0")
+(def ^:private version "5.8.1")
 
 ;--------------------------------
 (defn- ss
@@ -290,7 +290,7 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "直近の7日間。授業当日のこれが週〆だな。毎週リセットすべきか。"]
+    [:p "直近の7日間。⭐️は1000pt. 授業当日のこれが週〆だな。 毎週リセットすべきか。"]
     [:ol
      (for [r ret]
        (let [login (:login r)
