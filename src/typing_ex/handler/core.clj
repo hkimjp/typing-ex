@@ -70,7 +70,7 @@
           [:li "過去週のデータは書き変わらない。失った平常点は取り戻せない。"]]]
         [:table.table.table-striped
          [:thead
-          [:tr [:th "week"] [:th "回数"]　[:th "点数"]]]
+          [:tr [:th "week"] [:th "回数"] [:th "点数"]]]
          [:tbody
           (for [{:keys [week count pt]} (results/weekly-points db login)]
             [:tr [:td (- week 15)]
