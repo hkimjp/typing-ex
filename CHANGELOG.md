@@ -23,7 +23,7 @@
 * `last 7 days` is not `last week`
 
 
-## 5.8.1-SNAPSHOT
+## 5.8.1 (2026-04-20)
 
 - changed `boundary/results/weekly-points` - weeks should start tuesday.
 
