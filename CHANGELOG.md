@@ -21,8 +21,11 @@
     ```
 * ignore Enter against dialog.
 * `last 7 days` is not `last week`
-* threshold 100 up weekly automatically.
 
+
+## 5.8.2 (2026-04-24)
+
+- increment `threshold-points` by 1000 weekly.
 
 ## 5.8.1 (2026-04-20)
 
