@@ -23,6 +23,14 @@
 * `last 7 days` is not `last week`
 
 
+## 5.8.3-SNAPSHOT
+
+```
+  :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+                "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+                "--enable-native-access=ALL-UNNAMED"
+                "--sun-misc-unsafe-memory-access=allow"]
+```
 ## 5.8.2 (2026-04-24)
 
 - increment `threshold-points` by 1000 weekly.
