@@ -24,7 +24,7 @@
 
 ## 5.8.4 (2026-05-08)
 
-- level up weekly typing threshold.
+- level up 100pt typing threshold every week.
 - stop warning message by giving following jvm-opts;
 
 ```
