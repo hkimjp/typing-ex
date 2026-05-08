@@ -28,16 +28,12 @@
 
 (def typing-start (or (env :tp-start) "2025-09-01"))
 
-; (current-week)
-
 (def ^:private thres-count 30)
 
 (defn- current-week []
   (let [[year month date] (map parse-long (str/split (env :tp-start) #"-"))
         start-day (jt/local-date year month date)]
     (quot (jt/time-between start-day (jt/local-date) :days) 7)))
-
-(def ^:private thres-point (+ 1000 (* 100 (current-week))))
 
 (defn admin? [s]
   (let [admins #{"hkimura"}]
@@ -62,17 +58,6 @@
     ""
     "🙂"))
 
-; (defn current-week []
-;   (-> (java.time.LocalDate/now)
-;       (.getYear)
-;       (str)
-;       (str "-W")
-;       (str (-> (java.time.LocalDate/now)
-;                (.getDayOfYear)
-;                (/ 7)
-;                (Math/ceil)
-;                (int)))))
-
 (defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
   (fn [request]
     (let [login (get-login request)]
@@ -86,7 +71,7 @@
           [:li "一回の練習には 1 分しかかからない。10 回練習しても 10 分だ。"]
           [:li "10 回練習すれば 300 点は取れる。"]
           [:li "1 日 3 セット、一週間に 3 日練習したら、回数は 90 回、点数は 3000 点くらいになる。"]
-          [:li "30 回を超えて 🙂、" thres-point "点を超えて 🙂。"]
+          [:li "30 回を超えて 🙂、" (+ 1000 (* 100 (current-week))) "点を超えて 🙂。"]
           [:li "過去週のデータは書き変わらない。失った平常点は取り戻せない。"]]]
         [:table.table.table-striped
          [:thead
@@ -95,7 +80,7 @@
           (for [{:keys [week count pt]} (results/weekly-points db login)]
             [:tr [:td (- week 15)]
              [:td count (smiles count thres-count)]
-             [:td pt (smiles pt thres-point)]])]]]))))
+             [:td pt (smiles pt (+ 1000 (* 100 (- week 15))))]])]]]))))
 
 ;; day-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
