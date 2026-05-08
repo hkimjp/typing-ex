@@ -24,8 +24,8 @@
 
 ## 5.8.4 (2026-05-08)
 
-
-## 5.8.3 (2026-05-08)
+- level up weekly typing threshold.
+- stop warning message by giving following jvm-opts;
 
 ```
   :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
