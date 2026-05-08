@@ -22,8 +22,10 @@
 * ignore Enter against dialog.
 * `last 7 days` is not `last week`
 
+## 5.8.4 (2026-05-08)
 
-## 5.8.3-SNAPSHOT
+
+## 5.8.3 (2026-05-08)
 
 ```
   :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
