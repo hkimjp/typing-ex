@@ -1,4 +1,4 @@
-(defproject typing-ex "5.8.1"
+(defproject typing-ex "5.8.4"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -18,25 +18,24 @@
                  [org.clojure/clojure "1.12.4"]
                  [org.postgresql/postgresql "42.7.10"]
                  [org.clojure/tools.logging "1.3.1"]]
-
-  :jvm-opts ["--enable-native-access=ALL-UNNAMED"
-             "--sun-misc-unsafe-memory-access=deny"]
-
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot typing-ex.main
   :resource-paths ["resources" "target/resources"]
   :prep-tasks     ["javac" "compile" ["run" ":duct/compiler"]]
   :middleware     [lein-duct.plugin/middleware]
-  :profiles
-  {:dev  [:project/dev :profiles/dev]
-   :repl {:prep-tasks   ^:replace ["javac" "compile"]
-          :repl-options {:init-ns user}}
-   :uberjar {:aot :all}
-   :profiles/dev {}
-   :project/dev  {:source-paths   ["dev/src"]
-                  :resource-paths ["dev/resources"]
-                  :dependencies   [[integrant/repl "0.5.1"]
-                                   [hawk "0.2.11"]
-                                   [eftest "0.6.0"]
-                                   [fipp "0.6.29"]
-                                   [kerodon "0.9.1"]]}})
+  :profiles {:dev  [:project/dev :profiles/dev]
+             :repl {:prep-tasks   ^:replace ["javac" "compile"]
+                    :repl-options {:init-ns user}}
+             :uberjar {:aot :all}
+             :profiles/dev {}
+             :project/dev  {:source-paths   ["dev/src"]
+                            :resource-paths ["dev/resources"]
+                            :dependencies   [[integrant/repl "0.5.1"]
+                                             [hawk "0.2.11"]
+                                             [eftest "0.6.0"]
+                                             [fipp "0.6.29"]
+                                             [kerodon "0.9.1"]]}}
+  :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+                "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+                "--enable-native-access=ALL-UNNAMED"
+                "--sun-misc-unsafe-memory-access=allow"])

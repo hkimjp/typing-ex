@@ -8,8 +8,7 @@ if [ -z "$2" ]; then
   exit 1
 fi
 
-EXEC='docker exec postgresql18-postgres-1'
 
-${EXEC} dropdb -U postgres -h localhost $1
-${EXEC} createdb -U postgres -h localhost $1
-${EXEC} pg_restore -U postgres -h localhost -Fc -d $1 < $2
+dropdb -U postgres -h localhost $1
+createdb -U postgres -h localhost $1
+pg_restore -U postgres -h localhost -Fc -d $1 < $2

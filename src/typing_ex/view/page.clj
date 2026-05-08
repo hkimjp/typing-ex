@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "5.8.1")
+(def ^:private version "5.8.4")
 
 ;--------------------------------
 (defn- ss
@@ -278,7 +278,7 @@
           " "
           [:span (abbrev10 tp)]]))]]))
 
-(def ^:private *zsp* "　")
+(def ^:private zsp "　")
 
 (defn- repli
   "replicate string `s` for `n` times"
@@ -301,7 +301,7 @@
              [:span (repli "⭐️" (quot sum 1000))]
              [:div {:style (str "display:inline-block; background:red; width: "
                                 (quot (mod sum 1000) 2)
-                                "px; margin: 2px;")} *zsp*]
+                                "px; margin: 2px;")} zsp]
              sum
              " "
              [:a {:href (str "/record/" login)
