@@ -34,6 +34,7 @@
             :next      ""
             :goods     0
             :bads      0
+            :wrongly-typed []
             :send?     false}))
 
 (defn csrf-token []
@@ -112,6 +113,7 @@ of yonder warehouses will not suffice."])
     (js/alert "コピペはダメよ")
     (let [login (get-login)
           s1 (str login " さんのスコアは " pt "点, " (ratio) "%です。")
+          wt (:wrongly-typed @app-state)
           s2 (condp <= pt
                100 "すばらしい。最高点取れた？正答率 97%↑ 目指せ。"
                90  "がんばった。もう少しで 100 点だね。"
@@ -120,7 +122,7 @@ of yonder warehouses will not suffice."])
                "練習あるのみ。")
           ;; msg (str  s1 "\n" s2 "\n(Cancel でタイプデータ表示)")
           ]
-      (js/alert (str s1 \newline s2))
+      (js/alert (str s1 \newline "ミス:" wt \newline s2))
       ;; /alert で取れる情報(文字列)をアラートに出す。
       ;; challenge を出す時でもいいんじゃ？
       ; (go (when-let [{:keys [body]} (<! (http/get "/alert"))]
@@ -179,6 +181,7 @@ of yonder warehouses will not suffice."])
                :next      next
                :goods     0
                :bads      0
+               :wrongly-typed []
                :sent?     false)
         (.focus (.getElementById js/document "drill")))))
 
@@ -203,6 +206,8 @@ of yonder warehouses will not suffice."])
   (let [target (get (@app-state :words) (@app-state :pos))
         typed  (last (str/split (@app-state :answer) #"\s"))
         good? (= target typed)]
+    (when-not good?
+      (swap! app-state update :wrongly-typed conj target))
     (swap! app-state update :results #(conj % (if good? "🟢" "🔴")))
     (swap! app-state update (if good? :goods :bads) inc)
     (swap! app-state update :pos inc)

@@ -12,6 +12,9 @@
 * ignore the last enter key.
   it goes next sessions now, and results in first failure.
 
+## 5.9.0-SNAPSHOT
+
+- display wrongly typed words (what was the correct word?).
 
 ## 5.8.4 (2026-05-08)
 
