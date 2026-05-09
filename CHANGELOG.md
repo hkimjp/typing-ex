@@ -12,7 +12,7 @@
 * ignore the last enter key.
   it goes next sessions now, and results in first failure.
 
-## 5.9.0-SNAPSHOT
+## 5.9.0-SNAPSHOT (2026-05-09)
 
 - display wrongly typed words (what was the correct word?).
 
