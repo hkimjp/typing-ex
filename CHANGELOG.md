@@ -15,6 +15,8 @@
 ## 5.9.0-SNAPSHOT (2026-05-09)
 
 - display wrongly typed words (what was the correct word?).
+* Vivaldi can not display the wrongly typed words.
+
 
 ## 5.8.4 (2026-05-08)
 
