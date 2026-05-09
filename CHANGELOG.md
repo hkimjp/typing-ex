@@ -2,37 +2,29 @@
 
 ## Unreleased
 
-* display type-missed words after each session
-* Japanese example
+* display mis-typed words after each session
+* Japanese examples
 * server push comments
 * force stop after n times trials
-* delay judging last word
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 - (currently 5.3.7)
-* ignore the last enter-key
-* sun.misc.Unsafe
-    ```
-    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-    WARNING: sun.misc.Unsafe::objectFieldOffset has been called by
-    org.jboss.threads.JBossExecutors (file:/Users/hkim/.m2/repository/org/jboss/threads
-    jboss-threads/3.5.0.Final/jboss-threads-3.5.0.Final.jar)
-    WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
-    WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-    ```
-* ignore Enter against dialog.
-* `last 7 days` is not `last week`
+* fix delay judging last word
+* ignore the last enter key.
+  it goes next sessions now, and results in first failure.
+
 
 ## 5.8.4 (2026-05-08)
 
-- level up 100pt typing threshold every week.
-- stop warning message by giving following jvm-opts;
+- level up the threshold every week by 100pt.
+- stopped warning message displayed by giving following jvm-opts;
 
 ```
-  :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
-                "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
-                "--enable-native-access=ALL-UNNAMED"
-                "--sun-misc-unsafe-memory-access=allow"]
+  :jvm-opts  ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+              "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+              "--enable-native-access=ALL-UNNAMED"
+              "--sun-misc-unsafe-memory-access=allow"]
 ```
+
 ## 5.8.2 (2026-04-24)
 
 - increment `threshold-points` by 1000 weekly.
