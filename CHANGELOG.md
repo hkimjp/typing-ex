@@ -12,6 +12,8 @@
 * ignore the last enter key.
   it goes next sessions now, and results in first failure.
 
+## 5.9.0 (2026-05-09)
+
 - antq-upgrade
 
 | :file       | :name                             | :current | :latest  |
@@ -19,12 +21,6 @@
 | project.clj | com.github.seancorfield/next.jdbc | 1.3.1093 | 1.3.1108 |
 |             | org.clojure/clojure               | 1.12.4   | 1.12.5   |
 |             | org.postgresql/postgresql         | 42.7.10  | 42.7.11  |
-
-
-## 5.9.0-SNAPSHOT (2026-05-09)
-
-- display wrongly typed words (what was the correct word?).
-* Vivaldi can not display the wrongly typed words.
 
 ## 5.8.4 (2026-05-08)
 
