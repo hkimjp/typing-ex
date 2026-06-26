@@ -15,20 +15,19 @@
 
 ## 5.9.0-SNAPSHOT (2026-05-09)
 
-- display wrongly typed words (what was the correct word?).
-* Vivaldi can not display the wrongly typed words.
+- display wrongly typed words.
 
 ## 5.8.4 (2026-05-08)
 
 - level up the threshold every week by 100pt.
 - stopped warning message displayed by giving following jvm-opts;
 
-```
+  ```
   :jvm-opts  ["--add-opens=java.base/java.nio=ALL-UNNAMED"
               "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
               "--enable-native-access=ALL-UNNAMED"
               "--sun-misc-unsafe-memory-access=allow"]
-```
+  ```
 
 ## 5.8.2 (2026-04-24)
 
