@@ -12,6 +12,16 @@
 * ignore the last enter key.
   it goes next sessions now, and results in first failure.
 
+## 5.9.0-SNAPSHOT
+
+- antq-upgrade
+
+| :file       | :name                             | :current | :latest  |
+|-------------|-----------------------------------|----------|----------|
+| project.clj | com.github.seancorfield/next.jdbc | 1.3.1108 | 1.3.1118 |
+|             | org.postgresql/postgresql         | 42.7.11  | 42.7.13  |
+
+
 - antq-upgrade
 
 | :file       | :name                             | :current | :latest  |
@@ -19,9 +29,6 @@
 | project.clj | com.github.seancorfield/next.jdbc | 1.3.1093 | 1.3.1108 |
 |             | org.clojure/clojure               | 1.12.4   | 1.12.5   |
 |             | org.postgresql/postgresql         | 42.7.10  | 42.7.11  |
-
-
-## 5.9.0-SNAPSHOT (2026-05-09)
 
 - display wrongly typed words.
 
