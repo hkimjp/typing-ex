@@ -42,7 +42,6 @@ use docker container.
 
 ## License
 
-Copyright © 2021-2025 hkimura
+Copyright © 2021-2026 hkimura
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License either version 1.0.

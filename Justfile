@@ -1,4 +1,4 @@
-set dotenv-load := true
+set dotenv-load
 
 prep:
     npm install
@@ -33,8 +33,8 @@ kill:
 uberjar:
     lein uberjar
 
-standalone:
-    java -jar --enable-native-access=ALL-UNNAMED target/typing-ex-5.1.1-standalone.jar
+# standalone:
+#     java -jar --enable-native-access=ALL-UNNAMED target/typing-ex-5.1.1-standalone.jar
 
 start:
     java -jar --enable-native-access=ALL-UNNAMED tp.jar \

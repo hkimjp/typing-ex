@@ -2,37 +2,51 @@
 
 ## Unreleased
 
-* display type-missed words after each session
-* Japanese example
+* display mis-typed words after each session
+* Japanese examples
 * server push comments
 * force stop after n times trials
-* delay judging last word
 * upload texts mechanism (submit/accept)
 * bootstrap 5.3.8 - (currently 5.3.7)
-* ignore the last enter-key
-* sun.misc.Unsafe
-    ```
-    WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
-    WARNING: sun.misc.Unsafe::objectFieldOffset has been called by
-    org.jboss.threads.JBossExecutors (file:/Users/hkim/.m2/repository/org/jboss/threads
-    jboss-threads/3.5.0.Final/jboss-threads-3.5.0.Final.jar)
-    WARNING: Please consider reporting this to the maintainers of class     org.jboss.threads.JBossExecutors
-    WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-    ```
-* ignore Enter against dialog.
-* `last 7 days` is not `last week`
+* fix delay judging last word
+* ignore the last enter key.
+  it goes next sessions now, and results in first failure.
+
+## 5.9.0 (2026-08-02)
+
+- ensured `stage` server tp.home works.
+- removed "--sun-misc-unsafe-memory-access=warn" from `shadow-cljs.edn`.
+- removed "--sun-misc-unsafe-memory-access=allow" from `:jvm-opts`.
+- db-restore-orbstack.sh typing_ex typing_ex-2026-08-02.dump
+- antq-upgrade
+
+| :file       | :name                             | :current | :latest  |
+|-------------|-----------------------------------|----------|----------|
+| project.clj | com.github.seancorfield/next.jdbc | 1.3.1108 | 1.3.1118 |
+|             | org.postgresql/postgresql         | 42.7.11  | 42.7.13  |
+
+- antq-upgrade
+
+| :file       | :name                             | :current | :latest  |
+|-------------|-----------------------------------|----------|----------|
+| project.clj | com.github.seancorfield/next.jdbc | 1.3.1093 | 1.3.1108 |
+|             | org.clojure/clojure               | 1.12.4   | 1.12.5   |
+|             | org.postgresql/postgresql         | 42.7.10  | 42.7.11  |
+
+- display wrongly typed words.
 
 ## 5.8.4 (2026-05-08)
 
-- level up weekly typing threshold.
-- stop warning message by giving following jvm-opts;
+- level up the threshold every week by 100pt.
+- stopped warning message displayed by giving following jvm-opts;
 
-```
-  :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
-                "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
-                "--enable-native-access=ALL-UNNAMED"
-                "--sun-misc-unsafe-memory-access=allow"]
-```
+  ```
+  :jvm-opts  ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+              "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+              "--enable-native-access=ALL-UNNAMED"
+              "--sun-misc-unsafe-memory-access=allow"]
+  ```
+
 ## 5.8.2 (2026-04-24)
 
 - increment `threshold-points` by 1000 weekly.
