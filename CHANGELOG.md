@@ -12,15 +12,18 @@
 * ignore the last enter key.
   it goes next sessions now, and results in first failure.
 
-## 5.9.0-SNAPSHOT
+## 5.9.0 (2026-08-02)
 
+- ensured `stage` server tp.home works.
+- removed "--sun-misc-unsafe-memory-access=warn" from `shadow-cljs.edn`.
+- removed "--sun-misc-unsafe-memory-access=allow" from `:jvm-opts`.
+- db-restore-orbstack.sh typing_ex typing_ex-2026-08-02.dump
 - antq-upgrade
 
 | :file       | :name                             | :current | :latest  |
 |-------------|-----------------------------------|----------|----------|
 | project.clj | com.github.seancorfield/next.jdbc | 1.3.1108 | 1.3.1118 |
 |             | org.postgresql/postgresql         | 42.7.11  | 42.7.13  |
-
 
 - antq-upgrade
 

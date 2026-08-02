@@ -1,4 +1,4 @@
-(defproject typing-ex "5.9.0-SNAPSHOT"
+(defproject typing-ex "5.9.0"
   :description "typing exercises for literacy classes"
   :url "https://tp.melt.kyutech.ac.jp"
   :min-lein-version "2.0.0"
@@ -37,5 +37,5 @@
                                              [kerodon "0.9.1"]]}}
   :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
                 "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
-                "--enable-native-access=ALL-UNNAMED"
-                "--sun-misc-unsafe-memory-access=allow"])
+                "--enable-native-access=ALL-UNNAMED"]
+                )
