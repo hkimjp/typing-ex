@@ -12,7 +12,7 @@
 * ignore the last enter key.
   it goes next sessions now, and results in first failure.
 
-## 5.9.0-SNAPSHOT
+## 5.9.0 (2026-08-02)
 
 - antq-upgrade
 
