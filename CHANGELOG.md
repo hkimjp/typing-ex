@@ -13,8 +13,9 @@
 * TP_START can not be a future date.
 
 
-## 6.0.0-SNAPSHOT
+## 6.0.1471 (2026-08-22)
 
+- resumed to linear plot totals.
 - annotated recipes of `Justfile`
 - no effect TP_START?
 
