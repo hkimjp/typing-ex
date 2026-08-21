@@ -290,7 +290,8 @@
    [:h2 "Typing: Last " n " days Totals"]
    (headline n)
    [:div {:style "margin-left:1rem;"}
-    [:p "直近の7日間。⭐️は1000pt. 授業当日のこれが週〆だな。 毎週リセットすべきか。"]
+    [:p]
+    ; [:p "直近の7日間。⭐️は1000pt. 授業当日のこれが週〆だな。 毎週リセットすべきか。"]
     [:ol
      (for [r ret]
        (let [login (:login r)
@@ -298,16 +299,25 @@
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
             [:div
-             [:span (repli "⭐️" (quot sum 1000))]
-             [:div {:style (str "display:inline-block; background:red; width: "
-                                (quot (mod sum 1000) 2)
-                                "px; margin: 2px;")} zsp]
+             ; [:span (repli "⭐️" (quot sum 1000))]
+             ; [:div {:style (str "display:inline-block; background:red; width: "
+             ;                    (quot (mod sum 1000) 2)
+             ;                    "px; margin: 2px;")} zsp]
+             [:div {:style
+                    (str "display:inline-block; background:red; width: "
+                         ;(clojure.math/log sum)
+                         (quot sum 15)
+                         "px; margin: 2px;")} zsp]
              sum
              " "
              [:a {:href (str "/record/" login)
                   :class (if (= user login) "yes" "other")}
               login]]])))]]))
 
+(comment
+  (require 'clojure.math)
+  (clojure.math/log 100)
+  :rcf)
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
