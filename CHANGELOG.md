@@ -2,15 +2,21 @@
 
 ## Unreleased
 
-* display mis-typed words after each session
+* display typing mistakes after each session
 * Japanese examples
 * server push comments
 * force stop after n times trials
 * upload texts mechanism (submit/accept)
-* bootstrap 5.3.8 - (currently 5.3.7)
 * fix delay judging last word
 * ignore the last enter key.
-  it goes next sessions now, and results in first failure.
+  it goes next sessions and results in a typing failure.
+* TP_START can not be a future date.
+
+
+## 6.0.0-SNAPSHOT
+
+- annotated recipes of `Justfile`
+- no effect TP_START?
 
 ## 5.9.0 (2026-08-02)
 
