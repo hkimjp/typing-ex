@@ -295,7 +295,7 @@
     [:ol
      (for [r ret]
        (let [login (:login r)
-             sum (:sum r)]
+             sum (int (/ (* 2 (:sum r)) 3))]
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
             [:div
