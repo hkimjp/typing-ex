@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.0.1471")
+(def ^:private version "6.0.1478")
 
 ;--------------------------------
 (defn- ss
@@ -295,7 +295,7 @@
     [:ol
      (for [r ret]
        (let [login (:login r)
-             sum (:sum r)]
+             sum (int (/ (* 2 (:sum r)) 3))]
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
             [:div
