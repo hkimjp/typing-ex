@@ -252,14 +252,9 @@
 
 (defn abbrev10 [coll]
   (if (< 10 (count coll))
-    ;(print-str (interpose " " (take 10 coll)) " ...")
+    #_(print-str (interpose " " (take 10 coll)) " ...")
     (print-str (take 10 coll) " ...")
     (print-str coll)))
-
-(comment
-  (print-str '(1 2 3 4 5)))
-
-  :rcf)
 
 ;; view of /todays
 (defn todays-act-page [ret login]

@@ -11,7 +11,7 @@
    [org.httpkit.client :as hk]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [ring.util.response :refer [redirect]]
-   [typing-ex.boundary.drills  :as drills]
+   [typing-ex.boundary.drills :as drills]
    [typing-ex.boundary.roll-calls :as roll-calls]
    [typing-ex.boundary.restarts :as restarts]
    [typing-ex.boundary.results :as results]
