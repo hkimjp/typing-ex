@@ -12,6 +12,10 @@
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
 
+## SNAPSHOT
+
+- added `subl` recipe to Justfile.
+- display this week's loop times.
 
 ## 6.0.1471 (2026-08-22)
 

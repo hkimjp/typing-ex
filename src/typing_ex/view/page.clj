@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.0.1478")
+(def ^:private version "6.0.1481")
 
 ;--------------------------------
 (defn- ss
@@ -110,17 +110,17 @@
     [:a {:href "/todays"
          :class "btn btn-primary btn-sm"} "todays"] " "
     [:a {:href "/total/7"
-         :class "btn btn-primary btn-sm"} "totals"]] " "
-   [:a {:href "https://jpy.melt.kyutech.ac.jp/"
-        :class "btn btn-success btn-sm"} "JPY"] " "
-   [:a {:href "https://kpy.melt.kyutech.ac.jp/"
-        :class "btn btn-info btn-sm"} "KPY"] " "
-   [:a {:href "https://qa.melt.kyutech.ac.jp/"
-        :class "btn btn-info btn-sm"} "QA"] " "
-   [:a {:href "https://p.melt.kyutech.ac.jp/"
-        :class "btn btn-success btn-sm"} "p"] " "
-   [:a {:href "/logout"
-        :class "btn btn-warning btn-sm"} "Logout"]])
+         :class "btn btn-primary btn-sm"} "totals"] " "
+    ; [:a {:href "https://jpy.melt.kyutech.ac.jp/"
+    ;     :class "btn btn-success btn-sm"} "JPY"] " "
+    [:a {:href "https://kpy.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "KPY"] " "
+    [:a {:href "https://qa.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "QA"] " "
+    [:a {:href "https://p.melt.kyutech.ac.jp/"
+         :class "btn btn-success btn-sm"} "p"] " "
+    [:a {:href "/logout"
+         :class "btn btn-warning btn-sm"} "Logout"]]])
 
 (defn scores-page
   "maxpt: 最高点
@@ -252,8 +252,9 @@
 
 (defn abbrev10 [coll]
   (if (< 10 (count coll))
-    (print-str (interpose " " (take 10 coll)) " ...")
-    (print-str (interpose " " coll))))
+    #_(print-str (interpose " " (take 10 coll)) " ...")
+    (print-str (take 10 coll) " ...")
+    (print-str coll)))
 
 ;; view of /todays
 (defn todays-act-page [ret login]
@@ -275,16 +276,15 @@
                         "yes"
                         "other")}
            name]
-          " "
+          "(" (count tp) ") "
           [:span (abbrev10 tp)]]))]]))
-
-(def ^:private zsp "　")
 
 (defn- repli
   "replicate string `s` for `n` times"
   [s n]
   (str/join " " (for [_ (range n)] s)))
 
+(def ^:private zsp "　")
 (defn sums-page [ret user n]
   (page
    [:h2 "Typing: Last " n " days Totals"]
@@ -295,7 +295,7 @@
     [:ol
      (for [r ret]
        (let [login (:login r)
-             sum (int (/ (* 2 (:sum r)) 3))]
+             sum (:sum r)]
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
             [:div
@@ -306,7 +306,7 @@
              [:div {:style
                     (str "display:inline-block; background:red; width: "
                          ;(clojure.math/log sum)
-                         (quot sum 15)
+                         (quot sum 30)
                          "px; margin: 2px;")} zsp]
              sum
              " "
