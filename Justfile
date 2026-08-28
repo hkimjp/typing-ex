@@ -22,11 +22,15 @@ release:
 repl:
     lein repl
 
-# start shadow-cljs and repl.
+# start shadow-cljs and lein repl.
 dev:
     @echo 'duct app. start by (dev) (go)'
     just watch &
     just repl
+
+subl:
+    subl .
+    just dev
 
 # start app
 run: release
