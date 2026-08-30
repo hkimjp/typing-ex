@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.0.1478")
+(def ^:private version "6.0.1481")
 
 ;--------------------------------
 (defn- ss
@@ -252,7 +252,7 @@
 
 (defn abbrev10 [coll]
   (if (< 10 (count coll))
-    ;(print-str (interpose " " (take 10 coll)) " ...")
+    #_(print-str (interpose " " (take 10 coll)) " ...")
     (print-str (take 10 coll) " ...")
     (print-str coll)))
 
