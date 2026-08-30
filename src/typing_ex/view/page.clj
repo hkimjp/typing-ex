@@ -256,11 +256,6 @@
     (print-str (take 10 coll) " ...")
     (print-str coll)))
 
-(comment
-  (print-str '(1 2 3 4 5)))
-
-  :rcf)
-
 ;; view of /todays
 (defn todays-act-page [ret login]
   (page
@@ -323,6 +318,7 @@
   (require 'clojure.math)
   (clojure.math/log 100)
   :rcf)
+
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"

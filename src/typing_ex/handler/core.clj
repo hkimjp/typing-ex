@@ -189,14 +189,13 @@
     <link href='/css/bootstrap.min.css' rel='stylesheet'>
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
     <link rel='icon' href='/favicon.ico'>
+    <title>typing</title>
   </head>
   <body>"
     (anti-forgery-field)
     (login-field (get-login req))
     "<div class='container'>
-  <div id='app'>
-    core/typing
-  </div>
+  <div id='app'></div>
   <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
   <script src='/js/compiled/main.js' type='text/javascript'></script>
   <script>typing_ex.typing.init();</script>
