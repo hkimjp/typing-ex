@@ -189,7 +189,7 @@
     <link href='/css/bootstrap.min.css' rel='stylesheet'>
     <link href='/css/style.css' rel='stylesheet' type='text/css'>
     <link rel='icon' href='/favicon.ico'>
-    <title>typing</title>
+    <title>typing-ex</title>
   </head>
   <body>"
     (anti-forgery-field)
