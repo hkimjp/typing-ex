@@ -12,8 +12,10 @@
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
 
-## SNAPSHOT
+## 6.1-SNAPSHOT
 
+- keep typing errors in session, which can be viewed clicking the "Errors" button.
+  need some works, for example, to remove duplicates or to show errored counts.
 - added `subl` recipe to Justfile.
 - display this week's loop times.
 
