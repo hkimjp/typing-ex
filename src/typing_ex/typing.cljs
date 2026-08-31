@@ -9,7 +9,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "6.0.1481")
+(def ^:private version "6.1.1493")
 
 (def ^:private todays-limit 10)
 
@@ -17,6 +17,8 @@
 (def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
+
+(def ^:private errors (atom []))
 
 (defonce ^:private app-state
   (r/atom  {:text      "App is starting..." ;;
@@ -168,6 +170,7 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
+        (swap! errors concat (:wrongly-typed @app-state))
         (swap! app-state assoc
                :stat      stat
                :text      drill
@@ -263,6 +266,8 @@ of yonder warehouses will not suffice."])
    ;;
    [:p
     [:a {:href (str "/record/" (get-login)) :class "btn btn-primary btn-sm"} "Graph"]
+    " "
+    [:a {:href "#" :class "btn btn-secondary btn-sm" :on-click #(js/alert (str @errors))} "Errors"]
     " "
     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "Logout"]]
    [:hr]

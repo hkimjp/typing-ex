@@ -9,7 +9,7 @@
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.0.1481")
+(def ^:private version "6.1.1493")
 
 ;--------------------------------
 (defn- ss
@@ -318,6 +318,7 @@
   (require 'clojure.math)
   (clojure.math/log 100)
   :rcf)
+
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
