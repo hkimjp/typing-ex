@@ -12,7 +12,7 @@
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
 
-## 6.1-SNAPSHOT
+## 6.1.1493 (2026-08-31)
 
 - keep typing errors in session, which can be viewed clicking the "Errors" button.
   need some works, for example, to remove duplicates or to show errored counts.
