@@ -203,7 +203,7 @@
     (anti-forgery-field)
     (login-field (get-login req))
     (when-let [pt (:last-week req)]
-      (format "<input id='last-week' type='hidden' value='%d'" (:latweek req)))
+      (format "<input id='last-week' type='hidden' value='%d'>" pt))
     "<div id='app'>cljs</div>
           <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
       <script src='/js/compiled/main.js' type='text/javascript'></script>
