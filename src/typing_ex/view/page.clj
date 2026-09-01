@@ -61,8 +61,8 @@
       [:script {:type  "text/javascript"
                 :src   "/js/bootstrap.bundle.min.js"
                 :defer "true"}]
-      [:script {:src "/js/compiled/main.js"
-                :type "text/javascript"}]]))])
+      [:script {:type "text/javascript"
+                :src "/js/compiled/main.js"}]]))])
 
 (defn alert-form [_]
   (page
@@ -348,7 +348,9 @@
     [:a {:href "/stat-page"} "[admin only]"]]
    [:ul {:class "roll-call"}
     (for [r ret]
-      [:li r])]))
+      [:li r])]
+   [:div [:a {:href "/"
+              :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn restarts-page [_login ret]
   (page

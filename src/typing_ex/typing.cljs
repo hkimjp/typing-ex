@@ -39,6 +39,11 @@
             :wrongly-typed []
             :send?     false}))
 
+; (defn last-week []
+;   (if-let [e ((.getElementById js/document "last-week"))]
+;     (-> e (.-value))
+;     "1000"))
+
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
 
@@ -170,6 +175,8 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
+        (js/alert (str "you need type for join class"))
+        ;            (- 60 (int (/ (parse-long (last-week)) 100)))))
         (swap! errors concat (:wrongly-typed @app-state))
         (swap! app-state assoc
                :stat      stat

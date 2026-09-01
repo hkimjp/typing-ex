@@ -88,3 +88,7 @@ span.m {
 .ban {
     background: black;
 }
+
+.container {
+    margin-left: 2rem;
+}

@@ -58,6 +58,12 @@
     ""
     "🙂"))
 
+;; sum(pt) last week
+(defmethod ig/init-key :typing-ex.handler.core/last-week [_ {:keys [db]}]
+  (fn [{{:keys [login]} :route-params :as request}]
+    {:status 200
+     :body (str (results/last-week db login))}))
+
 (defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
   (fn [request]
     (let [login (get-login request)]
@@ -191,20 +197,22 @@
     <link rel='icon' href='/favicon.ico'>
     <title>typing-ex</title>
   </head>
-  <body>"
+  <body>
+     <div class='container'>
+     <h1>this is a server side</h1>"
     (anti-forgery-field)
     (login-field (get-login req))
-    "<div class='container'>
-  <div id='app'></div>
-  <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
-  <script src='/js/compiled/main.js' type='text/javascript'></script>
-  <script>typing_ex.typing.init();</script>
-  </div>
-</body>
-</html>")])
+    (when-let [pt (:last-week req)]
+      (format "<input id='last-week' type='hidden' value='%d'" (:latweek req)))
+    "<div id='app'>cljs</div>
+          <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
+      <script src='/js/compiled/main.js' type='text/javascript'></script>
+      <script>typing_ex.typing.init();</script>
+    </div></body></html>")])
 
 (defn- local? [addr]
-  (str/starts-with? addr "[0:0:0"))
+  (or (str/starts-with? addr "127.0.0.1")
+      (str/starts-with? addr "[0:0:0")))
 
 (defn- vpn? [addr]
   (t/info (str "vpn? " addr))
@@ -214,16 +222,27 @@
   (t/info (str "tobata? " addr))
   (str/starts-with? addr "150.69"))
 
-(defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
+(defn- check-addr? [addr]
+  (if (local? addr)
+    true
+    (and (tobata? addr) (not (vpn? addr)))))
+
+(defmethod ig/init-key :typing-ex.handler.core/typing [_ {:keys [db]}]
   (fn [req]
     (let [user (get-login req)
           addr (str (remote-ip req))]
       (t/info (str "/typing " user " from " addr))
       (if (roll-call-time?)
-        (cond (local? addr) (typing-ex req)
-              (vpn? addr) [::response/ok "出席記録は VPN 不可。"]
-              (not (tobata? addr)) [::response/ok "出席記録は学外からはできない。"]
-              :else  (typing-ex req))
+        (if (check-addr? addr)
+          (let [pt (-> (results/last-week db user)
+                       first
+                       :sum)]
+            (t/info (str "typing: check pass, pt: " pt))
+            (t/info (assoc req :last-week pt))
+            (typing-ex (assoc req :last-week pt)))
+          (do
+            (t/info (str "typing: check failure"))
+            [::response/ok "出席記録できる場所にいない。"]))
         (typing-ex req)))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
