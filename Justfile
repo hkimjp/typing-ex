@@ -28,6 +28,7 @@ dev:
     just watch &
     just repl
 
+# start sublime then just dev
 subl:
     subl .
     just dev
