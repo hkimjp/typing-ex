@@ -198,14 +198,9 @@
     <title>typing-ex</title>
   </head>
   <body>
-     <div class='container'>
-     <!--
-     <h1>this is the server side</h1>
-     -->"
+     <div class='container'>"
     (anti-forgery-field)
     (login-field (get-login req))
-    (when-let [pt (:last-week req)]
-      (format "<input id='last-week' type='hidden' value='%d'>" pt))
     "<div id='app'>cljs</div>
           <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
       <script src='/js/compiled/main.js' type='text/javascript'></script>
@@ -240,7 +235,6 @@
                        first
                        :sum)]
             (t/info (str "typing: check pass, pt: " pt))
-            ;; (t/info (assoc req :last-week pt))
             (typing-ex (assoc req :last-week pt)))
           (do
             (t/info (str "typing: check failure"))
