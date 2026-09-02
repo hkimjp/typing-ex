@@ -161,19 +161,20 @@ of yonder warehouses will not suffice."])
 
 (defonce ^:private lw (atom 0))
 
-(defn- last-week []
+(defn- last-week
+  "update the value of atom lw."
+  []
   (let [user (get-login)]
     (go (let [resp (-> (<! (http/get (str "/last-week/" (get-login))))
                        :body
                        edn/read-string
                        first
                        :sum)]
-          (js/console.log (str "last-week/" user " resp: " resp))
+          (js/console.log (str "last-week: " user " lw: " @lw))
           (reset! lw resp)))))
 
 (defn reset-display!
   []
-  (last-week)
   (go (let [stat (-> (<! (http/get "/stat")) :body)
             drill (if (= stat "exam")
                     (do
@@ -184,10 +185,9 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
-        (js/console.log (str "@lw ") @lw)
         (js/alert (str "you need "
                        (- 60 (int (/ @lw 100)))
-                       " for join class"))
+                       " for join class."))
         (swap! errors concat (:wrongly-typed @app-state))
         (swap! app-state assoc
                :stat      stat
@@ -276,7 +276,8 @@ of yonder warehouses will not suffice."])
    [:div [:span.b "Next: "] [:span {:id "next"} (:next @app-state)]]
    [:div [:span.b "Status: "] [results-component]]
    [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]]
-    ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
+   ;; FIXME:
+   ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
    [:p
     [:span.b "todays:"]  [:br]
     (bar-line-chart 300 150
@@ -293,8 +294,8 @@ of yonder warehouses will not suffice."])
 
 (defn start []
   (js/setInterval countdown @interval)
-  (rdom/render [ex-page] (js/document.getElementById "app"))
   (last-week)
+  (rdom/render [ex-page] (js/document.getElementById "app"))
   (reset-display!))
 
 (defn ^:export init []
