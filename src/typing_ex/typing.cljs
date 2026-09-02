@@ -2,6 +2,7 @@
   (:require
    [cljs-http.client :as http]
    [cljs.core.async :refer [go <!]]
+   [clojure.edn :as edn]
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
@@ -38,11 +39,6 @@
             :bads      0
             :wrongly-typed []
             :send?     false}))
-
-; (defn last-week []
-;   (if-let [e ((.getElementById js/document "last-week"))]
-;     (-> e (.-value))
-;     "1000"))
 
 (defn csrf-token []
   (.-value (.getElementById js/document "__anti-forgery-token")))
@@ -163,8 +159,21 @@ of yonder warehouses will not suffice."])
       (when (= "roll-call" (:stat @app-state))
         (send-point-aux "/rc" pt acc)))))
 
+(defonce ^:private lw (atom 0))
+
+(defn- last-week []
+  (let [user (get-login)]
+    (go (let [resp (-> (<! (http/get (str "/last-week/" (get-login))))
+                       :body
+                       edn/read-string
+                       first
+                       :sum)]
+          (js/console.log (str "last-week/" user " resp: " resp))
+          (reset! lw resp)))))
+
 (defn reset-display!
   []
+  (last-week)
   (go (let [stat (-> (<! (http/get "/stat")) :body)
             drill (if (= stat "exam")
                     (do
@@ -175,8 +184,10 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
-        (js/alert (str "you need type for join class"))
-        ;            (- 60 (int (/ (parse-long (last-week)) 100)))))
+        (js/console.log (str "@lw ") @lw)
+        (js/alert (str "you need "
+                       (- 60 (int (/ @lw 100)))
+                       " for join class"))
         (swap! errors concat (:wrongly-typed @app-state))
         (swap! app-state assoc
                :stat      stat
@@ -283,6 +294,7 @@ of yonder warehouses will not suffice."])
 (defn start []
   (js/setInterval countdown @interval)
   (rdom/render [ex-page] (js/document.getElementById "app"))
+  (last-week)
   (reset-display!))
 
 (defn ^:export init []

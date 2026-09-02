@@ -238,7 +238,7 @@
                        first
                        :sum)]
             (t/info (str "typing: check pass, pt: " pt))
-            (t/info (assoc req :last-week pt))
+            ;; (t/info (assoc req :last-week pt))
             (typing-ex (assoc req :last-week pt)))
           (do
             (t/info (str "typing: check failure"))
