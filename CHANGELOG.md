@@ -11,8 +11,10 @@
 * ignore the last enter key.
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
+* for VScode development - need some env var such as DATABASE SQL and other.
 
-## 6.2-SNAPSHOT
+
+## 6.2-SNAPSHOT (2026-09-02)
 
 - display 'you need ...' when status roll-call
 - `Go!` button at the bottom of /rc page.
