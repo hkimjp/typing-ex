@@ -61,8 +61,8 @@
       [:script {:type  "text/javascript"
                 :src   "/js/bootstrap.bundle.min.js"
                 :defer "true"}]
-      [:script {:src "/js/compiled/main.js"
-                :type "text/javascript"}]]))])
+      [:script {:type "text/javascript"
+                :src "/js/compiled/main.js"}]]))])
 
 (defn alert-form [_]
   (page
@@ -88,9 +88,8 @@
    [:br]
    [:ul
     [:li "焦らず、ゆっくり、正しい指使いがタイピングが上達の早道。"]
-    [:li "10 分練習したら休憩入れよう。"]
-    [:li "練習しないと平常点にならない。"]
-    [:li "Invalid Anti-Foregry-Token はパスワードの賞味期限切れ。"
+    [:li "1日2、3回くらい練習しても効果はない。"]
+    [:li "Invalid Anti-Foregry-Token はパスワードの賞味期限切れなので、"
      "再ログインしてください。"]]))
 
 ; changed to public
@@ -196,7 +195,7 @@
         todays (filter #(today? (:timestamp %)) scores)]
     (page
      [:h2 "Typing: " login " Records"]
-     [:p "毎日 10 分 x 3 セット。"
+     [:p "標準は毎日 10 分 x 3 セット。やっても三十分しかかからない。"
       [:span {:style "color: red"} " --- 100点"]
       [:span {:style "color: blue"} " --- 60点"]
       [:span {:style "color: green"} " --- 30点"]
@@ -348,7 +347,9 @@
     [:a {:href "/stat-page"} "[admin only]"]]
    [:ul {:class "roll-call"}
     (for [r ret]
-      [:li r])]))
+      [:li r])]
+   [:div [:a {:href "/"
+              :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn restarts-page [_login ret]
   (page
