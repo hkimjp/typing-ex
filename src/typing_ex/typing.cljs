@@ -185,9 +185,6 @@ of yonder warehouses will not suffice."])
             words (str/split drill #"\s+")
             next (first words)]
         (js/console.log (str "reset-display! stat " stat))
-        (js/alert (str "you need "
-                       (- 60 (int (/ @lw 100)))
-                       " for join class."))
         (swap! errors concat (:wrongly-typed @app-state))
         (swap! app-state assoc
                :stat      stat
@@ -214,8 +211,13 @@ of yonder warehouses will not suffice."])
       (swap! app-state assoc :sent? true)
       (show-score pt)
       (if (= "roll-call" (:stat @app-state))
-        (when (< (- 60 (int (/ @lw 100))) pt)
-          (send-point pt))
+        (if (< (- 60 (int (/ @lw 100))) pt)
+          (do
+            (js/alert "good job.")
+            (send-point pt))
+          (js/alert (str "you need at least "
+                         (- 60 (int (/ @lw 100)))
+                         "pt to attend the class.")))
         (send-point pt))
       (reset-display!))))
 

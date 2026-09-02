@@ -14,6 +14,7 @@
 
 ## 6.2-SNAPSHOT
 
+- display 'you need ...' when status roll-call
 - `Go!` button at the bottom of /rc page.
 - added route /last-week/:login returns login's weekly sum(pt).
 - `route-params`? not `path-params`?
