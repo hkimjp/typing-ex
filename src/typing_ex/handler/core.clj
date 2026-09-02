@@ -199,7 +199,9 @@
   </head>
   <body>
      <div class='container'>
-     <h1>this is a server side</h1>"
+     <!--
+     <h1>this is the server side</h1>
+     -->"
     (anti-forgery-field)
     (login-field (get-login req))
     (when-let [pt (:last-week req)]

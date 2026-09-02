@@ -213,7 +213,10 @@ of yonder warehouses will not suffice."])
       (js/console.log (str "show-send-reset-display:" pt))
       (swap! app-state assoc :sent? true)
       (show-score pt)
-      (send-point pt)
+      (if (= "roll-call" (:stat @app-state))
+        (when (< (- 60 (int (/ @lw 100))) pt)
+          (send-point pt))
+        (send-point pt))
       (reset-display!))))
 
 (defn- next-word []
