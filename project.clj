@@ -15,7 +15,7 @@
                  [hiccup "2.0.0"]
                  [http-kit/http-kit "2.8.1"]
                  [com.taoensso/carmine "3.5.0"]
-                 [org.clojure/clojure "1.12.5"]
+                 [org.clojure/clojure "1.12.6"]
                  [org.postgresql/postgresql "42.7.13"]
                  [org.clojure/tools.logging "1.3.1"]]
   :plugins [[duct/lein-duct "0.12.3"]]
@@ -37,5 +37,4 @@
                                              [kerodon "0.9.1"]]}}
   :jvm-opts    ["--add-opens=java.base/java.nio=ALL-UNNAMED"
                 "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
-                "--enable-native-access=ALL-UNNAMED"]
-                )
+                "--enable-native-access=ALL-UNNAMED"])

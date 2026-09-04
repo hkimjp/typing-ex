@@ -60,7 +60,7 @@
 
 ;; sum(pt) last week
 (defmethod ig/init-key :typing-ex.handler.core/last-week [_ {:keys [db]}]
-  (fn [{{:keys [login]} :route-params :as request}]
+  (fn [{{:keys [login]} :route-params}]
     {:status 200
      :body (str (results/last-week db login))}))
 
@@ -311,7 +311,7 @@
 ;; meta endpoint, dispatches to /total, /days and /max.
 (defmethod ig/init-key :typing-ex.handler.core/recent [_ _]
   (fn [req]
-    (let [days (get-in req [:params :n])
+    (let [; days (get-in req [:params :n])
           kind (get-in req [:query-params "kind"])]
       (case kind
         "total"          (redirect "/total/7")
@@ -367,17 +367,17 @@
     stat
     "normal"))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat-page [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat-page [_ _]
   (fn [req]
     (if (= "hkimura" (get-login req))
       (view/stat-page (current-stat))
       [::response/forbidden "ACCESS FORBIDDEN"])))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat [_ _]
   (fn [_]
     [::response/ok (current-stat)]))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat! [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat! [_ _]
   (fn [{{:keys [stat minutes]} :params}]
     ;(println "stat! stat: " stat " minutes " minutes)
     (wcar* (car/setex "stat"

@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
-   [clojure.string :as str]
+   ; [clojure.string :as str]
    [environ.core :refer [env]]
    [hiccup2.core :as h]
    [java-time.api :as jt]
@@ -278,10 +278,10 @@
           "(" (count tp) ") "
           [:span (abbrev10 tp)]]))]]))
 
-(defn- repli
-  "replicate string `s` for `n` times"
-  [s n]
-  (str/join " " (for [_ (range n)] s)))
+; (defn- repli
+;   "replicate string `s` for `n` times"
+;   [s n]
+;   (str/join " " (for [_ (range n)] s)))
 
 (def ^:private zsp "　")
 (defn sums-page [ret user n]
@@ -298,15 +298,10 @@
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
             [:div
-             ; [:span (repli "⭐️" (quot sum 1000))]
-             ; [:div {:style (str "display:inline-block; background:red; width: "
-             ;                    (quot (mod sum 1000) 2)
-             ;                    "px; margin: 2px;")} zsp]
-             [:div {:style
-                    (str "display:inline-block; background:red; width: "
-                         ;(clojure.math/log sum)
-                         (quot sum 30)
-                         "px; margin: 2px;")} zsp]
+             [:span {:style
+                     (str "display:inline-block; background:red; width: "
+                          (quot sum 40) ; was 30
+                          "px; margin: 2px;")} zsp]
              sum
              " "
              [:a {:href (str "/record/" login)
