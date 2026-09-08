@@ -10,13 +10,13 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "6.2.1510")
+(def ^:private version "6.2.1517")
 
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will rewrite
-(def ^:private timeout
-  (int (.-value (.getElementById js/document "timeout"))))
+(def ^:private timeout 60)
+  #_(int (.-value (.getElementById js/document "timeout"))))
 
 (def interval (atom 1000)) ;; milli second
 
@@ -291,6 +291,8 @@ of yonder warehouses will not suffice."])
    ;;
    [:p
     [:a {:href (str "/record/" (get-login)) :class "btn btn-primary btn-sm"} "Graph"]
+    " "
+    [:a {:href "/rc" :class "btn btn-secondary btn-sm"} "RC"]
     " "
     [:a {:href "#" :class "btn btn-secondary btn-sm" :on-click #(js/alert (str @errors))} "Errors"]
     " "

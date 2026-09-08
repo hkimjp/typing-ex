@@ -7,9 +7,10 @@
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
+   [taoensso.timbre :as t]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.2.1510")
+(def ^:private version "6.2.1517")
 
 ;--------------------------------
 (defn- ss
@@ -237,7 +238,7 @@
      [:p
       [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
       " "
-      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "menu"]])))
+      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "Menu"]])))
 
 ;; use in core.clj.
 (defn active-users-page [ret]
@@ -316,7 +317,7 @@
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
-  [[stat  ttl]]
+  [stat]
   (page
    [:h2 "Typing: Stat (Redis)"]
    [:form
@@ -331,9 +332,10 @@
         val]])
     "ただいまから"
     [:input {:name "minutes" :value "15" :size 3}] "分間"
-    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]
-    (when (and ttl (not (= stat "normal")))
-      [:p (format "残り時間 %s 秒" ttl)])]))
+    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]
+   ;;これを入れると黄色にならなくなる。
+   #_(when-not (= stat "normal")
+       [:p (format "残り時間 %d 秒" ttl)])))
 
 ;; roll-call
 (defn rc-page [ret login]
