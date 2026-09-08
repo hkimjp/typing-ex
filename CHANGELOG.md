@@ -14,6 +14,8 @@
 
 ## 6.2-SNAPSHOT
 
+- timeout hidden field, feeding value from env var
+- added TIMEOUT=10 in `.env`
 - clojure 1.12.6
 - display 'you need ...' when status roll-call
 - `Go!` button at the bottom of /rc page.

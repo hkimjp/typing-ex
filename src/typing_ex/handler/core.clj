@@ -180,9 +180,12 @@
 
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    (t/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
-    (->  ret
-         (= "roll-call"))))
+    (t/info (str "roll-call-time? " (java.util.Date.) " ret: " ret))
+    (= ret "roll-call")))
+
+(defn timeout-field []
+  (format "<input type='hidden' id='timeout' value='%s'>"
+          (or (env :timeout) "60")))
 
 (defn typing-ex [req]
   [::response/ok
@@ -201,6 +204,7 @@
      <div class='container'>"
     (anti-forgery-field)
     (login-field (get-login req))
+    (timeout-field)
     "<div id='app'>cljs</div>
           <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
       <script src='/js/compiled/main.js' type='text/javascript'></script>
@@ -367,8 +371,12 @@
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
-    stat
-    "normal"))
+    (let [ttl (wcar* (car/ttl "stat"))]
+      [stat ttl])
+    ["normal" nil]))
+
+; (wcar* (car/ttl "stat"))
+; (current-stat)
 
 (defmethod ig/init-key :typing-ex.handler.core/stat-page [_ _]
   (fn [req]
