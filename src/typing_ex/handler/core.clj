@@ -209,6 +209,7 @@
 
 (defn- local? [addr]
   (or (str/starts-with? addr "127.0.0.1")
+      (str/starts-with? addr "192.168")
       (str/starts-with? addr "[0:0:0")))
 
 (defn- vpn? [addr]
@@ -234,12 +235,14 @@
           (let [pt (-> (results/last-week db user)
                        first
                        :sum)]
-            (t/info (str "typing: check pass, pt: " pt))
+            (t/info (str "roll-call time: check-addr pass, pt: " pt))
             (typing-ex (assoc req :last-week pt)))
           (do
-            (t/info (str "typing: check failure"))
-            [::response/ok "出席記録できる場所にいない。"]))
-        (typing-ex req)))))
+            (t/info (str "roll-call time: check-addr fails"))
+            [::response/ok (str "出席記録できる場所にいない。" addr)]))
+        (do
+          (t/info "typing: normal start (not roll-call nor exam)")
+          (typing-ex req))))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result :as req}]
