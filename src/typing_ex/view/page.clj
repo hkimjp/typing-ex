@@ -238,7 +238,7 @@
      [:p
       [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
       " "
-      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]])))
+      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "Menu"]])))
 
 ;; use in core.clj.
 (defn active-users-page [ret]
@@ -321,24 +321,25 @@
 
 (defn stat-page
   "stat は redis-cli> get stat の結果。
-   返すべき値は [normal roll-call exam] のどれか。"
-  [_request]
-  (let [stat ()]
-    (page
-     [:h2 "Typing: Stat (Redis)"]
-     [:form
-      {:method "post" :action "/stat"}
-      (h/raw (anti-forgery-field))
-      (for [val ["normal" "roll-call" "exam" "ban"]]
-        [:div
-         [:input
-          (if (= stat val)
-            {:type "radio" :name "stat" :value val :checked "checked"}
-            {:type "radio" :name "stat" :value val})
-          val]])
-      "ただいまから"
-      [:input {:name "minutes" :value "15" :size 3}] "分間"
-      [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]])))
+   返り値は [normal roll-call exam] のどれか。"
+  [stat]
+  (page
+   [:h2 "Typing: Stat (Redis)"]
+   [:form
+    {:method "post" :action "/stat"}
+    (h/raw (anti-forgery-field))
+    (for [val ["normal" "roll-call" "exam" "ban"]]
+      [:div
+       [:input
+        (if (= stat val)
+          {:type "radio" :name "stat" :value val :checked "checked"}
+          {:type "radio" :name "stat" :value val})
+        val]])
+    "ただいまから"
+    [:input {:name "minutes" :value "15" :size 3}] "分間"
+    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]
+   #_(when-not (= stat "normal")
+       [:p (format "残り時間 %d 秒" ttl)])))
 
 ;; roll-call
 (defn rc-page [ret login]

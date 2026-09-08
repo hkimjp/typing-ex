@@ -204,7 +204,9 @@
 </html>")])
 
 (defn- local? [addr]
-  (str/starts-with? addr "[0:0:0"))
+  (or (str/starts-with? addr "127")
+      (str/starts-with? addr "192.168")
+      (str/starts-with? addr "[0:0:0")))
 
 (defn- vpn? [addr]
   (t/info (str "vpn? " addr))
@@ -351,6 +353,8 @@
   (if-let [stat (wcar* (car/get "stat"))]
     stat
     "normal"))
+
+; (current-stat)
 
 (defmethod ig/init-key :typing-ex.handler.core/stat-page [_ {:keys [db]}]
   (fn [req]
