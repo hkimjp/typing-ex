@@ -12,7 +12,7 @@
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
 
-## 6.2-SNAPSHOT
+## 6.2.1510 (2026-09-08)
 
 - timeout hidden field, feeding value from env var
 - added TIMEOUT=10 in `.env`
