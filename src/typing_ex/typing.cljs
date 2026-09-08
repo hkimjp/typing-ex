@@ -15,8 +15,8 @@
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will rewrite
-(def ^:private timeout
-  (int (.-value (.getElementById js/document "timeout"))))
+(def ^:private timeout 60
+  #_(int (.-value (.getElementById js/document "timeout"))))
 
 (def interval (atom 1000)) ;; milli second
 
