@@ -15,7 +15,6 @@
 (def ^:private todays-limit 10)
 
 (def ^:private timeout 60)
-;(int (.-value (.getElementById js/document "timeout"))))
 
 (def interval (atom 1000)) ;; milli second
 
