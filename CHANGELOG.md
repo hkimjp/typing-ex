@@ -14,7 +14,7 @@
 * FIXME: when trying to show ttl value, lose background colors.
 
 
-## 6.2.1510 (2026-09-08)
+## 6.2.1517 (2026-09-08)
 
 - timeout hidden field, feeding value from env var
 - added TIMEOUT=10 in `.env`
