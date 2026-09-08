@@ -317,7 +317,7 @@
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
-  [[stat  ttl]]
+  [stat]
   (page
    [:h2 "Typing: Stat (Redis)"]
    [:form
@@ -333,7 +333,7 @@
     "ただいまから"
     [:input {:name "minutes" :value "15" :size 3}] "分間"
     [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]
-   ;;　これを入れると黄色にならなくなる。
+   ;;これを入れると黄色にならなくなる。
    #_(when-not (= stat "normal")
        [:p (format "残り時間 %d 秒" ttl)])))
 

@@ -204,7 +204,6 @@
      <div class='container'>"
     (anti-forgery-field)
     (login-field (get-login req))
-    (timeout-field)
     "<div id='app'>cljs</div>
           <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
       <script src='/js/compiled/main.js' type='text/javascript'></script>
@@ -371,9 +370,8 @@
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
-    (let [ttl (wcar* (car/ttl "stat"))]
-      [stat ttl])
-    ["normal" nil]))
+    stat
+    "normal"))
 
 ; (wcar* (car/ttl "stat"))
 ; (current-stat)
