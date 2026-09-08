@@ -10,12 +10,12 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "6.2.1510")
+(def ^:private version "6.2.1517")
 
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will rewrite
-(def ^:private timeout 60
+(def ^:private timeout 60)
   #_(int (.-value (.getElementById js/document "timeout"))))
 
 (def interval (atom 1000)) ;; milli second
