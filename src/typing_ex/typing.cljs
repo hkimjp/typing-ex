@@ -267,6 +267,8 @@ of yonder warehouses will not suffice."])
    [:p
     [:a {:href (str "/record/" (get-login)) :class "btn btn-primary btn-sm"} "Graph"]
     " "
+    [:a {:href "/rc" :class "btn btn-secondary btn-sm"} "RC"]
+    " "
     [:a {:href "#" :class "btn btn-secondary btn-sm" :on-click #(js/alert (str @errors))} "Errors"]
     " "
     [:a {:href "/logout" :class "btn btn-warning btn-sm"} "Logout"]]

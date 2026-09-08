@@ -7,6 +7,7 @@
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
+   [taoensso.timbre :as t]
    [typing-ex.plot :refer [scatter]]))
 
 (def ^:private version "6.1.1493")
@@ -323,14 +324,19 @@
   "stat は redis-cli> get stat の結果。
    返り値は [normal roll-call exam] のどれか。"
   [stat]
+  (t/log :info (str "stat-page stat:" stat))
   (page
-   [:h2 "Typing: Stat (Redis)"]
+   [:h2 "Typing: Stat"]
    [:form
     {:method "post" :action "/stat"}
     (h/raw (anti-forgery-field))
     (for [val ["normal" "roll-call" "exam" "ban"]]
       [:div
        [:input
+        ; (let [col {:type "radio" :name "stat" :value val}]
+        ;   (if (= stat val)
+        ;     (assoc col :checked "checked")
+        ;     col))
         (if (= stat val)
           {:type "radio" :name "stat" :value val :checked "checked"}
           {:type "radio" :name "stat" :value val})

@@ -356,19 +356,18 @@
 
 ; (current-stat)
 
-(defmethod ig/init-key :typing-ex.handler.core/stat-page [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat-page [_ _]
   (fn [req]
     (if (= "hkimura" (get-login req))
       (view/stat-page (current-stat))
       [::response/forbidden "ACCESS FORBIDDEN"])))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat [_ _]
   (fn [_]
     [::response/ok (current-stat)]))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat! [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat! [_ _]
   (fn [{{:keys [stat minutes]} :params}]
-    ;(println "stat! stat: " stat " minutes " minutes)
     (wcar* (car/setex "stat"
                       (* 60 (parse-long minutes))
                       stat))
