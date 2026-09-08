@@ -316,7 +316,7 @@
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
-  [stat]
+  [[stat  ttl]]
   (page
    [:h2 "Typing: Stat (Redis)"]
    [:form
@@ -331,7 +331,9 @@
         val]])
     "ただいまから"
     [:input {:name "minutes" :value "15" :size 3}] "分間"
-    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]]))
+    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]
+    (when (and ttl (not (= stat "normal")))
+      [:p (format "残り時間 %s 秒" ttl)])]))
 
 ;; roll-call
 (defn rc-page [ret login]

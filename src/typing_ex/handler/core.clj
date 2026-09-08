@@ -371,9 +371,11 @@
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
-    stat
-    "normal"))
+    (let [ttl (wcar* (car/ttl "stat"))]
+      [stat ttl])
+    ["normal" nil]))
 
+; (wcar* (car/ttl "stat"))
 ; (current-stat)
 
 (defmethod ig/init-key :typing-ex.handler.core/stat-page [_ _]
