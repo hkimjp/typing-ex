@@ -2,14 +2,14 @@
   (:refer-clojure :exclude [abs])
   (:require
    [ataraxy.response :as response]
-   [clojure.string :as str]
+   ; [clojure.string :as str]
    [environ.core :refer [env]]
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.1.1493")
+(def ^:private version "6.2.1510")
 
 ;--------------------------------
 (defn- ss
@@ -61,8 +61,8 @@
       [:script {:type  "text/javascript"
                 :src   "/js/bootstrap.bundle.min.js"
                 :defer "true"}]
-      [:script {:src "/js/compiled/main.js"
-                :type "text/javascript"}]]))])
+      [:script {:type "text/javascript"
+                :src "/js/compiled/main.js"}]]))])
 
 (defn alert-form [_]
   (page
@@ -88,9 +88,8 @@
    [:br]
    [:ul
     [:li "焦らず、ゆっくり、正しい指使いがタイピングが上達の早道。"]
-    [:li "10 分練習したら休憩入れよう。"]
-    [:li "練習しないと平常点にならない。"]
-    [:li "Invalid Anti-Foregry-Token はパスワードの賞味期限切れ。"
+    [:li "1日2、3回くらい練習しても効果はない。"]
+    [:li "Invalid Anti-Foregry-Token はパスワードの賞味期限切れなので、"
      "再ログインしてください。"]]))
 
 ; changed to public
@@ -196,7 +195,7 @@
         todays (filter #(today? (:timestamp %)) scores)]
     (page
      [:h2 "Typing: " login " Records"]
-     [:p "毎日 10 分 x 3 セット。"
+     [:p "標準は毎日 10 分 x 3 セット。やっても三十分しかかからない。"
       [:span {:style "color: red"} " --- 100点"]
       [:span {:style "color: blue"} " --- 60点"]
       [:span {:style "color: green"} " --- 30点"]
@@ -238,7 +237,7 @@
      [:p
       [:a {:href "/" :class "btn btn-primary btn-sm"} "Go!"]
       " "
-      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "todays"]])))
+      [:a {:href "/todays" :class "btn btn-danger btn-sm"} "menu"]])))
 
 ;; use in core.clj.
 (defn active-users-page [ret]
@@ -279,10 +278,10 @@
           "(" (count tp) ") "
           [:span (abbrev10 tp)]]))]]))
 
-(defn- repli
-  "replicate string `s` for `n` times"
-  [s n]
-  (str/join " " (for [_ (range n)] s)))
+; (defn- repli
+;   "replicate string `s` for `n` times"
+;   [s n]
+;   (str/join " " (for [_ (range n)] s)))
 
 (def ^:private zsp "　")
 (defn sums-page [ret user n]
@@ -299,15 +298,10 @@
          (when (< -1 sum)
            [:li {:style "font-family: monospace"}
             [:div
-             ; [:span (repli "⭐️" (quot sum 1000))]
-             ; [:div {:style (str "display:inline-block; background:red; width: "
-             ;                    (quot (mod sum 1000) 2)
-             ;                    "px; margin: 2px;")} zsp]
-             [:div {:style
-                    (str "display:inline-block; background:red; width: "
-                         ;(clojure.math/log sum)
-                         (quot sum 30)
-                         "px; margin: 2px;")} zsp]
+             [:span {:style
+                     (str "display:inline-block; background:red; width: "
+                          (quot sum 40) ; was 30
+                          "px; margin: 2px;")} zsp]
              sum
              " "
              [:a {:href (str "/record/" login)
@@ -322,23 +316,24 @@
 (defn stat-page
   "stat は redis-cli> get stat の結果。
    返すべき値は [normal roll-call exam] のどれか。"
-  [_request]
-  (let [stat ()]
-    (page
-     [:h2 "Typing: Stat (Redis)"]
-     [:form
-      {:method "post" :action "/stat"}
-      (h/raw (anti-forgery-field))
-      (for [val ["normal" "roll-call" "exam" "ban"]]
-        [:div
-         [:input
-          (if (= stat val)
-            {:type "radio" :name "stat" :value val :checked "checked"}
-            {:type "radio" :name "stat" :value val})
-          val]])
-      "ただいまから"
-      [:input {:name "minutes" :value "15" :size 3}] "分間"
-      [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]])))
+  [[stat  ttl]]
+  (page
+   [:h2 "Typing: Stat (Redis)"]
+   [:form
+    {:method "post" :action "/stat"}
+    (h/raw (anti-forgery-field))
+    (for [val ["normal" "roll-call" "exam" "ban"]]
+      [:div
+       [:input
+        (if (= stat val)
+          {:type "radio" :name "stat" :value val :checked "checked"}
+          {:type "radio" :name "stat" :value val})
+        val]])
+    "ただいまから"
+    [:input {:name "minutes" :value "15" :size 3}] "分間"
+    [:input.btn.btn-primary.btn-sm {:type "submit" :value "change"}]
+    (when (and ttl (not (= stat "normal")))
+      [:p (format "残り時間 %s 秒" ttl)])]))
 
 ;; roll-call
 (defn rc-page [ret login]
@@ -348,7 +343,9 @@
     [:a {:href "/stat-page"} "[admin only]"]]
    [:ul {:class "roll-call"}
     (for [r ret]
-      [:li r])]))
+      [:li r])]
+   [:div [:a {:href "/"
+              :class "btn btn-primary btn-sm"} "Go!"]]))
 
 (defn restarts-page [_login ret]
   (page

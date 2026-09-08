@@ -9,6 +9,7 @@
    ))
 
 (defprotocol Results
+  (last-week [db login])
   (weekly-points [db login])
   (day-by-day [db user])
   (insert-pt [db rcv])
@@ -26,6 +27,13 @@
 
 (extend-protocol Results
   duct.database.sql.Boundary
+
+  (last-week [db login]
+    (let [sql "select sum(pt) from results
+                where login=? and
+                timestamp > now() - interval '1 week'"
+          ret (sql/query (ds-opt db) [sql login])]
+      ret))
 
   (weekly-points [db login]
     (let [sql "select week, count, pt from

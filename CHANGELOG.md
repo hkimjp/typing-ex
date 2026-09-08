@@ -12,6 +12,16 @@
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
 
+## 6.2.1510 (2026-09-08)
+
+- timeout hidden field, feeding value from env var
+- added TIMEOUT=10 in `.env`
+- clojure 1.12.6
+- display 'you need ...' when status roll-call
+- `Go!` button at the bottom of /rc page.
+- added route /last-week/:login returns login's weekly sum(pt).
+- `route-params`? not `path-params`?
+
 ## 6.1.1493 (2026-08-31)
 
 - keep typing errors in session, which can be viewed clicking the "Errors" button.

@@ -58,6 +58,12 @@
     ""
     "🙂"))
 
+;; sum(pt) last week
+(defmethod ig/init-key :typing-ex.handler.core/last-week [_ {:keys [db]}]
+  (fn [{{:keys [login]} :route-params}]
+    {:status 200
+     :body (str (results/last-week db login))}))
+
 (defmethod ig/init-key :typing-ex.handler.core/weekly-points [_ {:keys [db]}]
   (fn [request]
     (let [login (get-login request)]
@@ -174,9 +180,12 @@
 
 (defn- roll-call-time? []
   (let [ret (wcar* (car/get "stat"))]
-    (t/info (str "roll-call-time " (java.util.Date.) " ret: " ret))
-    (->  ret
-         (= "roll-call"))))
+    (t/info (str "roll-call-time? " (java.util.Date.) " ret: " ret))
+    (= ret "roll-call")))
+
+(defn timeout-field []
+  (format "<input type='hidden' id='timeout' value='%s'>"
+          (or (env :timeout) "60")))
 
 (defn typing-ex [req]
   [::response/ok
@@ -191,20 +200,21 @@
     <link rel='icon' href='/favicon.ico'>
     <title>typing-ex</title>
   </head>
-  <body>"
+  <body>
+     <div class='container'>"
     (anti-forgery-field)
     (login-field (get-login req))
-    "<div class='container'>
-  <div id='app'></div>
-  <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
-  <script src='/js/compiled/main.js' type='text/javascript'></script>
-  <script>typing_ex.typing.init();</script>
-  </div>
-</body>
-</html>")])
+    (timeout-field)
+    "<div id='app'>cljs</div>
+          <script src='/js/bootstrap.bundle.min.js' type='text/javascript'></script>
+      <script src='/js/compiled/main.js' type='text/javascript'></script>
+      <script>typing_ex.typing.init();</script>
+    </div></body></html>")])
 
 (defn- local? [addr]
-  (str/starts-with? addr "[0:0:0"))
+  (or (str/starts-with? addr "127.0.0.1")
+      (str/starts-with? addr "192.168")
+      (str/starts-with? addr "[0:0:0")))
 
 (defn- vpn? [addr]
   (t/info (str "vpn? " addr))
@@ -214,17 +224,29 @@
   (t/info (str "tobata? " addr))
   (str/starts-with? addr "150.69"))
 
-(defmethod ig/init-key :typing-ex.handler.core/typing [_ _]
+(defn- check-addr? [addr]
+  (if (local? addr)
+    true
+    (and (tobata? addr) (not (vpn? addr)))))
+
+(defmethod ig/init-key :typing-ex.handler.core/typing [_ {:keys [db]}]
   (fn [req]
     (let [user (get-login req)
           addr (str (remote-ip req))]
       (t/info (str "/typing " user " from " addr))
       (if (roll-call-time?)
-        (cond (local? addr) (typing-ex req)
-              (vpn? addr) [::response/ok "出席記録は VPN 不可。"]
-              (not (tobata? addr)) [::response/ok "出席記録は学外からはできない。"]
-              :else  (typing-ex req))
-        (typing-ex req)))))
+        (if (check-addr? addr)
+          (let [pt (-> (results/last-week db user)
+                       first
+                       :sum)]
+            (t/info (str "roll-call time: check-addr pass, pt: " pt))
+            (typing-ex (assoc req :last-week pt)))
+          (do
+            (t/info (str "roll-call time: check-addr fails"))
+            [::response/ok (str "出席記録できる場所にいない。" addr)]))
+        (do
+          (t/info "typing: normal start (not roll-call nor exam)")
+          (typing-ex req))))))
 
 (defmethod ig/init-key :typing-ex.handler.core/total [_ {:keys [db]}]
   (fn [{[_ n] :ataraxy/result :as req}]
@@ -296,7 +318,7 @@
 ;; meta endpoint, dispatches to /total, /days and /max.
 (defmethod ig/init-key :typing-ex.handler.core/recent [_ _]
   (fn [req]
-    (let [days (get-in req [:params :n])
+    (let [; days (get-in req [:params :n])
           kind (get-in req [:query-params "kind"])]
       (case kind
         "total"          (redirect "/total/7")
@@ -349,20 +371,24 @@
 
 (defn- current-stat []
   (if-let [stat (wcar* (car/get "stat"))]
-    stat
-    "normal"))
+    (let [ttl (wcar* (car/ttl "stat"))]
+      [stat ttl])
+    ["normal" nil]))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat-page [_ {:keys [db]}]
+; (wcar* (car/ttl "stat"))
+; (current-stat)
+
+(defmethod ig/init-key :typing-ex.handler.core/stat-page [_ _]
   (fn [req]
     (if (= "hkimura" (get-login req))
       (view/stat-page (current-stat))
       [::response/forbidden "ACCESS FORBIDDEN"])))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat [_ _]
   (fn [_]
     [::response/ok (current-stat)]))
 
-(defmethod ig/init-key :typing-ex.handler.core/stat! [_ {:keys [db]}]
+(defmethod ig/init-key :typing-ex.handler.core/stat! [_ _]
   (fn [{{:keys [stat minutes]} :params}]
     ;(println "stat! stat: " stat " minutes " minutes)
     (wcar* (car/setex "stat"

@@ -2,6 +2,7 @@
   (:require
    [cljs-http.client :as http]
    [cljs.core.async :refer [go <!]]
+   [clojure.edn :as edn]
    [clojure.string :as str]
    [reagent.core :as r]
    [reagent.dom :as rdom]
@@ -9,12 +10,13 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "6.1.1493")
+(def ^:private version "6.2.1510")
 
 (def ^:private todays-limit 10)
 
 ;; bump-version.sh will rewrite
-(def ^:private timeout 60)
+(def ^:private timeout
+  (int (.-value (.getElementById js/document "timeout"))))
 
 (def interval (atom 1000)) ;; milli second
 
@@ -158,6 +160,20 @@ of yonder warehouses will not suffice."])
       (when (= "roll-call" (:stat @app-state))
         (send-point-aux "/rc" pt acc)))))
 
+(defonce ^:private lw (atom 0))
+
+(defn- last-week
+  "update the value of atom lw."
+  []
+  (let [user (get-login)]
+    (go (let [resp (-> (<! (http/get (str "/last-week/" (get-login))))
+                       :body
+                       edn/read-string
+                       first
+                       :sum)]
+          (js/console.log (str "last-week: " user " lw: " @lw))
+          (reset! lw resp)))))
+
 (defn reset-display!
   []
   (go (let [stat (-> (<! (http/get "/stat")) :body)
@@ -195,7 +211,15 @@ of yonder warehouses will not suffice."])
       (js/console.log (str "show-send-reset-display:" pt))
       (swap! app-state assoc :sent? true)
       (show-score pt)
-      (send-point pt)
+      (if (= "roll-call" (:stat @app-state))
+        (if (< (- 60 (int (/ @lw 100))) pt)
+          (do
+            (js/alert "good job.")
+            (send-point pt))
+          (js/alert (str "you need at least "
+                         (- 60 (int (/ @lw 100)))
+                         "pt to attend the class.")))
+        (send-point pt))
       (reset-display!))))
 
 (defn- next-word []
@@ -258,7 +282,8 @@ of yonder warehouses will not suffice."])
    [:div [:span.b "Next: "] [:span {:id "next"} (:next @app-state)]]
    [:div [:span.b "Status: "] [results-component]]
    [:div [:span.b "Remain: "] [:span {:id "seconds"} (:seconds @app-state)]]
-    ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
+   ;; FIXME:
+   ;; これだと、@app-state がアップデートするたび、チャートをアップデートする。
    [:p
     [:span.b "todays:"]  [:br]
     (bar-line-chart 300 150
@@ -275,6 +300,7 @@ of yonder warehouses will not suffice."])
 
 (defn start []
   (js/setInterval countdown @interval)
+  (last-week)
   (rdom/render [ex-page] (js/document.getElementById "app"))
   (reset-display!))
 
