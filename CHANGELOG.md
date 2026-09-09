@@ -14,8 +14,11 @@
 * for VScode development - need some env var such as DATABASE SQL and other.
 
 
-## 6.2-SNAPSHOT (2026-09-02)
+## 6.2.1517 (2026-09-08)
 
+- timeout hidden field, feeding value from env var
+- added TIMEOUT=10 in `.env`
+- clojure 1.12.6
 - display 'you need ...' when status roll-call
 - `Go!` button at the bottom of /rc page.
 - added route /last-week/:login returns login's weekly sum(pt).
