@@ -12,6 +12,7 @@
   it goes next sessions and results in a typing failure.
 * TP_START can not be a future date.
 * FIXME: when trying to show ttl value, lose background colors.
+* enter-key <br>
 
 
 ## 6.2.1517 (2026-09-08)
