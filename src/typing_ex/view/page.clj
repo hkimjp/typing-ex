@@ -10,7 +10,7 @@
    [taoensso.timbre :as t]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.2.1517")
+(def ^:private version "0.6.1531")
 
 ;--------------------------------
 (defn- ss
