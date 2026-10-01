@@ -13,6 +13,9 @@
 * TP_START can not be a future date.
 * for VScode development - need some env var such as DATABASE SQL and other.
 
+## 6.2-SNAPSHOT
+
+* BUG - If no scores found after START_DAYS. divde by zero at "select pt, timestamp from results"
 
 ## 6.2.1517 (2026-09-08)
 
