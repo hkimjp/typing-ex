@@ -10,7 +10,7 @@
    [taoensso.timbre :as t]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "6.2.1517")
+(def ^:private version "0.6.1531")
 
 ;--------------------------------
 (defn- ss
@@ -262,7 +262,7 @@
    [:h2 "Typing: Todays"]
    (headline 7)
    [:div {:style "margin-left:1rem;"}
-    [:p "本日の練習のようす。最近練習した人が上で、最近練習した時刻が左。"
+    [:p "本日の練習のようす。10回も行かんで練習と言えるか？ 最近練習した人が上で、最近練習した時刻が左。"
      "10回以上は後ろを ... で表示。"]
     [:ol
      (for [r (->> ret

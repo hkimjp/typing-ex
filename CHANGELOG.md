@@ -13,7 +13,11 @@
 * TP_START can not be a future date.
 * FIXME: when trying to show ttl value, lose background colors.
 * enter-key <br>
+* for VScode development - need some env var such as DATABASE SQL and other.
 
+## 0.6.1531 (2026-10-01)
+
+- fixed - If no scores found after START_DAYS. divde by zero at "select pt, timestamp from results"
 
 ## 6.2.1517 (2026-09-08)
 
