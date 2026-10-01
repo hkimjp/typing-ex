@@ -77,18 +77,18 @@
           [:li "一回の練習には 1 分しかかからない。10 回練習しても 10 分だ。"]
           [:li "10 回練習すれば 300 点は取れる。"]
           [:li "1 日 3 セット、一週間に 3 日練習したら、回数は 90 回、点数は 3000 点くらいになる。"]
-          [:li "30 回を超えて 🙂、"
-           (+ 1000 (* 100 (current-week)))
-           "点を超えて 🙂。週ごとに100点ずつ高くなる。"]
-          [:li "過去週のデータは書き変わらない。失った平常点は取り戻せない。"]]]
+          #_[:li "30 回を超えて 🙂、"
+             (+ 1000 (* 100 (current-week)))
+             "点を超えて 🙂。週ごとに100点ずつ高くなる。"]
+          #_[:li "過去週のデータは書き変わらない。失った平常点は取り戻せない。"]]]
         [:table.table.table-striped
          [:thead
           [:tr [:th "week"] [:th "回数"] [:th "点数"]]]
          [:tbody
           (for [{:keys [week count pt]} (results/weekly-points db login)]
-            [:tr [:td (- week 15)]
+            [:tr [:td (- week 40)]
              [:td count (smiles count thres-count)]
-             [:td pt (smiles pt (+ 1000 (* 100 (- week 15))))]])]]]))))
+             [:td pt (smiles pt (+ 1000 (* 100 (- week 40))))]])]]]))))
 
 ;; day-day
 (defmethod ig/init-key :typing-ex.handler.core/day-by-day [_ {:keys [db]}]
