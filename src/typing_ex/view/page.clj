@@ -7,10 +7,10 @@
    [hiccup2.core :as h]
    [java-time.api :as jt]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [taoensso.timbre :as t]
+   #_[taoensso.timbre :as t]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "0.6.1531")
+(def ^:private version "0.6.1535")
 
 ;--------------------------------
 (defn- ss
@@ -308,11 +308,6 @@
              [:a {:href (str "/record/" login)
                   :class (if (= user login) "yes" "other")}
               login]]])))]]))
-
-(comment
-  (require 'clojure.math)
-  (clojure.math/log 100)
-  :rcf)
 
 (defn stat-page
   "stat は redis-cli> get stat の結果。
