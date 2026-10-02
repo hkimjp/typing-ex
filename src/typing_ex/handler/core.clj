@@ -30,7 +30,8 @@
 
 (def ^:private thres-count 30)
 
-(defn- current-week []
+;; see core.clj line 80
+#_(defn- current-week []
   (let [[year month date] (map parse-long (str/split (env :tp-start) #"-"))
         start-day (jt/local-date year month date)]
     (quot (jt/time-between start-day (jt/local-date) :days) 7)))
@@ -71,15 +72,13 @@
        [:div
         [:h2 (format "Weekly Points (%s)" login)]
         (view/headline 1)
-        [:p "1 週間ごとの練習回数とスコア。🙂の数が平常点になる。"]
+        [:p "1 週間ごとの練習回数とスコア。"]
         [:div
          [:ul
           [:li "一回の練習には 1 分しかかからない。10 回練習しても 10 分だ。"]
           [:li "10 回練習すれば 300 点は取れる。"]
           [:li "1 日 3 セット、一週間に 3 日練習したら、回数は 90 回、点数は 3000 点くらいになる。"]
-          #_[:li "30 回を超えて 🙂、"
-             (+ 1000 (* 100 (current-week)))
-             "点を超えて 🙂。週ごとに100点ずつ高くなる。"]
+          #_[:li "30 回を超えて 🙂、" (+ 1000 (* 100 (current-week))) "点を超えて 🙂。週ごとに100点ずつ高くなる。"]
           #_[:li "過去週のデータは書き変わらない。失った平常点は取り戻せない。"]]]
         [:table.table.table-striped
          [:thead
@@ -241,7 +240,7 @@
             (t/info (str "roll-call time: check-addr pass, pt: " pt))
             (typing-ex (assoc req :last-week pt)))
           (do
-            (t/info (str "roll-call time: check-addr fails"))
+            (t/info  "roll-call time: check-addr fails")
             [::response/ok (str "出席記録できる場所にいない。" addr)]))
         (do
           (t/info "typing: normal start (not roll-call nor exam)")
@@ -261,7 +260,7 @@
       (t/info (str "score-post: " login " pt " pt " acc " acc))
       (let [key (str "tp:acc:" login)]
         (t/info (str "lpush key: " key " value: " acc))
-        (wcar* (car/lpush key acc))
+        (wcar* (car/lpush key pt)) ; not acc. pt is correct. 2026-10-02
         (wcar* (car/expire key (* 24 60 60))))
       (results/insert-pt db rcv)
       [::response/ok (str rcv)])))
@@ -293,7 +292,7 @@
 
 (defn- training-days
   "redis キャッシュを有効にする。"
-  [n req db]
+  [n _req db]
   (if-let [training-days (wcar* (car/get "training-days"))]
     (do
       (tap> "hit")
@@ -373,8 +372,6 @@
     stat
     "normal"))
 
-; (wcar* (car/ttl "stat"))
-; (current-stat)
 
 (defmethod ig/init-key :typing-ex.handler.core/stat-page [_ _]
   (fn [req]

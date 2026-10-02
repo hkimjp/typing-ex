@@ -15,6 +15,10 @@
 * enter-key <br>
 * for VScode development - need some env var such as DATABASE SQL and other.
 
+## 0.6.1536 (2026-10-02)
+
+- fixed - core.clj:263 (wcar* (car/lpush key pt)) ; not acc. pt is correct. 2026-10-02
+
 ## 0.6.1531 (2026-10-01)
 
 - fixed - If no scores found after START_DAYS. divde by zero at "select pt, timestamp from results"
