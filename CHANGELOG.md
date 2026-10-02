@@ -15,7 +15,7 @@
 * enter-key <br>
 * for VScode development - need some env var such as DATABASE SQL and other.
 
-## 0.6-SNAPSHOT
+## 0.6.1536 (2026-10-02)
 
 - fixed - core.clj:263 (wcar* (car/lpush key pt)) ; not acc. pt is correct. 2026-10-02
 
