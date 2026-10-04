@@ -10,12 +10,12 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "0.6.1536")
+(def ^:private version "6.3.1542")
 
 (def ^:private todays-limit 10)
 
 ;; bump-version-local.sh will rewrite 10 to 60
-(def ^:private timeout 10)
+(def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
 
