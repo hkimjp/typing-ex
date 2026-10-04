@@ -15,8 +15,11 @@
 * enter-key <br>
 * for VScode development - need some env var such as DATABASE SQL and other.
 
+## 6.3.1541 (2026-10-04)
 
-## 0.6-SNAPSHOT
+- MAJOR.MINOR.COMMIT
+
+## 0.6.1541 (2026-10-04)
 
 - add `todays-trials` to the alert appearing after a trial.
 - changed menu - kpy.melt -> k4.melt
