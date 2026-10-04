@@ -301,7 +301,7 @@
             [:div
              [:span {:style
                      (str "display:inline-block; background:red; width: "
-                          (quot sum 40) ; was 30
+                          (quot sum 30) ; 25, 30, 40
                           "px; margin: 2px;")} zsp]
              sum
              " "
