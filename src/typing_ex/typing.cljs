@@ -10,10 +10,11 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "0.6.1536")
+(def ^:private version "6.3.1542")
 
 (def ^:private todays-limit 10)
 
+;; bump-version-local.sh will rewrite 10 to 60
 (def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
@@ -31,7 +32,7 @@
             :results   []
             :todays    []
             :todays%   []
-            :todays-trials 0
+            :todays-trials 1
             :stat      "normal"
             :next      ""
             :goods     0
@@ -114,7 +115,8 @@ of yonder warehouses will not suffice."])
   (if (empty? (:results @app-state))
     (js/alert "コピペはダメよ")
     (let [login (get-login)
-          s1 (str login " さんのスコアは " pt "点, " (ratio) "%です。")
+          s1 (str (:todays-trials @app-state) ": "
+                  login " さんのスコアは " pt "点, " (ratio) "%です。")
           wt (:wrongly-typed @app-state)
           s2 (condp <= pt
                100 "すばらしい。最高点取れた？正答率 97%↑ 目指せ。"
@@ -132,7 +134,7 @@ of yonder warehouses will not suffice."])
       ;         (js/alert body))))
       ;; 試験成績を記録するならここ。
       ;; (exam-point! (get-login) @mt-counter pt)
-      (when (<= todays-limit (:todays-trials @app-state))
+      (when (< todays-limit (:todays-trials @app-state))
         (js/alert (str "連続 "
                        (:todays-trials @app-state)
                        " 回、行きました。他の勉強もしろよ🐥")))

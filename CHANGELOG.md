@@ -8,20 +8,31 @@
 * force stop after n times trials
 * upload texts mechanism (submit/accept)
 * fix delay judging last word
-* ignore the last enter key.
-  it goes next sessions and results in a typing failure.
+* ignore the last enter key. it goes next sessions and results in a typing
+  failure.
 * TP_START can not be a future date.
 * FIXME: when trying to show ttl value, lose background colors.
 * enter-key <br>
 * for VScode development - need some env var such as DATABASE SQL and other.
 
+## 6.3.1542 (2026-10-04)
+
+- MAJOR.MINOR.COMMIT
+
+## 0.6.1541 (2026-10-04)
+
+- add `todays-trials` to the alert appearing after a trial.
+- changed menu - kpy.melt -> k4.melt
+- `delete from typing_ex/roll_calls;`
+
 ## 0.6.1536 (2026-10-02)
 
-- fixed - core.clj:263 (wcar* (car/lpush key pt)) ; not acc. pt is correct. 2026-10-02
+- fixed - core.clj:263 (wcar* (car/lpush key pt)) ; not acc. pt is correct.
 
 ## 0.6.1531 (2026-10-01)
 
-- fixed - If no scores found after START_DAYS. divde by zero at "select pt, timestamp from results"
+- fixed - If no scores found after START_DAYS. divde by zero at "select pt,
+  timestamp from results"
 
 ## 6.2.1517 (2026-09-08)
 
@@ -35,8 +46,9 @@
 
 ## 6.1.1493 (2026-08-31)
 
-- keep typing errors in session, which can be viewed clicking the "Errors" button.
-  need some works, for example, to remove duplicates or to show errored counts.
+- keep typing errors in session, which can be viewed clicking the "Errors"
+  button. need some works, for example, to remove duplicates or to show errored
+  counts.
 - added `subl` recipe to Justfile.
 - display this week's loop times.
 
@@ -343,7 +355,8 @@ removed 23 packages, and changed 76 packages in 2s
 
 ## 4.45.1248 (2025-08-26)
 
-- updated systemd timer - off the setting of first semester, on the second semesters.
+- updated systemd timer - off the setting of first semester, on the second
+  semesters.
 
     # 2025, first semester.
     # OnCalendar=Wed 8:45:00
@@ -372,7 +385,8 @@ removed 23 packages, and changed 76 packages in 2s
 ## 4.44.1223 (2025-08-14)
 
 - typing.cljs: made `sent?` a member of `app-state`.
-- show-send-reset-display!: check  `(:sent? @app-state)` inside the function. not caller.
+- show-send-reset-display!: check  `(:sent? @app-state)` inside the function.
+  not caller.
 - can not use `delay` on CLJS.
 
 ## 4.44.1218 (2025-08-14)
@@ -389,7 +403,8 @@ removed 23 packages, and changed 76 packages in 2s
 
 - log by taoensso/timbre, such as (t/log "log").
 - [org.clojure/tools.logging "1.3.0"]
-- :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
+- :jvm-opts
+  ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
 - added "--sun-misc-unsafe-memory-access=deny" to jvm-opts
 
 ```
@@ -492,7 +507,8 @@ npm notice
 
 - `just deploy` fails on m64;
 
-  The required namespace "react" is not available, it was required by "reagent/core.clerror: Recipe `compile` failed on line 10 with exit code 1
+  The required namespace "react" is not available, it was required by
+  "reagent/core.clerror: Recipe `compile` failed on line 10 with exit code 1
 
   executed from shell,
     npm install

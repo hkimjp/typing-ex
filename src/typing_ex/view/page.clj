@@ -10,7 +10,7 @@
    #_[taoensso.timbre :as t]
    [typing-ex.plot :refer [scatter]]))
 
-(def ^:private version "0.6.1536")
+(def ^:private version "6.3.1542")
 
 ;--------------------------------
 (defn- ss
@@ -113,8 +113,8 @@
          :class "btn btn-primary btn-sm"} "totals"] " "
     ; [:a {:href "https://jpy.melt.kyutech.ac.jp/"
     ;     :class "btn btn-success btn-sm"} "JPY"] " "
-    [:a {:href "https://kpy.melt.kyutech.ac.jp/"
-         :class "btn btn-info btn-sm"} "KPY"] " "
+    [:a {:href "https://k4.melt.kyutech.ac.jp/"
+         :class "btn btn-info btn-sm"} "K4"] " "
     [:a {:href "https://qa.melt.kyutech.ac.jp/"
          :class "btn btn-info btn-sm"} "QA"] " "
     [:a {:href "https://p.melt.kyutech.ac.jp/"
