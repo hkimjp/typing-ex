@@ -196,13 +196,12 @@
         todays (filter #(today? (:timestamp %)) scores)]
     (page
      [:h2 "Typing: " login " Records"]
-     [:p "標準は毎日 10 分 x 3 セット。やっても三十分しかかからない。"
+     [:p "標準は毎日 10 分 x 3 セット。3 セットやっても 30 分しかかからない。"
+      "TOTAL は全スコア、DAY BY DAY は一日平均。11 回以上で TODAYS が現れる。"
       [:span {:style "color: red"} " --- 100点"]
       [:span {:style "color: blue"} " --- 60点"]
       [:span {:style "color: green"} " --- 30点"]
-      [:span {:style "color: black"} " --- 0点"]
-      [:br]
-      "TOTAL は全スコア、DAY BY DAY は一日平均。10回以上練習で TODAYS が現れる。"]
+      [:span {:style "color: black"} " --- 0点"]]
      ;; start date
      [:div.d-inline-flex
       [:div.px-2.mx-auto
@@ -227,10 +226,9 @@
       [:br]
       [:b "DAY BY DAY"]]
      [:br]
-     [:br]
      (when true ;; (or me? admin?)
        [:ul
-        [:li [:span.b "Max: "] (apply max (map :pt scores))]
+        #_[:li [:span.b "Max: "] (apply max (map :pt scores))]
         [:li [:span.b "Average (last 10): "]  avg]
         [:li [:span.b "Exercise days: "] (select-count-distinct scores)]
         [:li [:span.b "Exercises (today/total): "] (count todays) "/" (count scores)]

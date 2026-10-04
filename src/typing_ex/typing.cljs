@@ -15,7 +15,7 @@
 (def ^:private todays-limit 10)
 
 ;; bump-version-local.sh will rewrite 10 to 60
-(def ^:private timeout 60)
+(def ^:private timeout 10)
 
 (def interval (atom 1000)) ;; milli second
 
@@ -202,7 +202,7 @@ of yonder warehouses will not suffice."])
                :bads      0
                :wrongly-typed []
                :sent?     false)
-        (.focus (.getElementById js/document "drill")))))
+        (.focus (js/document.getElementById "drill")))))
 
 (defn show-send-reset-display!
   []
