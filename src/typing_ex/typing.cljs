@@ -15,7 +15,7 @@
 (def ^:private todays-limit 10)
 
 ;; bump-version-local.sh will rewrite 10 to 60
-(def ^:private timeout 10)
+(def ^:private timeout 60)
 
 (def interval (atom 1000)) ;; milli second
 
