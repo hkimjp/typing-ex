@@ -15,7 +15,7 @@
 * enter-key <br>
 * for VScode development - need some env var such as DATABASE SQL and other.
 
-## 6.3-SNAPSHOT
+## 6.3.1553 (2026-10-15)
 
 - added sicp preface text into typing_ex db
 - adjust graph width - page.clj;
