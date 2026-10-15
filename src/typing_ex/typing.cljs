@@ -10,7 +10,7 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(def ^:private version "6.3.1546")
+(def ^:private version "6.3.1553")
 
 (def ^:private todays-limit 10)
 
@@ -202,7 +202,7 @@ of yonder warehouses will not suffice."])
                :bads      0
                :wrongly-typed []
                :sent?     false)
-        (.focus (.getElementById js/document "drill")))))
+        (.focus (js/document.getElementById "drill")))))
 
 (defn show-send-reset-display!
   []

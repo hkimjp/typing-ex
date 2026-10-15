@@ -15,6 +15,15 @@
 * enter-key <br>
 * for VScode development - need some env var such as DATABASE SQL and other.
 
+## 6.3.1553 (2026-10-15)
+
+- added sicp preface text into typing_ex db
+- adjust graph width - page.clj;
+
+```clojure
+    (quot sum 30) ; 25, 30, 40
+```
+
 ## 6.3.1546 (2026-10-04)
 
 - MAJOR.MINOR.COMMIT
