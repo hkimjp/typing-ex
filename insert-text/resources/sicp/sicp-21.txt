@@ -1,0 +1,4 @@
+Scheme, the dialect of Lisp that we use, is an attempt to bring to-
+gether the power and elegance of Lisp and Algol. From Lisp we take the
+metalinguistic power that derives from the simple syntax, the uniform
+representation of programs as data objects, and the garbage-collected

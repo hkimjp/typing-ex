@@ -1,0 +1,4 @@
+"common core curriculum," which also includes two subjects on circuits
+and linear systems and a subject on the design of digital systems. We
+have been involved in the development of this subject since 1978, and
+we have taught this material in its present form since the fall of 1980 to

@@ -1,0 +1,4 @@
+about methodology. Thus, programs must be written for people to read,
+and only incidentally for machines to execute. Second, we believe that
+the essential material to be addressed by a subject at this level is not
+the syntax of particular programming-language constructs, nor clever

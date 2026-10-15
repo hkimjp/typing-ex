@@ -1,0 +1,4 @@
+Our design of this introductory computer-science subject reflects
+two major concerns. First, we want to establish the idea that a com-
+puter language is not just a way of getting a computer to perform oper-
+ations but rather that it is a novel formal medium for expressing ideas

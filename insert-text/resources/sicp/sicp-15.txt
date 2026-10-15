@@ -1,0 +1,4 @@
+by classical mathematical subjects. Mathematics provides a framework
+for dealing precisely with notions of "what is." Computation provides a
+framework for dealing precisely with notions of "how to."
+In teaching our material we use a dialect of the programming lan-
