@@ -17,7 +17,8 @@
 
 ## 6.3-SNAPSHOT
 
-- page.clj -
+- added sicp preface text into typing_ex db
+- adjust graph width - page.clj;
 
 ```clojure
     (quot sum 30) ; 25, 30, 40
