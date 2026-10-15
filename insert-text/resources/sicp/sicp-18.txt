@@ -1,0 +1,4 @@
+manageable parts, and how we will work on the parts. Another advan-
+tage of Lisp is that it supports (but does not enforce) more of the large-
+scale strategies for modular decomposition of programs than any other
+language we know. We can make procedural and data abstractions, we

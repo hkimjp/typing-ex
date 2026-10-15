@@ -1,0 +1,4 @@
+All of the formal properties can be covered in an hour, like the rules
+of chess. After a short time we forget about syntactic details of the lan-
+guage (because there are none) and get on with the real issues—figuring
+out what we want to compute, how we will decompose problems into

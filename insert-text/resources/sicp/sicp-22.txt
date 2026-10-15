@@ -1,0 +1,4 @@
+heap-allocated data. From Algol we take lexical scoping and block struc-
+ture, which are gifts from the pioneers of programming-language de-
+sign who were on the Algol committee. We wish to cite John Reynolds
+and Peter Landin for their insights into the relationship of Church’s λ-

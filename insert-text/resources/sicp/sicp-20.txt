@@ -1,0 +1,4 @@
+teractive environment with excellent support for incremental program
+design, construction, testing, and debugging. We thank all the genera-
+tions of Lisp wizards, starting with John McCarthy, who have fashioned
+a fine tool of unprecedented power and elegance.

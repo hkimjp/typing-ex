@@ -1,0 +1,4 @@
+page-long program, if it is written in an exemplary style. They should
+know what not to read, and what they need not understand at any mo-
+ment. They should feel secure about modifying a program, retaining the
+spirit and style of the original author.

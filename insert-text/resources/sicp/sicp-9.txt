@@ -1,0 +1,4 @@
+Our goal is that students who complete this subject should have a
+good feel for the elements of style and the aesthetics of programming.
+They should have command of the major techniques for controlling
+complexity in a large system. They should be capable of reading a 50-

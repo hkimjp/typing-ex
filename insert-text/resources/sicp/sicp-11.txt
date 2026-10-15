@@ -1,0 +1,4 @@
+These skills are by no means unique to computer programming. The
+techniques we teach and draw upon are common to all of engineering
+design. We control complexity by building abstractions that hide details
+when appropriate. We control complexity by establishing conventional

@@ -1,0 +1,4 @@
+guage Lisp. We never formally teach the language, because we don’t
+have to. We just use it, and students pick it up in a few days. This is
+one great advantage of Lisp-like languages: They have very few ways
+of forming compound expressions, and almost no syntactic structure.

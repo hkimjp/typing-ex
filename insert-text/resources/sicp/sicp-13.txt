@@ -1,0 +1,4 @@
+emphasizes particular aspects of the design and deemphasizes others.
+Underlying our approach to this subject is our conviction that "com-
+puter science" is not a science and that its significance has little to do
+with computers. The computer revolution is a revolution in the way we

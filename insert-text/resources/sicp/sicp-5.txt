@@ -1,0 +1,4 @@
+between 600 and 700 students each year. Most of these students have
+had little or no prior formal training in computation, although many
+have played with computers a bit and a few have had extensive pro-
+gramming or hardware-design experience.
