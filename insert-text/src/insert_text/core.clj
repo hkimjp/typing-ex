@@ -7,11 +7,10 @@
 
 (def db {:dbtype   "postgresql"
          :dbhost   "localhost"
-         :dbname   (System/getenv "TP_DB")
+         :dbname   "typing_ex"
          :port     5432
-         :user     (System/getenv "TP_USER")
-         :password (System/getenv "TP_PASSWORD")})
-
+         :user     "postgres"
+         :password "hamlet"})
 
 (def ds (jdbc/with-options
           (jdbc/get-datasource db)
